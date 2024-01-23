@@ -1,3 +1,2 @@
-PyOpenGL~=3.1.7
-PyOpenGL-accelerate~=3.1.7
-glfw~=2.6.4
+pygame~=2.5.2
+moderngl~=5.10.0
