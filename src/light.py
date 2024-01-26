@@ -2,10 +2,10 @@ import glm
 
 
 class PhongLight:
-    def __init__(self, position=(3, 3, -3), color=(1, 1, 1)):
+    def __init__(self, position=(3, 3, -3), color=(1, 1, 1), direction=(0, 0, 0)):
         self.position = glm.vec3(position)
         self.color = glm.vec3(color)
-        self.direction = glm.vec3(0, 0, 0)
+        self.direction = glm.vec3(direction)
         # intensities
         self.Ia = 0.1 * self.color  # ambient
         self.Id = 0.8 * self.color  # diffuse
@@ -15,13 +15,3 @@ class PhongLight:
 
     def get_view_matrix(self):
         return glm.lookAt(self.position, self.direction, glm.vec3(0, 1, 0))
-
-
-class CameraFollowingLight:
-    def __init__(self, app, light):
-        self.app = app
-        self.light = light
-
-    def update(self):
-        self.light.position = self.app.camera.position
-        self.light.m_view_light = self.light.get_view_matrix()

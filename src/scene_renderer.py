@@ -3,7 +3,6 @@ class SceneRenderer:  # TODO: look at it and change to better
         self.app = app
         self.ctx = app.ctx
         self.camera = app.camera
-        self.camera_following_light = app.camera_following_light
         self.mesh = app.mesh
         self.scene = app.scene
         # depth buffer
@@ -26,7 +25,6 @@ class SceneRenderer:  # TODO: look at it and change to better
 
     def render(self):
         self.camera.update()
-        self.camera_following_light.update()
         self.scene.update()
         self.render_shadow()
         self.main_render()
