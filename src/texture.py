@@ -1,5 +1,6 @@
 import pygame as pg
 import moderngl as gl
+from common import *
 
 
 class Texture:
@@ -30,7 +31,7 @@ class Texture:
         return texture
 
     def get_depth_texture(self):
-        depth_texture = self.ctx.depth_texture(self.app.WIN_SIZE)
+        depth_texture = self.ctx.depth_texture(WINDOW_SIZE)
         depth_texture.repeat_x = False
         depth_texture.repeat_y = False
         return depth_texture
