@@ -44,7 +44,7 @@ class Cube(BaseModel):
         super().__init__(app, "cube", texture_id, position, rotation, scale)
         self.on_init()
 
-    def on_init(self):
+    def on_init(self):  # TODO: remove shadow from cube and add it to BaseShadowModel
         self.program["m_view_light"].write(self.app.light.m_view_light)
         # resolution
         self.program["u_resolution"].write(glm.vec2(self.app.WIN_SIZE))
