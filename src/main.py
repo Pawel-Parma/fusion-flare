@@ -8,7 +8,7 @@ from camera import Camera
 from light import PhongLight
 from mesh import Mesh
 from scene import Scene
-# from scene_renderer import SceneRenderer
+from scene_renderer import SceneRenderer
 
 from common import *
 
@@ -45,6 +45,8 @@ class GraphicsEngine:  # TODO: clean up the project structure
         self.mesh = Mesh(self)
         # scene
         self.scene = Scene(self)
+        # scene renderer
+        self.scene_renderer = SceneRenderer(self)
 
     def get_time(self) -> float:
         self.time = pg.time.get_ticks() / 1000
@@ -54,13 +56,16 @@ class GraphicsEngine:  # TODO: clean up the project structure
         for event in pg.event.get():
             if event.type == pg.QUIT:
                 self.mesh.deinit()
+                self.scene_renderer.deinit()
                 pg.quit()
                 self.run = False
 
     def render(self):
+        # background color
         self.ctx.clear(0.08, 0.16, 0.18)
-        self.scene.render()
-        self.camera.update()
+        # render scene
+        self.scene_renderer.render()
+        # swap buffers
         pg.display.flip()
 
     def mainloop(self) -> None:
@@ -68,7 +73,7 @@ class GraphicsEngine:  # TODO: clean up the project structure
 
         while self.run:
             print(f"\rFPS = {self.clock.get_fps()}", end="")
-            self.delta_time = self.clock.tick()
+            self.delta_time = self.clock.tick(FPS)
 
             self.render()
             self.handle_events()
@@ -81,3 +86,4 @@ class GraphicsEngine:  # TODO: clean up the project structure
 if __name__ == "__main__":
     app = GraphicsEngine()
     app.mainloop()
+
