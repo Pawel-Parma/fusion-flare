@@ -1,10 +1,10 @@
 class ShaderProgram:
     def __init__(self, ctx):
         self.ctx = ctx
-        self.programs = {}
         # TODO: implement programs_list (reads available programs and checks if program exists)
-        self.programs_list = {"default", }
-        self.programs["default"] = self.get_program("default")
+        self.programs_list = {"default", "shadow_map"}
+        self.programs = {"default": self.get_program("default"),
+                         "shadow_map": self.get_program("shadow_map")}
 
     def deinit(self):
         [program.release() for program in self.programs.values()]

@@ -5,7 +5,7 @@ import moderngl as gl
 
 from model import *
 from camera import Camera
-from light import PhongLight
+from light import *
 from mesh import Mesh
 from scene import Scene
 from scene_renderer import SceneRenderer
@@ -15,6 +15,9 @@ from common import *
 
 class GraphicsEngine:  # TODO: clean up the project structure
     def __init__(self) -> None:
+        self.WIDTH = WIDTH
+        self.HEIGHT = HEIGHT
+        self.WIN_SIZE = (WIDTH, HEIGHT)
         self.run: bool = True
         # init pygame
         pg.init()
@@ -38,7 +41,8 @@ class GraphicsEngine:  # TODO: clean up the project structure
         self.time = 0
         self.delta_time = 0
         # light
-        self.light = PhongLight()
+        self.light = PhongLight(position=(10, 10, -10), color=(0.8, 1, 1))
+        self.camera_following_light = CameraFollowingLight(self, self.light)
         # camera
         self.camera = Camera(self)
         # mesh
