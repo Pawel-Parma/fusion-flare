@@ -28,6 +28,5 @@ class Scene:
                 if new_maze[int((x + n) / s)][int((z + n) / s)] == "#":
                     add(Cube(app, position=(x, -s + 2, z), texture_id="test"))
 
-    def render(self):
-        for obj in self.objects:
-            obj.render()
+    def update(self):
+        pass
