@@ -1,8 +1,13 @@
+import os
+import os.path as op
+
+from common import *
+
+
 class ShaderProgram:
     def __init__(self, ctx):
         self.ctx = ctx
-        # TODO: implement programs_list (reads available programs and checks if program exists)
-        self.programs_list = {"default", "shadow_map"}
+        self.programs_list = {shader for shader in os.listdir(SHADERS_DIR) if op.isdir(op.join(SHADERS_DIR, shader))}
         self.programs = {"default": self.get_program("default"),
                          "shadow_map": self.get_program("shadow_map")}
 
@@ -10,10 +15,10 @@ class ShaderProgram:
         [program.release() for program in self.programs.values()]
 
     def get_program(self, name):
-        with open(f"../shaders/{name}.vert", "r") as file:  # TODO: add path to constants
+        with open(op.join(SHADERS_DIR, f"{name}/{name}.vert"), "r") as file:
             vertex_shader = file.read()
 
-        with open(f"../shaders/{name}.frag", "r") as file:  # TODO: make shaders/name/name(.frag | .vert)
+        with open(op.join(SHADERS_DIR, f"{name}/{name}.frag"), "r") as file:
             fragment_shader = file.read()
 
         program = self.ctx.program(vertex_shader=vertex_shader, fragment_shader=fragment_shader)

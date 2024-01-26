@@ -1,4 +1,4 @@
-class SceneRenderer:  # TODO: look at it and change to better
+class SceneRenderer:
     def __init__(self, app):
         self.app = app
         self.ctx = app.ctx

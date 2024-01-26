@@ -15,9 +15,6 @@ from common import *
 
 class GraphicsEngine:  # TODO: clean up the project structure
     def __init__(self) -> None:
-        self.WIDTH = WIDTH
-        self.HEIGHT = HEIGHT
-        self.WIN_SIZE = (WIDTH, HEIGHT)
         self.run: bool = True
         # init pygame
         pg.init()
@@ -27,7 +24,7 @@ class GraphicsEngine:  # TODO: clean up the project structure
         # set OpenGL profile
         pg.display.gl_set_attribute(pg.GL_CONTEXT_PROFILE_MASK, pg.GL_CONTEXT_PROFILE_CORE)
         # create OpenGL context
-        pg.display.set_mode(size=(WIDTH, HEIGHT), flags=(pg.DOUBLEBUF | pg.OPENGL))
+        pg.display.set_mode(size=(WINDOW_WIDTH, WINDOW_HEIGHT), flags=(pg.DOUBLEBUF | pg.OPENGL))
         # window settings
         pg.display.set_caption("Labiryntho")
         # mouse settings

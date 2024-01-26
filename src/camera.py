@@ -1,18 +1,12 @@
 import glm
 import pygame as pg
-
-# TODO: add to constants, better way to change
-FOV = 50  # deg
-NEAR = 0.1
-FAR = 100
-SPEED = 0.01
-SENSITIVITY = 0.07
+from common import *
 
 
-class Camera:  # TODO: change to better (WIDTH, HEIGHT)
+class Camera:  # TODO: change to better
     def __init__(self, app, position=(0, 0, 4), yaw=-90, pitch=0):
         self.app = app
-        self.aspect_ratio = app.WIDTH / app.HEIGHT
+        self.aspect_ratio = WINDOW_WIDTH / WINDOW_HEIGHT
         self.position = glm.vec3(position)
         self.up = glm.vec3(0, 1, 0)
         self.right = glm.vec3(1, 0, 0)
@@ -26,8 +20,8 @@ class Camera:  # TODO: change to better (WIDTH, HEIGHT)
 
     def rotate(self):
         rel_x, rel_y = pg.mouse.get_rel()
-        self.yaw += rel_x * SENSITIVITY
-        self.pitch -= rel_y * SENSITIVITY
+        self.yaw += rel_x * MOUSE_SENSITIVITY
+        self.pitch -= rel_y * MOUSE_SENSITIVITY
         self.pitch = max(-89, min(89, self.pitch))
 
     def update_camera_vectors(self):
@@ -48,7 +42,7 @@ class Camera:  # TODO: change to better (WIDTH, HEIGHT)
         self.m_view = self.get_view_matrix()
 
     def move(self):  # TODO: Add physics, better movement
-        velocity = SPEED * self.app.delta_time
+        velocity = CAMERA_SPEED * self.app.delta_time
         keys = pg.key.get_pressed()
         if keys[pg.K_w]:
             self.position += self.forward * velocity
@@ -69,7 +63,7 @@ class Camera:  # TODO: change to better (WIDTH, HEIGHT)
             self.position -= self.up * velocity
 
     def get_view_matrix(self):
-        return glm.lookAt(self.position, self.position + self.forward, self.up)  # + self.forward, self.up)
+        return glm.lookAt(self.position, self.position + self.forward, self.up)  # + self.forward, self.up) TODO: fix
 
     def get_projection_matrix(self):
-        return glm.perspective(glm.radians(FOV), self.aspect_ratio, NEAR, FAR)
+        return glm.perspective(glm.radians(CAMERA_FOV), self.aspect_ratio, CAMERA_NEAR, CAMERA_FAR)

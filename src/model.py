@@ -4,6 +4,8 @@ import numpy as np
 import moderngl as mgl
 import glm
 
+from common import *
+
 
 class BaseModel:
     def __init__(self, app, vao_name, texture_id, position=(0, 0, 0), rotation=(0, 0, 0), scale=(1, 1, 1)):
@@ -47,7 +49,7 @@ class Cube(BaseModel):
     def on_init(self):  # TODO: remove shadow from cube and add it to BaseShadowModel
         self.program["m_view_light"].write(self.app.light.m_view_light)
         # resolution
-        self.program["u_resolution"].write(glm.vec2(self.app.WIN_SIZE))
+        self.program["u_resolution"].write(glm.vec2(WINDOW_SIZE))
         # depth texture
         self.depth_texture = self.app.mesh.texture["depth_texture"]
         self.program["shadowMap"] = 1
