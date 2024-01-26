@@ -35,14 +35,14 @@ class GraphicsEngine:  # TODO: clean up the project structure
         pg.mouse.set_visible(False)
         # detect and use existing opengl context
         self.ctx = gl.create_context()
-        self.ctx.enable(flags=(gl.DEPTH_TEST | gl.CULL_FACE))
+        self.ctx.enable(flags=(gl.DEPTH_TEST | gl.CULL_FACE | gl.BLEND))
+        self.ctx.gc_mode = "auto"
         # get fps clock
         self.clock = pg.time.Clock()
         self.time = 0
         self.delta_time = 0
         # light
-        self.light = PhongLight(position=(10, 10, -10), color=(0.8, 1, 1))
-        self.camera_following_light = CameraFollowingLight(self, self.light)
+        self.light = PhongLight()
         # camera
         self.camera = Camera(self)
         # mesh
@@ -76,7 +76,7 @@ class GraphicsEngine:  # TODO: clean up the project structure
         print("Started mainloop\n")
 
         while self.run:
-            print(f"\rFPS = {self.clock.get_fps()}", end="")
+            print(f"\rFPS: {self.clock.get_fps():.2f}", end="")
             self.delta_time = self.clock.tick(FPS)
 
             self.render()
@@ -90,4 +90,3 @@ class GraphicsEngine:  # TODO: clean up the project structure
 if __name__ == "__main__":
     app = GraphicsEngine()
     app.mainloop()
-

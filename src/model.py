@@ -84,4 +84,3 @@ class Cube(BaseModel):
         self.program["camPos"].write(self.camera.position)
         self.program["m_view"].write(self.camera.m_view)
         self.program["m_model"].write(self.m_model)
-        # self.render_shadow()
