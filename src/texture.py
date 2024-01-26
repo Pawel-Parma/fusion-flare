@@ -11,7 +11,7 @@ class Texture:
     def deinit(self):
         [texture.release() for texture in self.textures.values()]
 
-    def get_texture(self, path):  # TODO: add texture.fill((255, 0, 255, 255))
+    def get_texture(self, path):  # TODO: add texture.fill((255, 0, 255, 255)), color etc.
         texture = pg.image.load(path)
         texture = texture.convert()
         texture = pg.transform.flip(texture, flip_x=False, flip_y=True)

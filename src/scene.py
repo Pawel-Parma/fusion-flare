@@ -1,5 +1,7 @@
 from model import *
-from numba import jit
+import maze
+
+new_maze = maze.generate_maze(80, 80)
 
 
 class Scene:
@@ -19,6 +21,11 @@ class Scene:
         for x in range(-n, n, s):
             for z in range(-n, n, s):
                 add(Cube(app, position=(x, -s, z)))
+
+        for x in range(-n, n, s):
+            for z in range(-n, n, s):
+                if new_maze[int((x + n) / s)][int((z + n) / s)] == "#":
+                    add(Cube(app, position=(x, -s + 2, z), texture_id="test"))
 
     def render(self):
         for obj in self.objects:
