@@ -20,7 +20,8 @@ class Scene:
         n, s = 80, 2
         for x in range(-n, n, s):
             for z in range(-n, n, s):
-                add(Cube(app, position=(x, -s, z)))
+                if new_maze[int((x + n) / s)][int((z + n) / s)] == ".":
+                    add(Cube(app, position=(x, -s, z)))
 
         for x in range(-n, n, s):
             for z in range(-n, n, s):
