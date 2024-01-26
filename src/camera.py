@@ -1,7 +1,6 @@
 import glm
 import pygame as pg
 
-from common.consts import *
 # TODO: add to constants, better way to change
 FOV = 50  # deg
 NEAR = 0.1
@@ -13,7 +12,7 @@ SENSITIVITY = 0.07
 class Camera:  # TODO: change to better (WIDTH, HEIGHT)
     def __init__(self, app, position=(0, 0, 4), yaw=-90, pitch=0):
         self.app = app
-        self.aspect_ratio = WIDTH / HEIGHT
+        self.aspect_ratio = app.WIDTH / app.HEIGHT
         self.position = glm.vec3(position)
         self.up = glm.vec3(0, 1, 0)
         self.right = glm.vec3(1, 0, 0)

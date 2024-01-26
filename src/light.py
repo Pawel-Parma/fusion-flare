@@ -15,3 +15,13 @@ class PhongLight:
 
     def get_view_matrix(self):
         return glm.lookAt(self.position, self.direction, glm.vec3(0, 1, 0))
+
+
+class CameraFollowingLight:
+    def __init__(self, app, light):
+        self.app = app
+        self.light = light
+
+    def update(self):
+        self.light.position = self.app.camera.position
+        self.light.m_view_light = self.light.get_view_matrix()

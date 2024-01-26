@@ -3,10 +3,14 @@ import moderngl as gl
 
 
 class Texture:
-    def __init__(self, ctx):
-        self.ctx = ctx
+    def __init__(self, app):
+        self.app = app
+        self.ctx = app.ctx
         self.textures = {"test": self.get_texture("../textures/test.png"),  # TODO: add NONE texture
-                         "0": self.get_texture("../textures/img.png")}
+                         "0": self.get_texture("../textures/img.png"),
+                         "1": self.get_texture("../textures/img_1.png"),
+
+                         "depth_texture": self.get_depth_texture()}
 
     def deinit(self):
         [texture.release() for texture in self.textures.values()]
@@ -24,6 +28,12 @@ class Texture:
         texture.anisotropy = 32
 
         return texture
+
+    def get_depth_texture(self):
+        depth_texture = self.ctx.depth_texture(self.app.WIN_SIZE)
+        depth_texture.repeat_x = False
+        depth_texture.repeat_y = False
+        return depth_texture
 
     def __getitem__(self, texture_id):
         if texture_id not in self.textures:
