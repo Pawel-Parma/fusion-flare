@@ -1,12 +1,19 @@
 import sys
-# =================================
+
 import pygame as pg
 import moderngl as gl
-# =================================
-from src.common import *
+
+from model import *
+from camera import Camera
+from light import PhongLight
+from mesh import Mesh
+from scene import Scene
+# from scene_renderer import SceneRenderer
+
+from common import *
 
 
-class App:
+class GraphicsEngine:  # TODO: clean up the project structure
     def __init__(self) -> None:
         self.run: bool = True
         # init pygame
@@ -18,31 +25,59 @@ class App:
         pg.display.gl_set_attribute(pg.GL_CONTEXT_PROFILE_MASK, pg.GL_CONTEXT_PROFILE_CORE)
         # create OpenGL context
         pg.display.set_mode(size=(WIDTH, HEIGHT), flags=(pg.DOUBLEBUF | pg.OPENGL))
+        # window settings
         pg.display.set_caption("Labiryntho")
-        self.context = gl.create_context()
-
+        # mouse settings
+        pg.event.set_grab(True)
+        pg.mouse.set_visible(False)
+        # detect and use existing opengl context
+        self.ctx = gl.create_context()
+        self.ctx.enable(flags=(gl.DEPTH_TEST | gl.CULL_FACE))
         # get fps clock
         self.clock = pg.time.Clock()
+        self.time = 0
+        self.delta_time = 0
+        # light
+        self.light = PhongLight()
+        # camera
+        self.camera = Camera(self)
+        # mesh
+        self.mesh = Mesh(self)
+        # scene
+        self.scene = Scene(self)
+
+    def get_time(self) -> float:
+        self.time = pg.time.get_ticks() / 1000
+        return self.time
 
     def handle_events(self) -> None:
         for event in pg.event.get():
             if event.type == pg.QUIT:
+                self.mesh.deinit()
+                pg.quit()
                 self.run = False
 
+    def render(self):
+        self.ctx.clear(0.08, 0.16, 0.18)
+        self.scene.render()
+        self.camera.update()
+        pg.display.flip()
+
     def mainloop(self) -> None:
+        print("Started mainloop\n")
+
         while self.run:
+            print(f"\rFPS = {self.clock.get_fps()}", end="")
+            self.delta_time = self.clock.tick()
+
+            self.render()
             self.handle_events()
 
-            pg.display.flip()
-            self.clock.tick(FPS)
+            self.get_time()
 
-        pg.quit()
-
-
-def main() -> None:
-    app = App()
-    app.mainloop()
+        print()
 
 
 if __name__ == "__main__":
-    main()
+    app = GraphicsEngine()
+    app.mainloop()
