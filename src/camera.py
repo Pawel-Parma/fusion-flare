@@ -41,7 +41,7 @@ class Camera:
 
     def rotate_pitch(self, delta_y):
         self.pitch -= delta_y
-        self.pitch = glm.clamp(self.pitch, CAMERA_PITCH_MIN, CAMERA_PITCH_MAX)
+        self.pitch = glm.clamp(self.pitch, glm.radians(CAMERA_PITCH_MIN), glm.radians(CAMERA_PITCH_MAX))
 
     def move_up(self, velocity):
         self.position += self.default_up * velocity
@@ -49,14 +49,29 @@ class Camera:
     def move_down(self, velocity):
         self.position -= self.default_up * velocity
 
-    def move_forward(self, velocity):
-        self.position += self.default_front * velocity
+    def move_forward(self, velocity):  # TODO: add glm.vec3() to consts or somewhere else in class
+        move_vector = glm.vec3(0, 0, 0)
+
+        if abs(self.yaw % (PI * 2)) <= PI / 2:
+            move_vector += glm.vec3(0, 0, 1) + (-self.right + self.front) * glm.cos(self.yaw)
+
+        if PI / 2 < abs(self.yaw % (PI * 2)) <= PI:
+            move_vector -= glm.vec3(1, 0, 0) + (self.right - self.front) * glm.sin(self.yaw)
+
+        if PI < abs(self.yaw % (PI * 2)) <= PI * 3 / 2:
+            move_vector -= glm.vec3(0, 0, 1) + (-self.right + self.front) * glm.cos(self.yaw)
+
+        if PI * 3 / 2 < abs(self.yaw % (PI * 2)):
+            move_vector += glm.vec3(1, 0, 0) + (self.right - self.front) * glm.sin(self.yaw)
+
+        move_vector.y = 0
+        self.position += glm.normalize(move_vector) * velocity
 
     def move_backward(self, velocity):
-        self.position -= self.default_front * velocity
+        self.move_forward(-velocity)
 
     def move_right(self, velocity):
-        self.position += self.default_right * velocity
+        self.position += self.right * velocity
 
     def move_left(self, velocity):
-        self.position -= self.default_right * velocity
+        self.position -= self.right * velocity
