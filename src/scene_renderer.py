@@ -26,7 +26,7 @@ class SceneRenderer:
 
     def render(self):
         self.light.update()
-        self.render_shadow()
+        # self.render_shadow()
         self.camera.update()
         self.scene.update()
         self.main_render()
