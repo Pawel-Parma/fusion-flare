@@ -5,6 +5,7 @@ class SceneRenderer:
         self.camera = app.camera
         self.mesh = app.mesh
         self.scene = app.scene
+        self.light = app.light
         # depth buffer
         self.depth_texture = self.mesh.texture['depth_texture']
         self.depth_fbo = self.ctx.framebuffer(depth_attachment=self.depth_texture)
@@ -24,7 +25,8 @@ class SceneRenderer:
             obj.render()
 
     def render(self):
+        self.light.update()
+        self.render_shadow()
         self.camera.update()
         self.scene.update()
-        # self.render_shadow()
         self.main_render()

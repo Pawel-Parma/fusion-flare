@@ -39,7 +39,7 @@ class GraphicsEngine:  # TODO: clean up the project structure
         self.time = 0
         self.delta_time = 0
         # light
-        self.light = PhongLight(position=(0, 100, 0))
+        self.light = CameraFollowingLight(self, PhongLight(position=(0, 1, 0)))
         # player
         self.camera = Player(self)
         # mesh
