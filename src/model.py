@@ -42,7 +42,7 @@ class BaseModel:
 
 
 class Cube(BaseModel):
-    def __init__(self, app, texture_id="0", position=(0, 0, 0), rotation=(0, 0, 0), scale=(1, 1, 1)):
+    def __init__(self, app, texture_id, position=(0, 0, 0), rotation=(0, 0, 0), scale=(1, 1, 1)):
         super().__init__(app, "cube", texture_id, position, rotation, scale)
         self.on_init()
 

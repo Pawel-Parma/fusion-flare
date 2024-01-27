@@ -1,5 +1,9 @@
+import os
+import os.path as op
+
 import pygame as pg
 import moderngl as gl
+
 from common import *
 
 
@@ -7,19 +11,27 @@ class Texture:
     def __init__(self, app):
         self.app = app
         self.ctx = app.ctx
-        self.textures = {"test": self.get_texture("../textures/test.png"),  # TODO: add NONE texture
-                         "0": self.get_texture("../textures/img.png"),
-                         "1": self.get_texture("../textures/img_1.png"),
+
+        self.textures = {"none": self.get_texture(),
+                         "blue": self.get_texture(color=(0, 0, 255)),
+                         "img": self.get_texture("img", color=(255, 0, 0)),
+                         "img_1": self.get_texture("img_1"),
 
                          "depth_texture": self.get_depth_texture()}
+
+        self.textures_list = {t[:t.rfind(".")] for t in os.listdir(TEXTURES_DIR) if op.isfile(op.join(TEXTURES_DIR, t))}
+        self.textures_list.update(set(self.textures))
 
     def deinit(self):
         [texture.release() for texture in self.textures.values()]
 
-    def get_texture(self, path):  # TODO: add texture.fill((255, 0, 255, 255)), color etc.
-        texture = pg.image.load(path)
+    def get_texture(self, name="none", extension=".png", color=None):
+        texture = pg.image.load(op.join(TEXTURES_DIR, name + extension))
         texture = texture.convert()
         texture = pg.transform.flip(texture, flip_x=False, flip_y=True)
+        if color:
+            texture.fill(color, special_flags=pg.BLEND_MULT)
+
         texture = self.ctx.texture(size=texture.get_size(), components=3,
                                    data=pg.image.tostring(texture, "RGB"))
         # mipmaps
@@ -37,6 +49,9 @@ class Texture:
         return depth_texture
 
     def __getitem__(self, texture_id):
+        if texture_id not in self.textures_list:
+            raise KeyError(f"Texture {texture_id} not found")
+
         if texture_id not in self.textures:
             self.textures[texture_id] = self.get_texture(texture_id)
 

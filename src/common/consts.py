@@ -5,6 +5,7 @@ WINDOW_SIZE = (WINDOW_WIDTH, WINDOW_HEIGHT)
 FPS: int = 60
 
 SHADERS_DIR: str = "../shaders/"
+TEXTURES_DIR: str = "../textures/"
 
 CAMERA_FOV: float = 50  # deg
 CAMERA_NEAR: float = 0.1
