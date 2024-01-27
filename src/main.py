@@ -39,9 +39,9 @@ class GraphicsEngine:  # TODO: clean up the project structure
         self.time = 0
         self.delta_time = 0
         # light
-        self.light = PhongLight(position=(0, 0, 0))
+        self.light = PhongLight(position=(0, 100, 0))
         # camera
-        self.camera = Camera(self, position=(0, 0, 3))
+        self.camera = Camera(self, position=(0, 0, 0))
         # mesh
         self.mesh = Mesh(self)
         # scene
