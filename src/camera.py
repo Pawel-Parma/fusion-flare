@@ -1,69 +1,62 @@
 import glm
 import pygame as pg
+
 from common import *
 
 
-class Camera:  # TODO: change to better
-    def __init__(self, app, position, yaw=-90, pitch=0):
-        self.app = app
-        self.aspect_ratio = WINDOW_WIDTH / WINDOW_HEIGHT
+class Camera:
+    def __init__(self, position, yaw, pitch):
         self.position = glm.vec3(position)
+        self.yaw = glm.radians(yaw)
+        self.pitch = glm.radians(pitch)
+
+        self.default_up = glm.vec3(0, 1, 0)
         self.up = glm.vec3(0, 1, 0)
+        self.default_right = glm.vec3(1, 0, 0)
         self.right = glm.vec3(1, 0, 0)
-        self.forward = glm.vec3(0, 0, -1)
-        self.yaw = yaw
-        self.pitch = pitch
-        # view matrix
-        self.m_view = self.get_view_matrix()
-        # projection matrix
-        self.m_proj = self.get_projection_matrix()
+        self.default_front = glm.vec3(0, 0, -1)
+        self.front = glm.vec3(0, 0, -1)
 
-    def rotate(self):
-        rel_x, rel_y = pg.mouse.get_rel()
-        self.yaw += rel_x * MOUSE_SENSITIVITY
-        self.pitch -= rel_y * MOUSE_SENSITIVITY
-        self.pitch = max(-89, min(89, self.pitch))
-
-    def update_camera_vectors(self):
-        yaw, pitch = glm.radians(self.yaw), glm.radians(self.pitch)
-
-        self.forward.x = glm.cos(yaw) * glm.cos(pitch)
-        self.forward.y = glm.sin(pitch)
-        self.forward.z = glm.sin(yaw) * glm.cos(pitch)
-
-        self.forward = glm.normalize(self.forward)
-        self.right = glm.normalize(glm.cross(self.forward, glm.vec3(0, 1, 0)))
-        self.up = glm.normalize(glm.cross(self.right, self.forward))
+        self.m_view = glm.lookAt(self.position, self.position + self.front, self.up)
+        self.m_proj = glm.perspective(glm.radians(CAMERA_FOV), WINDOW_WIDTH / WINDOW_HEIGHT, CAMERA_NEAR, CAMERA_FAR)
 
     def update(self):
-        self.move()
-        self.rotate()
-        self.update_camera_vectors()
-        self.m_view = self.get_view_matrix()
+        self.update_vectors()
+        self.update_view_matirx()
 
-    def move(self):  # TODO: Add physics, better movement
-        velocity = CAMERA_SPEED * self.app.delta_time
-        keys = pg.key.get_pressed()
-        if keys[pg.K_w]:
-            self.position += self.forward * velocity
+    def update_vectors(self):
+        self.front.x = glm.cos(self.yaw) * glm.cos(self.pitch)
+        self.front.y = glm.sin(self.pitch)
+        self.front.z = glm.sin(self.yaw) * glm.cos(self.pitch)
 
-        if keys[pg.K_s]:
-            self.position -= self.forward * velocity
+        self.front = glm.normalize(self.front)
+        self.right = glm.normalize(glm.cross(self.front, glm.vec3(0, 1, 0)))
+        self.up = glm.normalize(glm.cross(self.right, self.front))
 
-        if keys[pg.K_a]:
-            self.position -= self.right * velocity
+    def update_view_matirx(self):
+        self.m_view = glm.lookAt(self.position, self.position + self.front, self.up)
 
-        if keys[pg.K_d]:
-            self.position += self.right * velocity
+    def rotate_yaw(self, delta_x):
+        self.yaw += delta_x
 
-        if keys[pg.K_SPACE]:
-            self.position += self.up * velocity
+    def rotate_pitch(self, delta_y):
+        self.pitch -= delta_y
+        self.pitch = glm.clamp(self.pitch, CAMERA_PITCH_MIN, CAMERA_PITCH_MAX)
 
-        if keys[pg.K_LSHIFT]:
-            self.position -= self.up * velocity
+    def move_up(self, velocity):
+        self.position += self.default_up * velocity
 
-    def get_view_matrix(self):
-        return glm.lookAt(self.position, self.position + self.forward, self.up)  # + self.forward, self.up) TODO: fix
+    def move_down(self, velocity):
+        self.position -= self.default_up * velocity
 
-    def get_projection_matrix(self):
-        return glm.perspective(glm.radians(CAMERA_FOV), self.aspect_ratio, CAMERA_NEAR, CAMERA_FAR)
+    def move_forward(self, velocity):
+        self.position += self.default_front * velocity
+
+    def move_backward(self, velocity):
+        self.position -= self.default_front * velocity
+
+    def move_right(self, velocity):
+        self.position += self.default_right * velocity
+
+    def move_left(self, velocity):
+        self.position -= self.default_right * velocity

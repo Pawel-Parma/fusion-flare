@@ -4,7 +4,7 @@ import pygame as pg
 import moderngl as gl
 
 from model import *
-from camera import Camera
+from player import Player
 from light import *
 from mesh import Mesh
 from scene import Scene
@@ -40,8 +40,8 @@ class GraphicsEngine:  # TODO: clean up the project structure
         self.delta_time = 0
         # light
         self.light = PhongLight(position=(0, 100, 0))
-        # camera
-        self.camera = Camera(self, position=(0, 0, 0))
+        # player
+        self.camera = Player(self)
         # mesh
         self.mesh = Mesh(self)
         # scene
@@ -73,8 +73,9 @@ class GraphicsEngine:  # TODO: clean up the project structure
         print("Started mainloop\n")
 
         while self.run:
-            print(f"\rFPS: {self.clock.get_fps():.2f}", end="")
-            self.delta_time = self.clock.tick(FPS)
+            # print(f"\rFPS: {self.clock.get_fps():.2f}", end="")
+            pg.display.set_caption(f"Labiryntho | FPS: {self.clock.get_fps():.2f}")
+            self.delta_time = self.clock.tick()  # FPS
 
             self.render()
             self.handle_events()
