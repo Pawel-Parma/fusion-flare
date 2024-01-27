@@ -43,13 +43,19 @@ class Camera:
         self.pitch -= delta_y
         self.pitch = glm.clamp(self.pitch, glm.radians(CAMERA_PITCH_MIN), glm.radians(CAMERA_PITCH_MAX))
 
+    def if_move_up(self, velocity):
+        return self.default_up * velocity
+
     def move_up(self, velocity):
-        self.position += self.default_up * velocity
+        self.position += self.if_move_up(velocity)
+
+    def if_move_down(self, velocity):
+        return - self.default_up * velocity
 
     def move_down(self, velocity):
-        self.position -= self.default_up * velocity
+        self.position += self.if_move_down(velocity)
 
-    def move_forward(self, velocity):
+    def if_move_forward(self, velocity):
         move_vector = glm.vec3(0, 0, 0)
 
         if abs(self.yaw % (PI * 2)) <= PI / 2:
@@ -65,13 +71,25 @@ class Camera:
             move_vector += self.default_right + (self.right - self.front) * glm.sin(self.yaw)
 
         move_vector.y = 0
-        self.position += glm.normalize(move_vector) * velocity
+        return glm.normalize(move_vector) * velocity
+
+    def move_forward(self, velocity):
+        self.position += self.if_move_forward(velocity)
+
+    def if_move_backward(self, velocity):
+        return self.if_move_forward(-velocity)
 
     def move_backward(self, velocity):
-        self.move_forward(-velocity)
+        self.position += self.if_move_backward(velocity)
+
+    def if_move_right(self, velocity):
+        return self.right * velocity
 
     def move_right(self, velocity):
-        self.position += self.right * velocity
+        self.position += self.if_move_right(velocity)
+
+    def if_move_left(self, velocity):
+        return - self.right * velocity
 
     def move_left(self, velocity):
-        self.position -= self.right * velocity
+        self.position += self.if_move_left(velocity)

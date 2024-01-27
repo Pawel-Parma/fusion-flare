@@ -1,15 +1,13 @@
-import sys
-
 import pygame as pg
 import moderngl as gl
 
-from model import *
-from player import Player
+from cameras import SpectatorPlayer, PhysicsPlayer
 from light import *
 from mesh import Mesh
 from scene import Scene
 from scene_renderer import SceneRenderer
 
+from maze import *
 from common import *
 
 
@@ -38,10 +36,13 @@ class GraphicsEngine:  # TODO: clean up the project structure
         self.clock = pg.time.Clock()
         self.time = 0
         self.delta_time = 0
+        # maze TODO: add to consts.py
+        self.maze = maze.generate_maze(80, 80)
         # light
         self.light = CameraFollowingLight(self, PhongLight(position=(0, 1, 0)))
         # player
-        self.camera = Player(self)
+        # self.camera = PhysicsPlayer(self)
+        self.camera = SpectatorPlayer(self)
         # mesh
         self.mesh = Mesh(self)
         # scene
