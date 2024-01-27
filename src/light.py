@@ -2,7 +2,7 @@ import glm
 
 
 class PhongLight:
-    def __init__(self, position=(3, 3, -3), color=(1, 1, 1), direction=(0, 0, 0)):
+    def __init__(self, position, direction=(0, 0, 0), color=(1, 1, 1)):
         self.position = glm.vec3(position)
         self.color = glm.vec3(color)
         self.direction = glm.vec3(direction)

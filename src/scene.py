@@ -21,12 +21,12 @@ class Scene:
         for x in range(-n, n, s):
             for z in range(-n, n, s):
                 if new_maze[int((x + n) / s)][int((z + n) / s)] == ".":
-                    add(Cube(app, position=(x, -s, z), texture_id="img"))
+                    add(Cube(app, texture_id="img", position=(x, -s, z)))
 
         for x in range(-n, n, s):
             for z in range(-n, n, s):
                 if new_maze[int((x + n) / s)][int((z + n) / s)] == "#":
-                    add(Cube(app, position=(x, -s + 2, z), texture_id="img_1"))
+                    add(Cube(app, texture_id="img_1", position=(x, -s + 2, z)))
 
     def update(self):
         pass

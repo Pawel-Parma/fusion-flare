@@ -8,8 +8,7 @@ from common import *
 
 
 class BaseModel:
-    def __init__(self, app, vao_name, texture_id, position=(0, 0, 0), rotation=(0, 0, 0), scale=(1, 1, 1)):
-        # TODO: check all default values and delete them if needed
+    def __init__(self, app, vao_name, texture_id, position, rotation=(0, 0, 0), scale=(1, 1, 1)):
         self.app = app
         self.position = position
         self.rot = glm.vec3(*[glm.radians(rot) for rot in rotation])
@@ -42,7 +41,7 @@ class BaseModel:
 
 
 class Cube(BaseModel):
-    def __init__(self, app, texture_id, position=(0, 0, 0), rotation=(0, 0, 0), scale=(1, 1, 1)):
+    def __init__(self, app, texture_id, position, rotation=(0, 0, 0), scale=(1, 1, 1)):
         super().__init__(app, "cube", texture_id, position, rotation, scale)
         self.on_init()
 
