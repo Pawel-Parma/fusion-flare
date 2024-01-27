@@ -1,7 +1,7 @@
 import glm
 
 
-class PhongLight:
+class PhongLight:  # TODO: add light that moves with player
     def __init__(self, position, direction=(0, 0, 0), color=(1, 1, 1), intensities=(0.1, 0.8, 1.0)):
         self.position = glm.vec3(position)
         self.color = glm.vec3(color)

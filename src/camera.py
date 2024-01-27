@@ -49,20 +49,20 @@ class Camera:
     def move_down(self, velocity):
         self.position -= self.default_up * velocity
 
-    def move_forward(self, velocity):  # TODO: add glm.vec3() to consts or somewhere else in class
+    def move_forward(self, velocity):
         move_vector = glm.vec3(0, 0, 0)
 
         if abs(self.yaw % (PI * 2)) <= PI / 2:
-            move_vector += glm.vec3(0, 0, 1) + (-self.right + self.front) * glm.cos(self.yaw)
+            move_vector -= self.default_front + (self.right - self.front) * glm.cos(self.yaw)
 
         if PI / 2 < abs(self.yaw % (PI * 2)) <= PI:
-            move_vector -= glm.vec3(1, 0, 0) + (self.right - self.front) * glm.sin(self.yaw)
+            move_vector -= self.default_right + (self.right - self.front) * glm.sin(self.yaw)
 
         if PI < abs(self.yaw % (PI * 2)) <= PI * 3 / 2:
-            move_vector -= glm.vec3(0, 0, 1) + (-self.right + self.front) * glm.cos(self.yaw)
+            move_vector += self.default_front + (self.right - self.front) * glm.cos(self.yaw)
 
         if PI * 3 / 2 < abs(self.yaw % (PI * 2)):
-            move_vector += glm.vec3(1, 0, 0) + (self.right - self.front) * glm.sin(self.yaw)
+            move_vector += self.default_right + (self.right - self.front) * glm.sin(self.yaw)
 
         move_vector.y = 0
         self.position += glm.normalize(move_vector) * velocity

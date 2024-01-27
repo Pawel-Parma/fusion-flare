@@ -13,7 +13,7 @@ class Texture:
         self.ctx = app.ctx
 
         self.textures = {"none": self.get_texture(),
-                         "blue": self.get_texture(color=(0, 0, 255)),
+                         "blue": self.get_texture(color=(0, 23, 255)),
                          "img": self.get_texture("img", color=(255, 0, 0)),
                          "img_1": self.get_texture("img_1"),
 
