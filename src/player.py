@@ -15,7 +15,7 @@ class Player(Camera):
         self.mouse_control()
         super().update()
 
-    def keyboard_control(self):  # TODO: Add physics, better movement
+    def keyboard_control(self):  # TODO: Add physics (real velocity, acceleration, etc.)
         velocity = CAMERA_SPEED * self.app.delta_time
 
         keys = pg.key.get_pressed()
@@ -27,21 +27,7 @@ class Player(Camera):
             self.move_down(velocity)
 
         if keys[pg.K_w]:
-            move_vector = glm.vec3(0, 0, 0)
-            if abs(self.yaw % (PI * 2)) <= PI / 2:
-                move_vector += glm.vec3(0, 0, 1) + (-self.right + self.front) * glm.cos(self.yaw)
-
-            if PI / 2 < abs(self.yaw % (PI * 2)) <= PI:
-                move_vector -= glm.vec3(1, 0, 0) + (self.right - self.front) * glm.sin(self.yaw)
-
-            if PI < abs(self.yaw % (PI * 2)) <= PI * 3 / 2:
-                move_vector -= glm.vec3(0, 0, 1) + (-self.right + self.front) * glm.cos(self.yaw)
-
-            if PI * 3 / 2 < abs(self.yaw % (PI * 2)):
-                move_vector += glm.vec3(1, 0, 0) + (self.right - self.front) * glm.sin(self.yaw)
-
-            move_vector.y = 0
-            self.position += glm.normalize(move_vector) * velocity
+            self.move_forward(velocity)
 
         if keys[pg.K_s]:
             self.move_backward(velocity)
