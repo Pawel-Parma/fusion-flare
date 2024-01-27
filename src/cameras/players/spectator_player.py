@@ -1,11 +1,11 @@
 import pygame as pg
 import glm
 
-from camera import Camera
+from cameras.camera import Camera
 from common import *
 
 
-class Player(Camera):
+class SpectatorPlayer(Camera):
     def __init__(self, app, position=(0, 0, 0), yaw=0, pitch=0):
         self.app = app
         super().__init__(position, yaw, pitch)
@@ -15,9 +15,8 @@ class Player(Camera):
         self.mouse_control()
         super().update()
 
-    def keyboard_control(self):  # TODO: Add physics (real velocity, acceleration, etc.)
+    def keyboard_control(self):
         velocity = CAMERA_SPEED * self.app.delta_time
-
         keys = pg.key.get_pressed()
 
         if keys[pg.K_SPACE]:

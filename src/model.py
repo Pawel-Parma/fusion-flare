@@ -23,6 +23,10 @@ class BaseModel:
     def update(self):
         pass
 
+    @staticmethod
+    def is_shadowy():
+        return False
+
     def get_model_matrix(self):
         m_model = glm.mat4()
         # translate

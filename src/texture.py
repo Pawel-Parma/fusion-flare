@@ -15,7 +15,7 @@ class Texture:
         self.textures = {"none": self.get_texture(),
                          "blue": self.get_texture(color=(0, 23, 255)),
                          "img": self.get_texture("img", color=(255, 0, 0)),
-                         "img_1": self.get_texture("img_1"),
+                         "img_1": self.get_texture("img_1", color=(23, 120, 60)),
 
                          "depth_texture": self.get_depth_texture()}
 
