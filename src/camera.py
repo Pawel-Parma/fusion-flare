@@ -4,7 +4,7 @@ from common import *
 
 
 class Camera:  # TODO: change to better
-    def __init__(self, app, position=(0, 0, 4), yaw=-90, pitch=0):
+    def __init__(self, app, position, yaw=-90, pitch=0):
         self.app = app
         self.aspect_ratio = WINDOW_WIDTH / WINDOW_HEIGHT
         self.position = glm.vec3(position)
