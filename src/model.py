@@ -73,7 +73,7 @@ class Cube(BaseModel):
         self.program["light.Id"].write(self.app.light.Id)
         self.program["light.Is"].write(self.app.light.Id)
 
-    def update_shadow(self):
+    def update_shadow(self):  # TODO: update shadow program
         self.shadow_program["m_model"].write(self.m_model)
 
     def render_shadow(self):
