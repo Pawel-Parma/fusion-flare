@@ -48,11 +48,11 @@ class Texture:
         depth_texture.repeat_y = False
         return depth_texture
 
-    def __getitem__(self, texture_id):
+    def __getitem__(self, texture_id, **kwargs):
         if texture_id not in self.textures_list:
             raise KeyError(f"Texture {texture_id} not found")
 
         if texture_id not in self.textures:
-            self.textures[texture_id] = self.get_texture(texture_id)
+            self.textures[texture_id] = self.get_texture(texture_id, **kwargs)
 
         return self.textures[texture_id]
