@@ -2,7 +2,7 @@ import abc
 
 import glm
 
-from common import *
+from config import *
 
 
 class BaseModel:

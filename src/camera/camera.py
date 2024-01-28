@@ -1,7 +1,7 @@
 import pygame as pg
 import glm
 
-from common import *
+from config import *
 
 
 class Camera:

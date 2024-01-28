@@ -1,7 +1,7 @@
 import pygame as pg
 import glm
 
-from common import *
+from config import *
 from .spectator_player import SpectatorPlayer
 
 
