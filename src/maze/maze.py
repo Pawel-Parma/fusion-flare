@@ -16,5 +16,16 @@ def generate_maze(width: int, lenght: int):  # TODO: make better (class maze, re
             else:
                 maze[i].append(random.choice(("#", "#", "#", ".", ".", ".", ".")))
 
+    maze[lenght // 2 - 1][width // 2] = "."
+    maze[lenght // 2 - 1][width // 2 - 1] = "."
+    maze[lenght // 2 - 1][width // 2 + 1] = "."
+    maze[lenght // 2 + 1][width // 2] = "."
+    maze[lenght // 2 + 1][width // 2 - 1] = "."
+    maze[lenght // 2 + 1][width // 2 + 1] = "."
+    maze[lenght // 2][width // 2] = "."
+    maze[lenght // 2][width // 2 - 1] = "."
+    maze[lenght // 2][width // 2 + 1] = "."
+
+
     return maze
 

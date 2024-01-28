@@ -52,7 +52,8 @@ from maze import *
 # TODO: Make custom map generator [might be hard]
 
 
-class GraphicsEngine:  # TODO: clean up the project structure
+class GraphicsEngine:
+    # TODO: clean up the project structure (make many self.app references into self, standardize naming
     def __init__(self) -> None:
         self.run: bool = True
         # init pygame
@@ -82,7 +83,17 @@ class GraphicsEngine:  # TODO: clean up the project structure
         # maze
         self.maze = generate_maze(MAZE_WIDTH, MAZE_LENGHT)
         # light
-        self.light = CameraFollowingLight(self, Light(position=(0, 1, 0), specular=0))
+        self.light = CameraFollowingLight(self, Light(position=(0, 1, 0), direction=(0, 0, 1), specular=0))
+
+        # 1. (-1, 1, -1)
+        # 2. (-1, 0, -1)
+        # 2. (-1, 0, 0)
+        # a = glm.vec3(-1, 1, -1) / glm.vec3(-1, 0, -1) / glm.vec3(-1, 0, 0)
+        # a = (0, 0, 0)
+        # print(a)
+        # self.light = Light(position=(0, 0, 3), direction=a,
+        #                    specular=0)
+
         # player
         # self.camera = PhysicsPlayer(self)
         self.camera = SpectatorPlayer(self)
