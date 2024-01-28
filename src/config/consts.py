@@ -14,6 +14,7 @@ PI = glm.pi()
 
 SHADERS_DIR: str = "../shaders/"
 TEXTURES_DIR: str = "../textures/"
+IMAGES_DIR: str = "../images/"
 
 CAMERA_FOV: float = 50  # deg
 CAMERA_NEAR: float = 0.1

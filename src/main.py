@@ -1,3 +1,5 @@
+import os.path as op
+
 import pygame as pg
 import moderngl as gl
 
@@ -40,14 +42,14 @@ from maze import Maze
 # FINISHING TOUCHES
 # TODO: show time, coins and score when playing
 
-# IF TIME
-# TODO: Make coin power-ups [has compass, shows where to go, speed boost, etc.]
-# TODO: Custom music and sound
-# TODO: Add shop
-# TODO: Custom textures [for player to load]
-# TODO: Allow 3D with stairs [another hard one]
-# TODO: enemies)
-# TODO: Make custom map generator [might be hard]
+# TODO: IF TIME
+# Make coin power-ups [has compass, shows where to go, speed boost, etc.]
+# Custom music and sound
+# Add shop
+# Custom textures [for player to load]
+# Allow 3D with stairs [another hard one]
+# enemies)
+# Make custom map generator and creator [might be hard]
 
 
 class GraphicsEngine:
@@ -65,8 +67,7 @@ class GraphicsEngine:
         pg.display.set_mode(size=(WINDOW_WIDTH, WINDOW_HEIGHT), flags=(pg.DOUBLEBUF | pg.OPENGL))
         # window settings
         pg.display.set_caption("Labiryntho")
-        # TODO: Add icon
-        # TODO: ask before quiting game
+        pg.display.set_icon(pg.image.load(op.join(IMAGES_DIR, "logo.png")))
         # mouse settings
         pg.event.set_grab(True)
         pg.mouse.set_visible(False)
