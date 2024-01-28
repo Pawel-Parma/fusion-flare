@@ -22,9 +22,9 @@ class Scene:
         add = self.add_object
 
         s = 2
-        # for x in range(-n, n, s):
-        #     for z in range(-n, n, s):
-        #         if self.maze[int((x + n) / s)][int((z + n) / s)] == ".":
+        # for x in range(-MAZE_WIDTH, MAZE_WIDTH, s):
+        #     for z in range(-MAZE_LENGHT, MAZE_LENGHT, s):
+        #         if self.maze[int((x + MAZE_WIDTH) / s)][int((z + MAZE_LENGHT) / s)] == ".":
         #             add(Cube(app, texture_id="none", position=(x, -s, z)))
         add(Cube(app, texture_id="none", position=(-1, -s, -1), scale=(MAZE_WIDTH, 1, MAZE_LENGHT)))
 

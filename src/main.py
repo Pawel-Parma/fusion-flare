@@ -8,7 +8,7 @@ from light import Light, CameraFollowingLight
 from mesh import Mesh
 from scene import Scene
 from scene_renderer import SceneRenderer
-from maze import *
+from maze import Maze
 
 # GAME
 # TODO: Make faster by utilising chunks and not rendering everything at once
@@ -81,7 +81,7 @@ class GraphicsEngine:
         self.time = 0
         self.delta_time = 0
         # maze
-        self.maze = generate_maze(MAZE_WIDTH, MAZE_LENGHT)
+        self.maze = Maze(MAZE_WIDTH, MAZE_LENGHT)
         # light
         self.light = CameraFollowingLight(self, Light(position=(0, 0, 0), specular=0))
         # player
