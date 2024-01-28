@@ -75,7 +75,7 @@ class BaseShadowModel(BaseModel):
 
     def render_shadow(self):
         self.update_shadow()
-        self.shadow_vao.render()
+        self.shadow_vao.render(img)
 
     @staticmethod
     def is_shadowy():

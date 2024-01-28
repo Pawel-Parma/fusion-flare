@@ -56,6 +56,7 @@ class GraphicsEngine:
     # TODO: clean up the project structure (make many self.app references into self, standardize naming
     def __init__(self) -> None:
         self.run: bool = True
+        self.show = ToShow.GAME
         # init pygame
         pg.init()
         # set OpenGL version
@@ -112,16 +113,27 @@ class GraphicsEngine:
         # swap buffers
         pg.display.flip()
 
+    def render_game(self):
+        self.render()
+        self.camera.update()
+        self.light.update()
+
+    def render_menu(self):
+        ...
+
     def mainloop(self) -> None:
         while self.run:
             pg.display.set_caption(f"Labiryntho | FPS: {self.clock.get_fps():.2f}")
             self.delta_time = self.clock.tick()  # FPS
 
-            self.render()
-            self.camera.update()
-            self.light.update()
-            self.handle_events()
+            match self.show:
+                case ToShow.GAME:
+                    self.render_game()
 
+                case ToShow.MENU:
+                    self.render_menu()
+
+            self.handle_events()
             self.get_time()
 
         print()
