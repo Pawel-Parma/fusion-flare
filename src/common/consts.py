@@ -8,6 +8,8 @@ MAZE_WIDTH = 80
 MAZE_LENGHT = 80
 FPS: int = 60
 
+BUFFER_COLOR = glm.normalize(glm.vec3(90, 208, 255))
+
 PI = glm.pi()
 
 SHADERS_DIR: str = "../shaders/"
