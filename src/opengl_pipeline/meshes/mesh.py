@@ -1,5 +1,5 @@
-from vao import VAO
-from texture import Texture
+from opengl_pipeline.vaos import VAO
+from opengl_pipeline.textures import Texture
 
 
 class Mesh:
