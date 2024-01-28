@@ -15,8 +15,8 @@ class Texture:
         self.textures = {"none": self.get_texture(),
                          "blue": self.get_texture(color=(0, 23, 255)),
                          "img": self.get_texture("img", color=(255, 0, 0)),
-                         "img_1": self.get_texture("img_1", color=(23, 140, 60)),
-                         "light_gray": self.get_texture(color=(123, 123, 123)),
+                         "img_1": self.get_texture("img_1", color=(213, 140, 120)),
+                         "light_gray": self.get_texture(color=(153, 153, 153)),
                          # TODO: add outline none and outline transformation
                          "depth_texture": self.get_depth_texture()}
 
