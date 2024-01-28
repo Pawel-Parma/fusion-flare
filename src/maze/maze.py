@@ -1,7 +1,7 @@
 import random
 
 
-def generate_maze(width: int, lenght: int):
+def generate_maze(width: int, lenght: int):  # TODO: make better (class maze, real generation)
     maze = []
 
     for i in range(lenght):
