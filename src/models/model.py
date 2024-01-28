@@ -25,6 +25,10 @@ class BaseShadowModel(BaseModel):
         return True
 
 
+class ExtendedShadowModel(BaseShadowModel):
+    pass
+
+
 class Cube(BaseModel):
     def __init__(self, app, texture_id, position, rotation=(0, 0, 0), scale=(1, 1, 1)):
         super().__init__(app, "cube", texture_id, position, rotation, scale)
