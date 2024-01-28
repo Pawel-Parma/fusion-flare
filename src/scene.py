@@ -1,4 +1,5 @@
 from models import *
+from common import *
 
 
 class Scene:
@@ -20,17 +21,17 @@ class Scene:
         app = self.app
         add = self.add_object
 
-        n, s = len(self.maze), 2
+        s = 2
         # for x in range(-n, n, s):
         #     for z in range(-n, n, s):
         #         if self.maze[int((x + n) / s)][int((z + n) / s)] == ".":
-        #             add(Cube(app, texture_id="img", position=(x, -s, z)))
-        add(Cube(app, texture_id="light_gray", position=(-1, -s, -1), scale=(n, 1, n)))
+        #             add(Cube(app, texture_id="none", position=(x, -s, z)))
+        add(Cube(app, texture_id="none", position=(-1, -s, -1), scale=(MAZE_WIDTH, 1, MAZE_LENGHT)))
 
-        for x in range(-n, n, s):
-            for z in range(-n, n, s):
-                if self.maze[int((x + n) / s)][int((z + n) / s)] == "#":
-                    add(Cube(app, texture_id="img_1", position=(x, -s + 2, z)))
+        for x in range(-MAZE_WIDTH, MAZE_WIDTH, s):
+            for z in range(-MAZE_LENGHT, MAZE_LENGHT, s):
+                if self.maze[int((x + MAZE_WIDTH) / s)][int((z + MAZE_LENGHT) / s)] == "#":
+                    add(Cube(app, texture_id="img", position=(x, -s + 2, z)))
 
     def update(self):
         pass

@@ -79,10 +79,10 @@ class GraphicsEngine:  # TODO: clean up the project structure
         self.clock = pg.time.Clock()
         self.time = 0
         self.delta_time = 0
-        # maze TODO: add to consts.py
-        self.maze = maze.generate_maze(80, 80)
+        # maze
+        self.maze = maze.generate_maze(MAZE_WIDTH, MAZE_LENGHT)
         # light
-        self.light = CameraFollowingLight(self, Light(position=(0, 1, 0)))
+        self.light = CameraFollowingLight(self, Light(position=(0, 1, 0), specular=0))
         # player
         # self.camera = PhysicsPlayer(self)
         self.camera = SpectatorPlayer(self)
@@ -108,7 +108,7 @@ class GraphicsEngine:  # TODO: clean up the project structure
     def render(self):
         # background color
         # TODO: add to consts.py and look for other to add
-        self.ctx.clear(*glm.normalize(glm.vec3(35, 93, 186)).to_list())
+        self.ctx.clear(*glm.normalize(glm.vec3(90, 208, 255)))  # 0.08, 0.16, 0.18
         # render scene
         self.scene_renderer.render()
         # swap buffers
