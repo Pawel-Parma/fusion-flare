@@ -1,8 +1,8 @@
 import pygame as pg
 import glm
 
-from .spectator_player import SpectatorPlayer
 from common import *
+from .spectator_player import SpectatorPlayer
 
 
 class PhysicsPlayer(SpectatorPlayer):

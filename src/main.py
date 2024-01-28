@@ -1,14 +1,14 @@
 import pygame as pg
 import moderngl as gl
+import glm
 
+from common import *
 from camera import SpectatorPlayer, PhysicsPlayer
-from light import *
+from light import Light, CameraFollowingLight
 from mesh import Mesh
 from scene import Scene
 from scene_renderer import SceneRenderer
-
 from maze import *
-from common import *
 
 # GAME
 # TODO: Make faster by utilising chunks and not rendering everything at once
@@ -80,7 +80,7 @@ class GraphicsEngine:  # TODO: clean up the project structure
         self.time = 0
         self.delta_time = 0
         # maze
-        self.maze = maze.generate_maze(MAZE_WIDTH, MAZE_LENGHT)
+        self.maze = generate_maze(MAZE_WIDTH, MAZE_LENGHT)
         # light
         self.light = CameraFollowingLight(self, Light(position=(0, 1, 0), specular=0))
         # player
