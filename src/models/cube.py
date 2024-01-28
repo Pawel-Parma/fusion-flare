@@ -4,9 +4,8 @@ import numpy as np
 import moderngl as mgl
 import glm
 
-from .base import BaseShadowModel
-
 from common import *
+from .base import BaseShadowModel
 
 
 class Cube(BaseShadowModel):

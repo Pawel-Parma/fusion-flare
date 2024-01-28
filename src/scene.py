@@ -1,5 +1,5 @@
-from models import *
 from common import *
+from models import *
 
 
 class Scene:
