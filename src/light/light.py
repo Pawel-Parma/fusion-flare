@@ -31,10 +31,11 @@ class CameraFollowingLight(Light):
         super().__init__(light.position, light.direction, light.color, *light.intensities)
 
     def update(self):
-        self.position = self.app.camera.position
+        self.position.xz = self.app.camera.position.xz
+        self.position.y = 1
         # TODO: update view matrix to enable shadows with camera following light
         # self.m_view_light = glm.lookAt(glm.vec3(0, 0, -1), glm.vec3(1, 0, 0), glm.vec3(0, 1, 0))
-        # self.m_view_light = glm.lookAt(self.position, self.app.camera.front, glm.vec3(0, 1, 0)) + glm.mat4(1)
+        # self.m_view_light = glm.lookAt(self.position, self.app.camera.front, glm.vec3(0, 1, 0))
         # self.m_view_light = glm.lookAt(glm.vec3(0, 1, 0), glm.vec3(0, 0, 2), glm.vec3(0, 1, 0))
         # self.m_view_light = glm.lookAt(self.position, self.app.camera.front, glm.vec3(0, 1, 0))
         # self.m_view_light = glm.lookAt(self.position, self.position + self.direction, glm.vec3(0, 1, 0))
