@@ -21,18 +21,17 @@ class Scene:
         add = self.add_object
 
         n, s = len(self.maze), 2
-        for x in range(-n, n, s):
-            for z in range(-n, n, s):
-                if self.maze[int((x + n) / s)][int((z + n) / s)] == ".":
-                    add(Cube(app, texture_id="img", position=(x, -s, z)))
+        # for x in range(-n, n, s):
+        #     for z in range(-n, n, s):
+        #         if self.maze[int((x + n) / s)][int((z + n) / s)] == ".":
+        #             add(Cube(app, texture_id="img", position=(x, -s, z)))
+        add(Cube(app, texture_id="light_gray", position=(-1, -s, -1), scale=(n, 1, n)))
 
         for x in range(-n, n, s):
             for z in range(-n, n, s):
+                print(x, z)
                 if self.maze[int((x + n) / s)][int((z + n) / s)] == "#":
                     add(Cube(app, texture_id="img_1", position=(x, -s + 2, z)))
-
-        for y in range(0, n, s):
-            add(Cube(app, texture_id="img_1", position=(0, y + 3, 0)))
 
     def update(self):
         pass

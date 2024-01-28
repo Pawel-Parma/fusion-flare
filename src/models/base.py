@@ -5,6 +5,7 @@ import glm
 
 class BaseModel:
     def __init__(self, app, vao_name, texture_id, position, rotation=(0, 0, 0), scale=(1, 1, 1)):
+        # TODO: expose color to model
         self.app = app
         self.position = position
         self.rot = glm.vec3(*[glm.radians(rot) for rot in rotation])
