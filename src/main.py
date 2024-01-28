@@ -1,7 +1,7 @@
 import pygame as pg
 import moderngl as gl
 
-from cameras import SpectatorPlayer, PhysicsPlayer
+from camera import SpectatorPlayer, PhysicsPlayer
 from light import *
 from mesh import Mesh
 from scene import Scene
@@ -10,48 +10,48 @@ from scene_renderer import SceneRenderer
 from maze import *
 from common import *
 
-# (GAME)
-# (TODO: Make faster by utilising chunks and not rendering everything at once)
-# (TODO: Add icon)
-# (TODO: ask before quiting game)
-# (TODO: add f3 debug screen)
-# (TODO: show time, coins and score when playing)
+# GAME
+# TODO: Make faster by utilising chunks and not rendering everything at once
+# TODO: Add icon
+# TODO: ask before quiting game
+# TODO: add f3 debug screen
+# TODO: show time, coins and score when playing
 
-# (TODO: Make main menu and its functionality)
-# (Play button and screen)
-# (Settings button and screen [audio, graphics, controls, credits])
-# (Exit button)
-# (Shop button [coming soon])
-# (History button)
+# TODO: Make main menu and its functionality
+# Play button and screen
+# Settings button and screen [audio, graphics, controls, credits]
+# Exit button
+# Shop button [coming soon]
+# History button
 
-# (TODO: Make escape menu)
-# (Resume)
-# (Save)
-# (Settings)
-# (Exit)
+# TODO: Make escape menu
+# Resume
+# Save
+# Settings
+# Exit
 
-# (TODO: Make maze generation)
+# TODO: Make maze generation
 
-# (TODO: Make end screen)
-# (Time)
-# (Score)
-# (Coins)
-# (Name)
-# (Play-through [shows correct path with green])
+# TODO: Make end screen
+# Time
+# Score
+# Coins
+# Name
+# Play-through [shows correct path with green]
 
-# (Play again [shows play screen and same setting])
-# (Main menu)
+# Play again [shows play screen and same setting]
+# Main menu
 
-# (TODO: Make database)
+# TODO: Make database
 
-# (IF TIME)
-# (TODO: Make coin power-ups [eg. has compass, shows where to go, speed boost, etc.])
-# (TODO: Add shop)
-# (TODO: Custom textures [for player to load])
-# (TODO: Custom music)
-# (TODO: Allow 3D with stairs)
-# (TODO: enemies)
-# (TODO: Make custom map generator [might be hard])
+# IF TIME
+# TODO: Make coin power-ups [eg. has compass, shows where to go, speed boost, etc.]
+# TODO: Custom music and sound
+# TODO: Add shop
+# TODO: Custom textures [for player to load]
+# TODO: Allow 3D with stairs [another hard one]
+# TODO: enemies)
+# TODO: Make custom map generator [might be hard]
 
 
 class GraphicsEngine:  # TODO: clean up the project structure
@@ -82,7 +82,7 @@ class GraphicsEngine:  # TODO: clean up the project structure
         # maze TODO: add to consts.py
         self.maze = maze.generate_maze(80, 80)
         # light
-        self.light = CameraFollowingLight(self, PhongLight(position=(0, 1, 0)))
+        self.light = CameraFollowingLight(self, Light(position=(0, 1, 0)))
         # player
         # self.camera = PhysicsPlayer(self)
         self.camera = SpectatorPlayer(self)
@@ -114,8 +114,6 @@ class GraphicsEngine:  # TODO: clean up the project structure
         pg.display.flip()
 
     def mainloop(self) -> None:
-        print("Started mainloop\n")
-
         while self.run:
             # print(f"\rFPS: {self.clock.get_fps():.2f}", end="")
             pg.display.set_caption(f"Labiryntho | FPS: {self.clock.get_fps():.2f}")

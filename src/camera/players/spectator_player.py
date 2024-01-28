@@ -1,7 +1,7 @@
 import pygame as pg
 import glm
 
-from cameras.camera import Camera
+from camera.camera import Camera
 from common import *
 
 

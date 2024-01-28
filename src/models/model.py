@@ -44,6 +44,22 @@ class BaseModel:
         self.vao.render()
 
 
+# class BaseShadowModel(BaseModel):
+#     def __init__(self, app, vao_name, texture_id, position, rotation=(0, 0, 0), scale=(1, 1, 1)):
+#         super().__init__(app, vao_name, texture_id, position, rotation, scale)
+#         self.on_init()
+#
+#     def on_init(self):
+#         self.program["m_model"].write(self.m_model)
+#
+#     def update(self):
+#         self.program["m_model"].write(self.m_model)
+#
+#     @staticmethod
+#     def is_shadowy():
+#         return True
+
+
 class Cube(BaseModel):
     def __init__(self, app, texture_id, position, rotation=(0, 0, 0), scale=(1, 1, 1)):
         super().__init__(app, "cube", texture_id, position, rotation, scale)
