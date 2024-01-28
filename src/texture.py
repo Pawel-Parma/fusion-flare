@@ -13,11 +13,9 @@ class Texture:
         self.ctx = app.ctx
 
         self.textures = {"none": self.get_texture(),
-                         "blue": self.get_texture(color=(0, 23, 255)),
                          "img": self.get_texture("img", color=(255, 0, 0)),
                          "img_1": self.get_texture("img_1", color=(213, 140, 120)),
-                         "light_gray": self.get_texture(color=(153, 153, 153)),
-                         # TODO: add outline none and outline transformation
+
                          "depth_texture": self.get_depth_texture()}
 
         self.textures_list = {t[:t.rfind(".")] for t in os.listdir(TEXTURES_DIR) if op.isfile(op.join(TEXTURES_DIR, t))}
