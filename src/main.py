@@ -12,10 +12,7 @@ from common import *
 
 # GAME
 # TODO: Make faster by utilising chunks and not rendering everything at once
-# TODO: Add icon
-# TODO: ask before quiting game
 # TODO: add f3 debug screen
-# TODO: show time, coins and score when playing
 
 # TODO: Make main menu and its functionality
 # Play button and screen
@@ -30,8 +27,6 @@ from common import *
 # Settings
 # Exit
 
-# TODO: Make maze generation
-
 # TODO: Make end screen
 # Time
 # Score
@@ -43,6 +38,9 @@ from common import *
 # Main menu
 
 # TODO: Make database
+
+# FINISHING TOUCHES
+# TODO: show time, coins and score when playing
 
 # IF TIME
 # TODO: Make coin power-ups [has compass, shows where to go, speed boost, etc.]
@@ -68,6 +66,8 @@ class GraphicsEngine:  # TODO: clean up the project structure
         pg.display.set_mode(size=(WINDOW_WIDTH, WINDOW_HEIGHT), flags=(pg.DOUBLEBUF | pg.OPENGL))
         # window settings
         pg.display.set_caption("Labiryntho")
+        # TODO: Add icon
+        # TODO: ask before quiting game
         # mouse settings
         pg.event.set_grab(True)
         pg.mouse.set_visible(False)

@@ -14,6 +14,10 @@ class Light:
         # view matrix
         self.m_view_light = self.get_view_matrix()
 
+    @staticmethod
+    def can_change_position():
+        return False
+
     def get_view_matrix(self):
         return glm.lookAt(self.position, self.direction, glm.vec3(0, 1, 0))
 
@@ -25,5 +29,9 @@ class CameraFollowingLight(Light):
 
     def update(self):  # TODO: figure out a way to change shadows while moving
         self.position = self.app.camera.position
-        # self.m_view_light = glm.lookAt(self.position, self.direction, glm.vec3(0, 1, 0)
+        # self.m_view_light = glm.lookAt(self.position, self.direction, glm.vec3(0, 1, 0))
         # - self.app.camera.m_view + glm.lookAt(self.position, self.direction, self.app.camera.up)
+
+    @staticmethod
+    def can_change_position():
+        return True
