@@ -7,9 +7,6 @@ class VBO:
     def __init__(self, ctx):
         self.vbos = {"cube": CubeVBO(ctx)}
 
-    def deinit(self):
-        [vbo.deinit() for vbo in self.vbos.values()]
-
     def __getitem__(self, name):
         if name not in self.vbos:
             raise KeyError(f"VBO {name} not found")
@@ -23,9 +20,6 @@ class BaseVBO:
         self.vbo = self.get_vbo()
         self.format: str | None = None
         self.attributes: list | None = None
-
-    def deinit(self):
-        self.vbo.release()
 
     @abc.abstractmethod
     def get_vertex_data(self):

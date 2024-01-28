@@ -11,9 +11,6 @@ class ShaderProgram:
         self.programs = {"default": self.get_program("default"),
                          "shadow_map": self.get_program("shadow_map")}
 
-    def deinit(self):
-        [program.release() for program in self.programs.values()]
-
     def get_program(self, name):
         with open(op.join(SHADERS_DIR, f"{name}/{name}.vert"), "r") as file:
             vertex_shader = file.read()

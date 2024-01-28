@@ -10,9 +10,6 @@ class SceneRenderer:
         self.depth_texture = self.mesh.texture['depth_texture']
         self.depth_fbo = self.ctx.framebuffer(depth_attachment=self.depth_texture)
 
-    def deinit(self):
-        self.depth_fbo.release()
-
     def render_shadow(self):
         self.depth_fbo.clear()
         self.depth_fbo.use()
@@ -27,6 +24,5 @@ class SceneRenderer:
     def render(self):
         self.light.update()
         self.render_shadow()  # TODO: fix shadows
-        self.camera.update()
         self.scene.update()
         self.main_render()
