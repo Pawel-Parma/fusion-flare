@@ -2,7 +2,7 @@ import pygame as pg
 import moderngl as gl
 import glm
 
-from common import *
+from config import *
 from camera import SpectatorPlayer, PhysicsPlayer
 from light import Light, CameraFollowingLight
 from mesh import Mesh
@@ -85,7 +85,7 @@ class GraphicsEngine:
         # light
         self.light = CameraFollowingLight(self, Light(position=(0, 0, 0), specular=0))
         # player
-        # self.camera = PhysicsPlayer(self)
+        # self.camera = PhysicsPlayer(self, position=(0, 0, 0))
         self.camera = SpectatorPlayer(self)
         # mesh
         self.mesh = Mesh(self)

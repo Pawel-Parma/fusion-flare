@@ -1,7 +1,7 @@
 import os
 import os.path as op
 
-from common import *
+from config import *
 
 
 class ShaderProgram:

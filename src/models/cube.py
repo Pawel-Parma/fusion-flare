@@ -4,7 +4,7 @@ import numpy as np
 import moderngl as mgl
 import glm
 
-from common import *
+from config import *
 from .base import BaseShadowModel
 
 
