@@ -1,11 +1,10 @@
 import pygame as pg
 import moderngl as gl
-import glm
 
 from config import *
-from camera import SpectatorPlayer, PhysicsPlayer
+from camera import SpectatorPlayer
 from light import Light, CameraFollowingLight
-from mesh import Mesh
+from opengl_pipeline import Mesh
 from scene import Scene
 from scene_renderer import SceneRenderer
 from maze import Maze
@@ -53,7 +52,7 @@ from maze import Maze
 
 
 class GraphicsEngine:
-    # TODO: clean up the project structure (make many self.app references into self, standardize naming
+    # TODO: clean up the project structure
     def __init__(self) -> None:
         self.run: bool = True
         self.show = ToShow.GAME
