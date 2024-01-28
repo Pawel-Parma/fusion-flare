@@ -16,11 +16,7 @@ class PhysicsPlayer(SpectatorPlayer):
         keys = pg.key.get_pressed()
 
         if keys[pg.K_w]:
-            pos = self.position + self.if_move_forward(velocity)
-            print(round(pos.z + 4), round(pos.x + 4))
-            print(self.maze[round(pos.z + 4)][round(pos.x + 4)])
-            if self.maze[round(pos.z + 4)][round(pos.x + 4)] == ".":
-                self.position = pos
+            self.move_forward(velocity)
 
         if keys[pg.K_s]:
             self.move_backward(velocity)

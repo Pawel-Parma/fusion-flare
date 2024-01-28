@@ -29,7 +29,6 @@ class Scene:
 
         for x in range(-n, n, s):
             for z in range(-n, n, s):
-                print(x, z)
                 if self.maze[int((x + n) / s)][int((z + n) / s)] == "#":
                     add(Cube(app, texture_id="img_1", position=(x, -s + 2, z)))
 

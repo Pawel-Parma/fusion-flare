@@ -107,7 +107,8 @@ class GraphicsEngine:  # TODO: clean up the project structure
 
     def render(self):
         # background color
-        self.ctx.clear(0.08, 0.16, 0.18)
+        # TODO: add to consts.py and look for other to add
+        self.ctx.clear(*glm.normalize(glm.vec3(35, 93, 186)).to_list())
         # render scene
         self.scene_renderer.render()
         # swap buffers
