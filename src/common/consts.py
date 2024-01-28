@@ -7,8 +7,8 @@ WINDOW_SIZE = (WINDOW_WIDTH, WINDOW_HEIGHT)
 MAZE_WIDTH = 80
 MAZE_LENGHT = 80
 FPS: int = 60
-
-BUFFER_COLOR = glm.normalize(glm.vec3(90, 208, 255))
+DISABLE_SHADOW_RENDER: bool = True
+BUFFER_COLOR: glm.vec3 = glm.normalize(glm.vec3(90, 208, 255))
 
 PI = glm.pi()
 

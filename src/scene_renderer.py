@@ -1,3 +1,6 @@
+from common import *
+
+
 class SceneRenderer:
     def __init__(self, app):
         self.app = app
@@ -21,5 +24,7 @@ class SceneRenderer:
 
     def render(self):
         self.scene.update()
-        self.render_shadow()
+        if not DISABLE_SHADOW_RENDER:
+            self.render_shadow()
+
         self.main_render()
