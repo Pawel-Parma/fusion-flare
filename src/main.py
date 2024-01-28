@@ -45,7 +45,7 @@ from common import *
 # TODO: Make database
 
 # IF TIME
-# TODO: Make coin power-ups [eg. has compass, shows where to go, speed boost, etc.]
+# TODO: Make coin power-ups [has compass, shows where to go, speed boost, etc.]
 # TODO: Custom music and sound
 # TODO: Add shop
 # TODO: Custom textures [for player to load]

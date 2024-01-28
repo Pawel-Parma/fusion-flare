@@ -5,11 +5,16 @@ class Scene:
     def __init__(self, app):
         self.app = app
         self.maze = app.maze
-        self.objects = []
+        self.shadow_objects = []
+        self.no_shadow_objects = []
         self.load()
 
     def add_object(self, obj):
-        self.objects.append(obj)
+        if obj.is_shadowy():
+            self.shadow_objects.append(obj)
+
+        else:
+            self.no_shadow_objects.append(obj)
 
     def load(self):
         app = self.app
