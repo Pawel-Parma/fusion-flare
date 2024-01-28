@@ -6,7 +6,7 @@ from .spectator_player import SpectatorPlayer
 
 
 class PhysicsPlayer(SpectatorPlayer):
-    def __init__(self, app, position=(0, 0.2, 0), yaw=0, pitch=0):
+    def __init__(self, app, position, yaw=0, pitch=0):
         super().__init__(app, position, yaw, pitch)
         self.maze = self.app.maze
 

@@ -106,8 +106,7 @@ class GraphicsEngine:
 
     def render(self):
         # background color
-        # TODO: add to consts.py and look for other to add
-        self.ctx.clear(*glm.normalize(glm.vec3(90, 208, 255)))  # 0.08, 0.16, 0.18
+        self.ctx.clear(*BUFFER_COLOR)
         # render scene
         self.scene_renderer.render()
         # swap buffers
@@ -115,7 +114,6 @@ class GraphicsEngine:
 
     def mainloop(self) -> None:
         while self.run:
-            # print(f"\rFPS: {self.clock.get_fps():.2f}", end="")
             pg.display.set_caption(f"Labiryntho | FPS: {self.clock.get_fps():.2f}")
             self.delta_time = self.clock.tick()  # FPS
 

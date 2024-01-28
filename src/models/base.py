@@ -66,7 +66,7 @@ class BaseShadowModel(BaseModel):
     def update(self):
         self.program["m_model"].write(self.m_model)
 
-    def update_shadow(self):  # TODO: update shadow program
+    def update_shadow(self):
         if self.app.light.can_change_position():
             self.shadow_program["m_proj"].write(self.camera.m_proj)
             self.shadow_program["m_view_light"].write(self.app.light.m_view_light)
