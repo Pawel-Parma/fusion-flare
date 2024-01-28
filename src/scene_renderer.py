@@ -16,12 +16,12 @@ class SceneRenderer:
     def render_shadow(self):
         self.depth_fbo.clear()
         self.depth_fbo.use()
-        for obj in self.scene.objects:
+        for obj in self.scene.shadow_objects:
             obj.render_shadow()
 
     def main_render(self):
         self.app.ctx.screen.use()
-        for obj in self.scene.objects:
+        for obj in (self.scene.no_shadow_objects + self.scene.shadow_objects):
             obj.render()
 
     def render(self):
