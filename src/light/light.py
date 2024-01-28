@@ -21,16 +21,27 @@ class Light:
     def get_view_matrix(self):
         return glm.lookAt(self.position, self.direction, glm.vec3(0, 1, 0))
 
+    def update(self):
+        pass
+
 
 class CameraFollowingLight(Light):
     def __init__(self, app, light):
         self.app = app
         super().__init__(light.position, light.direction, light.color, *light.intensities)
 
-    def update(self):  # TODO: figure out a way to change shadows while moving
+    def update(self):
         self.position = self.app.camera.position
-        # self.m_view_light = glm.lookAt(self.position, self.direction, glm.vec3(0, 1, 0))
-        # - self.app.camera.m_view + glm.lookAt(self.position, self.direction, self.app.camera.up)
+        # TODO: update view matrix to enable shadows with camera following light
+        # self.m_view_light = glm.lookAt(glm.vec3(0, 0, -1), glm.vec3(1, 0, 0), glm.vec3(0, 1, 0))
+        # self.m_view_light = glm.lookAt(self.position, self.app.camera.front, glm.vec3(0, 1, 0)) + glm.mat4(1)
+        # self.m_view_light = glm.lookAt(glm.vec3(0, 1, 0), glm.vec3(0, 0, 2), glm.vec3(0, 1, 0))
+        # self.m_view_light = glm.lookAt(self.position, self.app.camera.front, glm.vec3(0, 1, 0))
+        # self.m_view_light = glm.lookAt(self.position, self.position + self.direction, glm.vec3(0, 1, 0))
+        # eye: vec3, center: vec3, up: vec3
+        # self.up = glm.vec3(0, 1, 0)
+        # self.right = glm.vec3(1, 0, 0)
+        # self.front = glm.vec3(0, 0, -1)
 
     @staticmethod
     def can_change_position():
