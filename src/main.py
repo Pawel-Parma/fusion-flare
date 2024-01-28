@@ -105,14 +105,12 @@ class GraphicsEngine:
         self.scene_renderer = SceneRenderer(self)
 
     def get_time(self) -> float:
-        self.time = pg.time.get_ticks() / 1000
+        self.time = pg.time.get_ticks() * 0.001
         return self.time
 
     def handle_events(self) -> None:
         for event in pg.event.get():
             if event.type == pg.QUIT:
-                self.mesh.deinit()
-                self.scene_renderer.deinit()
                 pg.quit()
                 self.run = False
 
@@ -132,6 +130,7 @@ class GraphicsEngine:
             self.delta_time = self.clock.tick()  # FPS
 
             self.render()
+            self.camera.update()
             self.handle_events()
 
             self.get_time()

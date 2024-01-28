@@ -10,10 +10,6 @@ class VAO:
         self.vaos = {"cube": self.get_vao(program=self.program["default"], vbo=self.vbo["cube"]),
                      "shadow_cube": self.get_vao(program=self.program["shadow_map"], vbo=self.vbo["cube"])}
 
-    def deinit(self):
-        self.vbo.deinit()
-        self.program.deinit()
-
     def get_vao(self, program, vbo):
         vao = self.ctx.vertex_array(program, [(vbo.vbo, vbo.format, *vbo.attributes)], skip_errors=True)
         return vao

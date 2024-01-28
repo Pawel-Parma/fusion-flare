@@ -7,7 +7,3 @@ class Mesh:
         self.app = app
         self.vao = VAO(app.ctx)
         self.texture = Texture(app)
-
-    def deinit(self):
-        self.vao.deinit()
-        self.texture.deinit()
