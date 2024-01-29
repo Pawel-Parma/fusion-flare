@@ -2,7 +2,7 @@ from config import *
 from models import *
 
 
-class Scene:
+class GameScene:
     def __init__(self, app):
         self.app = app
         self.maze = app.maze

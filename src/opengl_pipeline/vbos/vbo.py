@@ -5,7 +5,8 @@ import numpy as np
 
 class VBO:
     def __init__(self, ctx):
-        self.vbos = {"cube": CubeVBO(ctx)}
+        self.vbos = {"cube": CubeVBO(ctx),
+                     "button": ButtonVBO(ctx)}
 
     def __getitem__(self, name):
         if name not in self.vbos:
@@ -25,6 +26,11 @@ class BaseVBO:
     def get_vertex_data(self):
         pass
 
+    @staticmethod
+    def get_data(vertices, indices):
+        data = [vertices[ind] for triangle in indices for ind in triangle]
+        return np.array(data, dtype="f4")
+
     def get_vbo(self):
         vertex_data = self.get_vertex_data()
         vbo = self.ctx.buffer(vertex_data)
@@ -36,11 +42,6 @@ class CubeVBO(BaseVBO):
         super().__init__(ctx)
         self.format = "2f 3f 3f"
         self.attributes = ["in_textcoord_0", "in_normal", "in_position"]
-
-    @staticmethod
-    def get_data(vertices, indices):
-        data = [vertices[ind] for triangle in indices for ind in triangle]
-        return np.array(data, dtype="f4")
 
     def get_vertex_data(self):
         vertices = [(-1, -1, 1), (1, -1, 1), (1, 1, 1), (-1, 1, 1),
@@ -72,5 +73,24 @@ class CubeVBO(BaseVBO):
         normals = np.array(normals, dtype="f4").reshape(36, 3)
 
         vertex_data = np.hstack((normals, vertex_data))
+        vertex_data = np.hstack((texture_coord_data, vertex_data))
+        return vertex_data
+
+
+class ButtonVBO(BaseVBO):
+    def __init__(self, ctx):
+        super().__init__(ctx)
+        self.format = "2f 2f"
+        self.attributes = ["in_textcoord_0", "in_position"]
+
+    def get_vertex_data(self):
+        vertices = [(0, 0), (1, 0), (1, 1), (0, 1)]
+        indices = [(0, 2, 3), (0, 1, 2)]
+        vertex_data = self.get_data(vertices, indices)
+
+        texture_coord_vertices = [(0, 0), (1, 0), (1, 1), (0, 1)]
+        texture_coord_indices = [(0, 2, 3), (0, 1, 2)]
+        texture_coord_data = self.get_data(texture_coord_vertices, texture_coord_indices)
+
         vertex_data = np.hstack((texture_coord_data, vertex_data))
         return vertex_data
