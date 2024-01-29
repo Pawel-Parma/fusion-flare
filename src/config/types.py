@@ -2,8 +2,10 @@ import enum
 
 
 class ToShow(enum.Enum):
-    MENU = 0
+    MAIN_MENU = 0
     GAME = 1
+    ESC_MENU = 2
+    END_GAME_MENU = 3
 
 
 del enum

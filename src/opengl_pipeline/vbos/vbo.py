@@ -80,8 +80,8 @@ class CubeVBO(BaseVBO):
 class ButtonVBO(BaseVBO):
     def __init__(self, ctx):
         super().__init__(ctx)
-        self.format = "2f 2f"
-        self.attributes = ["in_textcoord_0", "in_position"]
+        self.format = "3f"
+        self.attributes = ["in_position"]
 
     def get_vertex_data(self):
         vertices = [(0, 0), (1, 0), (1, 1), (0, 1)]
