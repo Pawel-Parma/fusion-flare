@@ -9,7 +9,8 @@ class ShaderProgram:
         self.ctx = ctx
         self.programs_list = {shader for shader in os.listdir(SHADERS_DIR) if op.isdir(op.join(SHADERS_DIR, shader))}
         self.programs = {"default": self.get_program("default"),
-                         "shadow_map": self.get_program("shadow_map")}
+                         "shadow_map": self.get_program("shadow_map"),
+                         "button": self.get_program("button")}
 
     def get_program(self, name):
         with open(op.join(SHADERS_DIR, f"{name}/{name}.vert"), "r") as file:

@@ -7,7 +7,7 @@ from config import *
 from camera import SpectatorPlayer, PhysicsPlayer
 from light import Light, CameraFollowingLight
 from opengl_pipeline import Mesh
-from scene import Scene, SceneRenderer
+from scene import GameScene, GameSceneRenderer, MenuScene, MenuSceneRenderer
 from maze import Maze
 
 # GAME
@@ -89,9 +89,13 @@ class GraphicsEngine:
         # mesh
         self.mesh = Mesh(self)
         # scene
-        self.scene = Scene(self)
+        self.scene = GameScene(self)
         # scene renderer
-        self.scene_renderer = SceneRenderer(self)
+        self.scene_renderer = GameSceneRenderer(self)
+        # menu scene
+        self.menu_scene = MenuScene(self)
+        # menu scene renderer
+        self.menu_scene_renderer = MenuSceneRenderer(self)
 
     def get_time(self) -> float:
         self.time = pg.time.get_ticks() * 0.001
@@ -117,7 +121,7 @@ class GraphicsEngine:
         self.light.update()
 
     def render_menu(self):
-        ...
+        self.menu_scene_renderer.render()
 
     def mainloop(self) -> None:
         while self.run:
