@@ -88,13 +88,11 @@ class GraphicsEngine:
         self.camera = SpectatorPlayer(self)
         # mesh
         self.mesh = Mesh(self)
-        # scene
-        self.scene = GameScene(self)
-        # scene renderer
-        self.scene_renderer = GameSceneRenderer(self)
+        # game scene
+        self.game_scene = GameScene(self)
+        self.game_scene_renderer = GameSceneRenderer(self)
         # menu scene
         self.menu_scene = MenuScene(self)
-        # menu scene renderer
         self.menu_scene_renderer = MenuSceneRenderer(self)
 
     def get_time(self) -> float:
@@ -107,13 +105,20 @@ class GraphicsEngine:
                 pg.quit()
                 self.run = False
 
+            # FOR TESTING
+            if event.type == pg.KEYDOWN:
+                if event.key == pg.K_TAB:
+                    if self.show == ToShow.GAME:
+                        self.show = ToShow.MAIN_MENU
+
+                    elif self.show == ToShow.MAIN_MENU:
+                        self.show = ToShow.GAME
+
     def render(self):
         # background color
-        self.ctx.clear(*BUFFER_COLOR)
+        self.ctx.clear(*SKY_COLOR)
         # render scene
-        self.scene_renderer.render()
-        # swap buffers
-        pg.display.flip()
+        self.game_scene_renderer.render()
 
     def render_game(self):
         self.render()
@@ -121,6 +126,8 @@ class GraphicsEngine:
         self.light.update()
 
     def render_menu(self):
+        # red=0.0, green=0.0, blue=0.0, alpha=0.0, depth=1.0, viewport=None, color=None
+        self.ctx.clear(0.23, 0.23, 0.23, alpha=-100.5, depth=1, viewport=None)
         self.menu_scene_renderer.render()
 
     def mainloop(self) -> None:
@@ -132,8 +139,11 @@ class GraphicsEngine:
                 case ToShow.GAME:
                     self.render_game()
 
-                case ToShow.MENU:
+                case ToShow.MAIN_MENU:
                     self.render_menu()
+
+            # swap buffers
+            pg.display.flip()
 
             self.handle_events()
             self.get_time()

@@ -6,7 +6,7 @@ class GameSceneRenderer:
         self.app = app
         self.ctx = app.ctx
         self.mesh = app.mesh
-        self.scene = app.scene
+        self.scene = app.game_scene
         # depth buffer
         self.depth_texture = self.mesh.texture['depth_texture']
         self.depth_fbo = self.ctx.framebuffer(depth_attachment=self.depth_texture)
