@@ -53,7 +53,7 @@ from maze import Maze
 
 
 class GraphicsEngine:
-    def __init__(self) -> None:
+    def __init__(self):
         self.run: bool = True
         self.show = ToShow.GAME
         # init pygame
@@ -97,7 +97,7 @@ class GraphicsEngine:
         self.menu_scene = MenuScene(self)
         self.menu_scene_renderer = MenuSceneRenderer(self)
 
-    def get_time(self) -> float:
+    def get_time(self):
         self.time = pg.time.get_ticks() * 0.001
         return self.time
 
@@ -113,7 +113,7 @@ class GraphicsEngine:
         self.camera.m_view = camera.m_view
         self.camera.m_proj = camera.m_proj
 
-    def handle_events(self) -> None:
+    def handle_events(self):
         for event in pg.event.get():
             if event.type == pg.QUIT:
                 pg.quit()
@@ -154,7 +154,7 @@ class GraphicsEngine:
         self.ctx.clear(0.23, 0.23, 0.23, alpha=-100.5, depth=1, viewport=None)
         self.menu_scene_renderer.render()
 
-    def mainloop(self) -> None:
+    def mainloop(self):
         while self.run:
             pg.display.set_caption(f"Labiryntho | FPS: {self.clock.get_fps():.2f}")
             self.delta_time = self.clock.tick()  # FPS
@@ -168,7 +168,6 @@ class GraphicsEngine:
 
             # swap buffers
             pg.display.flip()
-
             self.handle_events()
             self.get_time()
 
