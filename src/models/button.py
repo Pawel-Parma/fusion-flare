@@ -30,4 +30,5 @@ class Button(BaseModel):
                 self.func_on_click()
 
     def render(self):
+        super().render()
         self.update()

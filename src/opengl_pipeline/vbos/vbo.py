@@ -84,13 +84,6 @@ class ButtonVBO(BaseVBO):
         self.attributes = ["in_position"]
 
     def get_vertex_data(self):
-        vertices = [(0, 0), (1, 0), (1, 1), (0, 1)]
-        indices = [(0, 2, 3), (0, 1, 2)]
-        vertex_data = self.get_data(vertices, indices)
-
-        texture_coord_vertices = [(0, 0), (1, 0), (1, 1), (0, 1)]
-        texture_coord_indices = [(0, 2, 3), (0, 1, 2)]
-        texture_coord_data = self.get_data(texture_coord_vertices, texture_coord_indices)
-
-        vertex_data = np.hstack((texture_coord_data, vertex_data))
+        vertex_data = [(-0.6, -0.8, 0), (0.6, -0.8, 0), (0.6, 0.8, 0), (-0.6, 0.8, 0.0)]
+        vertex_data = np.array(vertex_data, dtype="f4")
         return vertex_data
