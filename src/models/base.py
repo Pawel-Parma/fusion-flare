@@ -15,7 +15,6 @@ class BaseModel:
         self.texture_id = texture_id
         self.vao = app.mesh.vao[vao_name]
         self.program = self.vao.program
-        self.camera = app.camera
 
     @abc.abstractmethod
     def update(self):
@@ -57,7 +56,7 @@ class BaseShadowModel(BaseModel):
         # shadow
         self.shadow_vao = self.app.mesh.vao["shadow_cube"]
         self.shadow_program = self.shadow_vao.program
-        self.shadow_program["m_proj"].write(self.camera.m_proj)
+        self.shadow_program["m_proj"].write(self.app.camera.m_proj)
         self.shadow_program["m_view_light"].write(self.app.light.m_view_light)
         self.shadow_program["m_model"].write(self.m_model)
         # light (shadow)
@@ -68,7 +67,7 @@ class BaseShadowModel(BaseModel):
 
     def update_shadow(self):
         if self.app.light.can_change_position():
-            self.shadow_program["m_proj"].write(self.camera.m_proj)
+            self.shadow_program["m_proj"].write(self.app.camera.m_proj)
             self.shadow_program["m_view_light"].write(self.app.light.m_view_light)
 
         self.shadow_program["m_model"].write(self.m_model)

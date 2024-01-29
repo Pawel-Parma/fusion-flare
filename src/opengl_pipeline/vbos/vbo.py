@@ -80,10 +80,10 @@ class CubeVBO(BaseVBO):
 class ButtonVBO(BaseVBO):
     def __init__(self, ctx):
         super().__init__(ctx)
-        self.format = "3f"
+        self.format = "2f"
         self.attributes = ["in_position"]
 
     def get_vertex_data(self):
-        vertex_data = [(-0.6, -0.8, 0), (0.6, -0.8, 0), (0.6, 0.8, 0), (-0.6, 0.8, 0.0)]
+        vertex_data = [(0, 1, 2), (0, 2, 3)]
         vertex_data = np.array(vertex_data, dtype="f4")
         return vertex_data

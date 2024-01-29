@@ -20,8 +20,8 @@ class Cube(BaseShadowModel):
         self.program["u_texture_0"] = 0
         self.texture.use(location=0)
         # mvp
-        self.program["m_proj"].write(self.camera.m_proj)
-        self.program["m_view"].write(self.camera.m_view)
+        self.program["m_proj"].write(self.app.camera.m_proj)
+        self.program["m_view"].write(self.app.camera.m_view)
         self.program["m_model"].write(self.m_model)
         # light
         self.program["light.position"].write(self.app.light.position)
@@ -35,8 +35,8 @@ class Cube(BaseShadowModel):
 
     def update(self):
         self.texture.use(location=0)
-        self.program["camPos"].write(self.camera.position)
-        self.program["m_view"].write(self.camera.m_view)
+        self.program["camPos"].write(self.app.camera.position)
+        self.program["m_view"].write(self.app.camera.m_view)
         self.program["m_model"].write(self.m_model)
 
         self.update_light()

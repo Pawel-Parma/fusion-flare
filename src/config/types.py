@@ -8,4 +8,9 @@ class ToShow(enum.Enum):
     END_GAME_MENU = 3
 
 
+class CameraType(enum.Enum):
+    SPECTATOR = 0
+    PHYSICS = 1
+
+
 del enum
