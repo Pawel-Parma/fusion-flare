@@ -1,2 +1,2 @@
-from .spectator_player import *
-from .physics_player import *
+from .spectator import SpectatorPlayer
+from .physics import PhysicsPlayer

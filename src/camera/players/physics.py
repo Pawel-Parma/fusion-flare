@@ -2,7 +2,7 @@ import pygame as pg
 import glm
 
 from config import *
-from .spectator_player import SpectatorPlayer
+from .spectator import SpectatorPlayer
 
 
 class PhysicsPlayer(SpectatorPlayer):
