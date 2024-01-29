@@ -84,8 +84,10 @@ class GraphicsEngine:
         # light
         self.light = CameraFollowingLight(self, Light(position=(0, 0, 0), specular=0))
         # player
-        # self.camera = PhysicsPlayer(self, position=(0, 0, 0))
-        self.camera = SpectatorPlayer(self)
+        self.physics_player = PhysicsPlayer(self, position=(0, 0, 0))
+        self.spectator_player = SpectatorPlayer(self)
+        self.current_camera = CameraType.PHYSICS
+        self.camera = self.physics_player
         # mesh
         self.mesh = Mesh(self)
         # game scene
@@ -98,6 +100,18 @@ class GraphicsEngine:
     def get_time(self) -> float:
         self.time = pg.time.get_ticks() * 0.001
         return self.time
+
+    def swap_camera(self, camera_to_use):
+        camera = self.camera
+        self.camera = camera_to_use
+        self.camera.position = camera.position
+        self.camera.yaw = camera.yaw
+        self.camera.pitch = camera.pitch
+        self.camera.up = camera.up
+        self.camera.right = camera.right
+        self.camera.front = camera.front
+        self.camera.m_view = camera.m_view
+        self.camera.m_proj = camera.m_proj
 
     def handle_events(self) -> None:
         for event in pg.event.get():
@@ -113,6 +127,16 @@ class GraphicsEngine:
 
                     elif self.show == ToShow.MAIN_MENU:
                         self.show = ToShow.GAME
+
+                if event.key == pg.K_F1:
+                    match self.current_camera:
+                        case CameraType.PHYSICS:
+                            self.current_camera = CameraType.SPECTATOR
+                            self.swap_camera(self.spectator_player)
+
+                        case CameraType.SPECTATOR:
+                            self.current_camera = CameraType.PHYSICS
+                            self.swap_camera(self.physics_player)
 
     def render(self):
         # background color
