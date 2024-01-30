@@ -9,7 +9,13 @@ MAZE_LENGHT = 80
 FPS: int = 60
 DISABLE_SHADOW_RENDER: bool = True
 
-SKY_COLOR: glm.vec3 = glm.normalize(glm.vec3(90, 208, 255))
+
+def normalize_color(r, g, b):
+    return glm.vec3(r, g, b) / 255
+
+
+SKY_COLOR: glm.vec3 = normalize_color(90, 208, 255)
+MENU_COLOR: glm.vec3 = normalize_color(70, 70, 70)
 
 PI = glm.pi()
 

@@ -161,7 +161,7 @@ class GraphicsEngine:
 
     def render_menu(self):
         # background color
-        self.ctx.clear(0.23, 0.23, 0.23)
+        self.ctx.clear(*MENU_COLOR)
         # render scene
         self.menu_scene_renderer.render()
         self.camera.update()

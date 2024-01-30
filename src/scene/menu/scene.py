@@ -16,11 +16,8 @@ class MenuScene:
         app = self.app
         add = self.add_object
 
-        add(Button(app, "none", position=(-1, -1, 0), rotation=(73, 43, 0)))
-        add(Cube(app, "black", position=(-1, -2, 0), rotation=(73, 43, 0)))
-        add(Button(app, "none", position=(-1, -3, 0), rotation=(73, 43, 0)))
-        add(Cube(app, "white", position=(-1, -4, 0), rotation=(73, 43, 0)))
-        add(Button(app, "none", position=(-1, -5, 0), rotation=(73, 43, 0)))
+        add(Button(app, position=(-1, -1, 2), color=(125, 125, 125), hover_color=(255, 255, 255)))
+        add(Cube(app, "white", position=(0, 0, 0), rotation=(0, 0, 0), scale=(1, 1, 1)))
 
     def update(self):
         pass

@@ -29,7 +29,6 @@ class GameScene:
                     add(Cube(app, texture_id="img", position=(x, -s + 2, z)))
 
                 elif self.maze[int((x + MAZE_WIDTH) / s)][int((z + MAZE_LENGHT) / s)] == "s":
-                    print(x, z)
                     for y in range(2, 6, s):
                         add(Cube(app, texture_id="img_2", position=(x, -s + y, z)))
 
