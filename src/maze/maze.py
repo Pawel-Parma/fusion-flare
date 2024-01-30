@@ -17,22 +17,25 @@ def generate_maze(width: int, lenght: int):  # TODO: make better (real generatio
                 maze[i].append(random.choice(("#", "#", "#", ".", ".", ".", ".")))
 
     start = random.randint(1, width - 2), random.randint(1, lenght - 2)
+    maze[start[0]][start[1]] = "s"
     end = random.randint(1, width - 2), random.randint(1, lenght - 2)
+    maze[end[0]][end[1]] = "e"
 
-    maze[start[1]][start[0]] = "s"
-    maze[end[1]][end[0]] = "e"
-
-    maze[lenght // 2 - 1][width // 2] = "."
-    maze[lenght // 2 - 1][width // 2 - 1] = "."
-    maze[lenght // 2 - 1][width // 2 + 1] = "."
-    maze[lenght // 2 + 1][width // 2] = "."
-    maze[lenght // 2 + 1][width // 2 - 1] = "."
-    maze[lenght // 2 + 1][width // 2 + 1] = "."
-    maze[lenght // 2][width // 2] = "."
-    maze[lenght // 2][width // 2 - 1] = "."
-    maze[lenght // 2][width // 2 + 1] = "."
+    make_empty_around(maze, lenght, width, start)
+    make_empty_around(maze, lenght, width, end)
 
     return maze, start, end
+
+
+def make_empty_around(maze, lenght, width, point):
+    x, y = point
+    prev = maze[x][y]
+    for i in range(-1, 2):
+        for j in range(-1, 2):
+            if 0 <= x + i < lenght and 0 <= y + j < width:
+                maze[x + i][y + j] = "."
+
+    maze[x][y] = prev
 
 
 class Maze:
