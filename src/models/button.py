@@ -4,7 +4,7 @@ import pygame as pg
 from .base import BaseModel
 
 
-class Button(BaseModel):
+class Button(BaseModel):  #
     def __init__(self, app, position, color, hover_color, rotation=(0, 0, 0), scale=(1, 1, 1)):
         super().__init__(app, "button", "none", position, rotation, scale)
         self.color = np.array(np.array(color) / 255, dtype="f4")
