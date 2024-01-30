@@ -7,7 +7,7 @@ from config import *
 from camera import SpectatorPlayer, PhysicsPlayer
 from light import Light, CameraFollowingLight
 from opengl_pipeline import Mesh
-from scene import GameScene, GameSceneRenderer, MenuScene, MenuSceneRenderer
+from scenes import GameScene, GameSceneRenderer, MenuScene, MenuSceneRenderer
 from maze import Maze
 
 # GAME
