@@ -12,7 +12,7 @@ from maze import Maze
 
 # GAME
 # TODO: Make faster by utilising chunks and not rendering everything at once
-# TODO: add f3 debug screen
+# TODO: add debug screen (F3)
 
 # TODO: Make main menu and its functionality
 # Play button and screen
@@ -139,35 +139,37 @@ class GraphicsEngine:
                             self.swap_camera(self.physics_player)
 
     def render(self):
+        match self.show:
+            case ToShow.GAME:
+                self.render_game()
+
+            case ToShow.MAIN_MENU:
+                self.render_menu()
+
+        self.light.update()
+        # swap buffers
+        pg.display.flip()
+
+    def render_game(self):
         # background color
         self.ctx.clear(*SKY_COLOR)
         # render scene
         self.game_scene_renderer.render()
-
-    def render_game(self):
-        self.render()
+        # update camera
         self.camera.update()
-        self.light.update()
 
     def render_menu(self):
-        # red=0.0, green=0.0, blue=0.0, alpha=0.0, depth=1.0, viewport=None, color=None
-        self.ctx.clear(0.23, 0.23, 0.23, alpha=-100.5, depth=1, viewport=None)
+        # background color
+        self.ctx.clear(0.23, 0.23, 0.23)
+        # render scene
         self.menu_scene_renderer.render()
+        self.camera.update()
 
     def mainloop(self):
         while self.run:
             pg.display.set_caption(f"Labiryntho | FPS: {self.clock.get_fps():.2f}")
             self.delta_time = self.clock.tick()  # FPS
-
-            match self.show:
-                case ToShow.GAME:
-                    self.render_game()
-
-                case ToShow.MAIN_MENU:
-                    self.render_menu()
-
-            # swap buffers
-            pg.display.flip()
+            self.render()
             self.handle_events()
             self.get_time()
 

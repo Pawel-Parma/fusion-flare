@@ -16,7 +16,8 @@ class MenuScene:
         app = self.app
         add = self.add_object
 
-        add(Button(app, "img", (0, 0, 0), scale=(0.5, 0.5, 0.5)))
+        add(Cube(app, "none", position=(0, -3, 0), scale=(1, 2, 0.0000000000001)))
+        add(Button(app, "none", position=(-1, -1, 0), rotation=(73, 43, 0)))
 
     def update(self):
         pass
