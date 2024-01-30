@@ -8,8 +8,7 @@ class Button(BaseModel):
         self.on_init()
 
     def on_init(self):
-        # self.program["in_position"].write(self.position)
-        ...
+        self.program["m_proj"].write(self.app.camera.m_proj)
 
     def change_to_hover_texture(self):
         ...
@@ -30,5 +29,7 @@ class Button(BaseModel):
                 self.func_on_click()
 
     def render(self):
+        self.program["m_model"].write(self.m_model)
+        self.program["m_view"].write(self.app.camera.m_view)
         super().render()
         self.update()
