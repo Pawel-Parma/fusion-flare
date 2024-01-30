@@ -13,8 +13,11 @@ class Texture:
         self.ctx = app.ctx
 
         self.textures = {"none": self.get_texture(),
+                         "white": self.get_texture("white"),
+                         "black": self.get_texture("black"),
                          "img": self.get_texture("img", color=(255, 0, 0)),
                          "img_1": self.get_texture("img_1", color=(213, 140, 120)),
+                         "img_2": self.get_texture("img_2", color=(2, 255, 22)),
 
                          "depth_texture": self.get_depth_texture()}
 

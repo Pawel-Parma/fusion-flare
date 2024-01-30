@@ -81,10 +81,11 @@ class GraphicsEngine:
         self.delta_time = 0
         # maze
         self.maze = Maze(MAZE_WIDTH, MAZE_LENGHT)
+        start_position = (self.maze.start[0] * 2 - MAZE_WIDTH, 0, self.maze.start[1] * 2 - MAZE_LENGHT)
         # light
         self.light = CameraFollowingLight(self, Light(position=(0, 0, 0), specular=0))
         # player
-        self.physics_player = PhysicsPlayer(self, position=(0, 0, 0))
+        self.physics_player = PhysicsPlayer(self, position=start_position)
         self.spectator_player = SpectatorPlayer(self)
         self.current_camera = CameraType.PHYSICS
         self.camera = self.physics_player
