@@ -9,7 +9,6 @@ class Button(BaseModel):
         super().__init__(app, "button", "none", position, rotation, scale)
         self.color = np.array(np.array(color) / 255, dtype="f4")
         self.hover_color = np.array(np.array(hover_color) / 255, dtype="f4")
-        self.current_color = self.color
         self.func_on_click = lambda: None
         self.button_up: Button | None = None
         self.button_down: Button | None = None
@@ -20,7 +19,7 @@ class Button(BaseModel):
 
     def on_init(self):
         self.program["m_proj"].write(self.app.camera.m_proj)
-        self.program["color"].write(self.current_color)
+        self.program["color"].write(self.hover_color if self.is_chosen else self.color)
 
     def up_button(self, button):
         self.button_up = button
@@ -34,29 +33,21 @@ class Button(BaseModel):
     def right_button(self, button):
         self.button_right = button
 
-    @staticmethod
-    def is_clicked():
-        keys = pg.key.get_pressed()
-        if keys[pg.K_RETURN] or keys[pg.K_SPACE]:
-            return True
+    def is_clicked(self):
+        if self.is_chosen:
+            keys = pg.key.get_pressed()
+            if keys[pg.K_RETURN] or keys[pg.K_SPACE]:
+                return True
 
         return False
 
-    def set_to_chosen_color(self):
-        self.current_color = self.hover_color
-        self.program["color"].write(self.current_color)
-
-    def set_to_not_chosen_color(self):
-        self.current_color = self.color
-        self.program["color"].write(self.current_color)
-
     def set_chosen(self):
         self.is_chosen = True
-        self.set_to_chosen_color()
+        self.program["color"].write(self.hover_color)
 
     def set_not_chosen(self):
         self.is_chosen = False
-        self.set_to_not_chosen_color()
+        self.program["color"].write(self.color)
 
     def listen_for_change(self):
         keys = pg.key.get_pressed()
@@ -85,10 +76,9 @@ class Button(BaseModel):
 
     def update(self):
         self.listen_for_change()
-        if self.is_chosen:
-            if self.is_clicked():
-                self.func_on_click()
+        if self.is_clicked():
+            self.func_on_click()
 
         self.program["m_model"].write(self.m_model)
         self.program["m_view"].write(self.app.camera.m_view)
-        self.program["color"].write(self.current_color)
+        self.program["color"].write(self.hover_color if self.is_chosen else self.color)

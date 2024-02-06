@@ -1,6 +1,11 @@
 import glm
 
 
+LOGGER_NAME: str = "base_logger"
+
+APP_NAME: str = "Labiryntho"
+ICON_NAME: str = "logo.png"
+
 WINDOW_WIDTH: int = 1200
 WINDOW_HEIGHT: int = 700
 WINDOW_SIZE = (WINDOW_WIDTH, WINDOW_HEIGHT)
