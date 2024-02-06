@@ -66,8 +66,8 @@ class GraphicsEngine:
         # create OpenGL context
         pg.display.set_mode(size=(WINDOW_WIDTH, WINDOW_HEIGHT), flags=(pg.DOUBLEBUF | pg.OPENGL))
         # window settings
-        pg.display.set_caption("Labiryntho")
-        pg.display.set_icon(pg.image.load(op.join(IMAGES_DIR, "logo.png")))
+        pg.display.set_caption(APP_NAME)
+        pg.display.set_icon(pg.image.load(op.join(IMAGES_DIR, ICON_NAME)))
         # mouse settings
         pg.event.set_grab(True)
         pg.mouse.set_visible(False)
