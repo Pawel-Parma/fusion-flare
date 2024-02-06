@@ -4,7 +4,7 @@ import pygame as pg
 from .base import BaseModel
 
 
-class Button(BaseModel):  #
+class Button(BaseModel):
     def __init__(self, app, position, color, hover_color, rotation=(0, 0, 0), scale=(1, 1, 1)):
         super().__init__(app, "button", "none", position, rotation, scale)
         self.color = np.array(np.array(color) / 255, dtype="f4")
@@ -89,9 +89,6 @@ class Button(BaseModel):  #
             if self.is_clicked():
                 self.func_on_click()
 
-    def render(self):
         self.program["m_model"].write(self.m_model)
         self.program["m_view"].write(self.app.camera.m_view)
-        super().render()
-        self.update()
         self.program["color"].write(self.current_color)
