@@ -2,6 +2,7 @@ import glm
 
 
 LOGGER_NAME: str = "base_logger"
+LOGS_DIR: str = "../logs"
 
 APP_NAME: str = "Labiryntho"
 ICON_NAME: str = "logo.png"

@@ -3,12 +3,11 @@ import logging
 import logging.config
 
 from functools import wraps
-from inspect import ismethod
 
-import config.consts as consts
+from .consts import *
 
 
-logger = logging.getLogger(consts.LOGGER_NAME)
+logger = logging.getLogger(LOGGER_NAME)
 
 
 config = {
@@ -37,13 +36,13 @@ config = {
             "class": "logging.handlers.RotatingFileHandler",
             "level": "DEBUG",
             "formatter": "simple",
-            "filename": f"../logs/{consts.APP_NAME}.log",
-            "maxBytes": 1, # 16384,
+            "filename": f"{LOGS_DIR}/{APP_NAME}.log",
+            "maxBytes": 16384,
             "backupCount": 16,
         }
     },
     "loggers": {
-        consts.LOGGER_NAME: {
+        LOGGER_NAME: {
             "level": "DEBUG",
             "handlers": ["stdout", "stderr", "file"],
         }
@@ -54,22 +53,27 @@ logging.config.dictConfig(config)
 
 
 class LogLevel(enum.IntEnum):  # Values from logging module into enum
-    CRITICAL = 50
-    FATAL = CRITICAL
-    ERROR = 40
-    WARNING = 30
-    WARN = WARNING
-    INFO = 20
-    DEBUG = 10
-    NOTSET = 0
+    CRITICAL = logging.CRITICAL
+    FATAL = logging.FATAL
+    ERROR = logging.ERROR
+    WARNING = logging.WARNING
+    WARN = logging.WARN
+    INFO = logging.INFO
+    DEBUG = logging.DEBUG
+    NOTSET = logging.NOTSET
 
 
-def log(level: LogLevel = LogLevel.INFO, message=""):
+def log(msg, level: LogLevel = LogLevel.INFO):
+    logger.log(level, msg)
+
+
+def log_func(level: LogLevel = LogLevel.INFO, msg=""):
     def decorator(func):
         @wraps(func)
         def wrapper(*args, **kwargs):
-            real_message = f" with message: {message}" if message else ""
-            logger.log(level, f"function ({func.__name__}) called{real_message}")
+            real_msg = f" with message: {msg}" if msg else ""
+            log_msg = f"function ({func.__name__}) called{real_msg}"
+            log(log_msg, level)
             return func(*args, **kwargs)
 
         return wrapper
