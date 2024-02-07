@@ -1,3 +1,4 @@
+import os
 import enum
 import logging
 import logging.config
@@ -8,6 +9,9 @@ from .consts import *
 
 
 logger = logging.getLogger(LOGGER_NAME)
+
+
+os.makedirs(LOGS_DIR, exist_ok=True)
 
 
 config = {
@@ -37,8 +41,8 @@ config = {
             "level": "DEBUG",
             "formatter": "simple",
             "filename": f"{LOGS_DIR}/{APP_NAME}.log",
-            "maxBytes": 16384,
-            "backupCount": 16,
+            "maxBytes": 262144,
+            "backupCount": 64,
         }
     },
     "loggers": {
