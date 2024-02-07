@@ -17,22 +17,11 @@ class MenuScene:
         app = self.app
         add = self.add_object
         buttons = []
-        colors = [(238, 174, 22),   # Yellow
-                  (222, 97, 2),     # Orange
-                  (140, 32, 32),    # Red
-                  (100, 32, 155),   # Purple
-                  (168, 49, 158),   # Magenta
-                  (211, 100, 141),  # Pink
-                  (93, 167, 24),    # Green
-                  (35, 133, 195),   # Blue
-                  (44, 46, 142)]    # Indigo
 
-        color_index = len(colors) - 1
         for i in range(-1, 2):
             for j in range(-1, 2):
-                button = Button(app, position=(-4 * j, 4 * i, 0), color=colors[color_index], hover_color=(9, 11, 16))
+                button = Button(app, position=(4 * j, -4 * i, 0), default_texture="black", hover_texture="white")
                 buttons.append(add(button))
-                color_index -= 1
 
         buttons[0].right_button(buttons[1])
         buttons[0].down_button(buttons[3])
