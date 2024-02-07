@@ -65,5 +65,13 @@ class MenuScene:
             for j in range(-1, 2):
                 add(Cube(app, "white", position=(2 + 4 * i, 4 * j, 0), rotation=(0, 0, 0), scale=(1, 1, 1)))
 
+        add(Cube(app, "white", position=(0, 10, 0), rotation=(0, 0, 0), scale=(1, 1, 1)))
+        add(Cube(app, "white", position=(2, 8, 0), rotation=(0, 0, 0), scale=(1, 1, 1)))
+        add(Cube(app, "white", position=(-2, 8, 0), rotation=(0, 0, 0), scale=(1, 1, 1)))
+
+        add(Cube(app, "none", position=(0, 8, 0), rotation=(0, 0, 0), scale=(1, 1, 1), alpha=0.5))
+
+
+
     def update(self):
         pass

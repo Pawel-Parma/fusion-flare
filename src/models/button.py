@@ -5,8 +5,6 @@ import pygame as pg
 
 from .base import BaseModel
 
-from config import *
-
 
 class Button(BaseModel):
     def __init__(self, app, position, default_texture, hover_texture, delay_time=0.15, rotation=(0, 0, 0),

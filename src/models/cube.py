@@ -1,4 +1,5 @@
 import abc
+import struct
 
 import numpy as np
 import moderngl as mgl
@@ -9,7 +10,8 @@ from .base import BaseShadowModel
 
 
 class Cube(BaseShadowModel):
-    def __init__(self, app, texture_id, position, rotation=(0, 0, 0), scale=(1, 1, 1)):
+    def __init__(self, app, texture_id, position, rotation=(0, 0, 0), scale=(1, 1, 1), alpha=1.0):
+        self.alpha = struct.pack('f', alpha)
         super().__init__(app, "cube", texture_id, position, rotation, scale)
         self.on_init()
 
@@ -28,6 +30,8 @@ class Cube(BaseShadowModel):
         self.program["light.Ia"].write(self.app.light.Ia)
         self.program["light.Id"].write(self.app.light.Id)
         self.program["light.Is"].write(self.app.light.Is)
+        # alpha
+        self.program["alpha"].write(self.alpha)
 
     def update_light(self):
         if self.app.light.can_change_position():
@@ -38,4 +42,5 @@ class Cube(BaseShadowModel):
         self.texture.use(location=0)
         self.program["camPos"].write(self.app.camera.position)
         self.program["m_view"].write(self.app.camera.m_view)
+        self.program["alpha"].write(self.alpha)
         self.update_light()
