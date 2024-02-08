@@ -55,7 +55,7 @@ from maze import Maze
 class GraphicsEngine:
     def __init__(self):
         self.run: bool = True
-        self.show = ToShow.GAME
+        self.show = ToShow.MAIN_MENU
         # init pygame
         pg.init()
         # set OpenGL version
