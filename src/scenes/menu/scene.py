@@ -16,62 +16,35 @@ class MenuScene:
     def load(self):
         app = self.app
         add = self.add_object
-        buttons = []
 
-        for i in range(-1, 2):
-            for j in range(-1, 2):
-                button = Button(app, position=(4 * j, -4 * i, 0), default_texture="black", hover_texture="white")
-                buttons.append(add(button))
+        # game name
+        """
+        add(Text(app, "Maze", (0, 0.5, 0), scale=(0.5, 0.5, 0.5)))  # TEXT DOESN'T EXIST YET
+        """
 
-        buttons[0].right_button(buttons[1])
-        buttons[0].down_button(buttons[3])
+        # buttons
+        hover_texture = "white"
+        # play
+        play_button = add(Button(app, (0, -0.5, 0), "img_2", hover_texture, scale=(1.5, 0.5, 1)))
+        play_button.func_on_click = app.play
+        # history
+        history_button = add(Button(app, (0, -2, 0), "black", hover_texture, scale=(1.5, 0.5, 1)))
+        # settings
+        settings_button = add(Button(app, (0, -3.5, 0), "black", hover_texture, scale=(1.5, 0.5, 1)))
+        # exit
+        exit_button = add(Button(app, (6, -3.5, 0), "img", hover_texture, scale=(1.5, 0.5, 1), is_dynamic=True))
+        exit_button.func_on_click = app.quit
 
-        buttons[1].left_button(buttons[0])
-        buttons[1].right_button(buttons[2])
-        buttons[1].down_button(buttons[4])
+        play_button.set_chosen()
+        play_button.right_button(exit_button)
+        play_button.down_button(history_button)
 
-        buttons[2].left_button(buttons[1])
-        buttons[2].down_button(buttons[5])
+        history_button.up_button(play_button)
+        history_button.right_button(exit_button)
+        history_button.down_button(settings_button)
 
-        buttons[3].up_button(buttons[0])
-        buttons[3].right_button(buttons[4])
-        buttons[3].down_button(buttons[6])
-
-        buttons[4].up_button(buttons[1])
-        buttons[4].left_button(buttons[3])
-        buttons[4].right_button(buttons[5])
-        buttons[4].down_button(buttons[7])
-        buttons[4].set_chosen()
-
-        buttons[5].up_button(buttons[2])
-        buttons[5].left_button(buttons[4])
-        buttons[5].down_button(buttons[8])
-
-        buttons[6].up_button(buttons[3])
-        buttons[6].right_button(buttons[7])
-
-        buttons[7].up_button(buttons[4])
-        buttons[7].left_button(buttons[6])
-        buttons[7].right_button(buttons[8])
-
-        buttons[8].up_button(buttons[5])
-        buttons[8].left_button(buttons[7])
-
-        for i in range(-2, 2):
-            for j in range(-3, 4):
-                add(Cube(app, "white", position=(2 * j, 2 + 4 * i, 0), rotation=(0, 0, 0), scale=(1, 1, 1)))
-
-        for i in range(-2, 2):
-            for j in range(-1, 2):
-                add(Cube(app, "white", position=(2 + 4 * i, 4 * j, 0), rotation=(0, 0, 0), scale=(1, 1, 1)))
-
-        add(Cube(app, "white", position=(0, 10, 0), rotation=(0, 0, 0), scale=(1, 1, 1)))
-        add(Cube(app, "white", position=(2, 8, 0), rotation=(0, 0, 0), scale=(1, 1, 1)))
-        add(Cube(app, "white", position=(-2, 8, 0), rotation=(0, 0, 0), scale=(1, 1, 1)))
-
-        add(Cube(app, "none", position=(0, 8, 0), rotation=(0, 0, 0), scale=(1, 1, 1), alpha=0.5))
-
-
+        settings_button.up_button(history_button)
+        settings_button.right_button(exit_button)
 
     def update(self):
         pass

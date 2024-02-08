@@ -114,11 +114,17 @@ class GraphicsEngine:
         self.camera.m_view = camera.m_view
         self.camera.m_proj = camera.m_proj
 
+    def quit(self):
+        pg.quit()
+        self.run = False
+
+    def play(self):
+        self.show = ToShow.GAME
+
     def handle_events(self):
         for event in pg.event.get():
             if event.type == pg.QUIT:
-                pg.quit()
-                self.run = False
+                self.quit()
 
             # FOR TESTING
             if event.type == pg.KEYDOWN:
@@ -129,6 +135,7 @@ class GraphicsEngine:
                     elif self.show == ToShow.MAIN_MENU:
                         self.show = ToShow.GAME
 
+                # CHEAT CODES
                 if event.key == pg.K_F1:
                     match self.current_camera:
                         case CameraType.PHYSICS:
@@ -164,7 +171,15 @@ class GraphicsEngine:
         self.ctx.clear(*MENU_COLOR)
         # render scene
         self.menu_scene_renderer.render()
-        self.camera.update()
+
+        # remove in the future
+        self.camera.position.x = 0
+        self.camera.position.y = 0
+        self.camera.position.z = 10
+        self.camera.yaw = 4.72
+        self.camera.pitch = 0
+        self.camera.update_vectors()
+        self.camera.update_view_matirx()
 
     def mainloop(self):
         while self.run:
