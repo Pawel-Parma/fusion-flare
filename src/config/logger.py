@@ -2,6 +2,7 @@ import os
 import enum
 import logging
 import logging.config
+# import atexit
 
 from functools import wraps
 
@@ -12,12 +13,18 @@ logger = logging.getLogger(LOGGER_NAME)
 os.makedirs(LOGS_DIR, exist_ok=True)
 
 
-class LogFilter(logging.Filter):
+class StdoutLogFilter(logging.Filter):
     def filter(self, record: logging.LogRecord) -> bool | logging.LogRecord:
         return record.levelno < logging.ERROR
 
 
-log_filter = LogFilter()
+class FileLogFilter(logging.Filter):
+    def filter(self, record: logging.LogRecord) -> bool | logging.LogRecord:
+        return record.levelno > logging.INFO
+
+
+stdout_log_filter = StdoutLogFilter()
+file_log_filter = FileLogFilter()
 
 config = {
     "version": 1,
@@ -46,10 +53,16 @@ config = {
             "class": "logging.handlers.RotatingFileHandler",
             "level": "DEBUG",
             "formatter": "simple",
+            "filters": [file_log_filter],
             "filename": f"{LOGS_DIR}/{APP_NAME}.log",
-            "maxBytes": 262144,
+            "maxBytes": 524288,
             "backupCount": 64,
-        }
+        },
+        # "queue_handler": {
+        #     "class": "logging.handlers.QueueHandler",
+        #     "handlers": ["stdout", "stderr", "file"],
+        #     "respect_handler_level": true
+        # },
     },
     "loggers": {
         LOGGER_NAME: {
@@ -60,6 +73,10 @@ config = {
 }
 
 logging.config.dictConfig(config)
+# queue_handler = logging.getHandlerByName("queue_handler")
+# if queue_handler is not None:
+#     queue_handler.listener.start()
+#     atexit.register(queue_handler.listener.stop)
 
 
 class LogLevel(enum.IntEnum):  # Values from logging module into enum
