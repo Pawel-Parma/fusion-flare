@@ -9,10 +9,15 @@ from .consts import *
 
 
 logger = logging.getLogger(LOGGER_NAME)
-
-
 os.makedirs(LOGS_DIR, exist_ok=True)
 
+
+class LogFilter(logging.Filter):
+    def filter(self, record: logging.LogRecord) -> bool | logging.LogRecord:
+        return record.levelno < logging.ERROR
+
+
+log_filter = LogFilter()
 
 config = {
     "version": 1,
@@ -20,7 +25,7 @@ config = {
     "formatters": {
         "simple": {
             "format": "%(levelname)s - %(message)s",
-            "datefmt": "%Y-%m-%dT%H:%M:%S%z"
+            "datefmt": "%Y-%m-%dT%H:%M:%S%z",
         },
     },
     "handlers": {
@@ -28,13 +33,14 @@ config = {
             "class": "logging.StreamHandler",
             "level": "DEBUG",
             "formatter": "simple",
-            "stream": "ext://sys.stdout"
+            "filters": [log_filter],
+            "stream": "ext://sys.stdout",
         },
         "stderr": {
             "class": "logging.StreamHandler",
             "level": "ERROR",
             "formatter": "simple",
-            "stream": "ext://sys.stderr"
+            "stream": "ext://sys.stderr",
         },
         "file": {
             "class": "logging.handlers.RotatingFileHandler",
