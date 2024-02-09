@@ -11,7 +11,7 @@ from scenes import GameScene, GameSceneRenderer, MenuScene, MenuSceneRenderer
 from maze import Maze
 
 # GAME
-# TODO: Make faster by utilising chunks and not rendering everything at once
+# TODO: Make faster by utilising chunks and not rendering everything at once, more culling
 # TODO: add debug screen (F3)
 
 # TODO: Make main menu and its functionality
@@ -43,19 +43,49 @@ from maze import Maze
 # TODO: show time, coins and score when playing
 
 # TODO: IF TIME
-# Make coin power-ups [has compass, shows where to go, speed boost, etc.]
 # Custom music and sound
+# Make coin power-ups [has compass, shows where to go, speed boost, etc.]
 # Add shop
-# Custom textures [for player to load]
-# Allow 3D with stairs [another hard one]
-# enemies)
-# Make custom map generator and creator [might be hard]
+# Allow true 3D with stairs
+# Enemies
+# Make custom map generator
+
+
+class KeyBinds:
+    def __init__(self):
+        # Keys:
+        #  - Cheat Codes
+        self.spectator_camera = pg.K_F1
+        self.tab = pg.K_TAB
+        #  - Menu
+        self.button_up = (pg.K_w, pg.K_UP)
+        self.button_down = (pg.K_s, pg.K_DOWN)
+        self.button_left = (pg.K_a, pg.K_LEFT)
+        self.button_right = (pg.K_d, pg.K_RIGHT)
+        self.button_press = (pg.K_RETURN, pg.K_SPACE)
+        self.esc_menu = pg.K_ESCAPE
+        #  - Movement
+        self.camera_up = pg.K_SPACE
+        self.camera_down = pg.K_LSHIFT
+        self.camera_forward = pg.K_w
+        self.camera_backward = pg.K_s
+        self.camera_left = pg.K_a
+        self.camera_right = pg.K_d
+
+    def reset_movement_keys(self):
+        self.forward = pg.K_w
+        self.backward = pg.K_s
+        self.left = pg.K_a
+        self.right = pg.K_d
+        self.up = pg.K_SPACE
+        self.down = pg.K_LSHIFT
 
 
 class GraphicsEngine:
     def __init__(self):
         self.run: bool = True
         self.show = ToShow.MAIN_MENU
+        self.key_binds = KeyBinds()
         # init pygame
         pg.init()
         # set OpenGL version
@@ -67,7 +97,7 @@ class GraphicsEngine:
         pg.display.set_mode(size=(WINDOW_WIDTH, WINDOW_HEIGHT), flags=(pg.DOUBLEBUF | pg.OPENGL))
         # window settings
         pg.display.set_caption(APP_NAME)
-        pg.display.set_icon(pg.image.load(op.join(IMAGES_DIR, ICON_NAME)))
+        pg.display.set_icon(pg.image.load(f"{IMAGES_DIR}/{ICON_NAME}"))
         # mouse settings
         pg.event.set_grab(True)
         pg.mouse.set_visible(False)
@@ -100,7 +130,6 @@ class GraphicsEngine:
 
     def get_time(self):
         self.time = pg.time.get_ticks() * 0.001
-        return self.time
 
     def swap_camera(self, camera_to_use):
         camera = self.camera
@@ -126,17 +155,18 @@ class GraphicsEngine:
             if event.type == pg.QUIT:
                 self.quit()
 
-            # FOR TESTING
             if event.type == pg.KEYDOWN:
-                if event.key == pg.K_TAB:
-                    if self.show == ToShow.GAME:
-                        self.show = ToShow.MAIN_MENU
+                # FOR TESTING
+                if event.key == self.key_binds.tab:
+                    match self.show:
+                        case ToShow.GAME:
+                            self.show = ToShow.MAIN_MENU
 
-                    elif self.show == ToShow.MAIN_MENU:
-                        self.show = ToShow.GAME
+                        case ToShow.MAIN_MENU:
+                            self.show = ToShow.GAME
 
                 # CHEAT CODES
-                if event.key == pg.K_F1:
+                if event.key == self.key_binds.spectator_camera:
                     match self.current_camera:
                         case CameraType.PHYSICS:
                             self.current_camera = CameraType.SPECTATOR
@@ -152,7 +182,7 @@ class GraphicsEngine:
                 self.render_game()
 
             case ToShow.MAIN_MENU:
-                self.render_menu()
+                self.render_main_menu()
 
         self.light.update()
         # swap buffers
@@ -166,7 +196,7 @@ class GraphicsEngine:
         # update camera
         self.camera.update()
 
-    def render_menu(self):
+    def render_main_menu(self):
         # background color
         self.ctx.clear(*MENU_COLOR)
         # render scene
@@ -188,8 +218,6 @@ class GraphicsEngine:
             self.render()
             self.handle_events()
             self.get_time()
-
-        print()
 
 
 if __name__ == "__main__":

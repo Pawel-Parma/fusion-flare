@@ -21,11 +21,11 @@ class Texture:
 
                          "depth_texture": self.get_depth_texture()}
 
-        self.textures_list = {t[:t.rfind(".")] for t in os.listdir(TEXTURES_DIR) if op.isfile(op.join(TEXTURES_DIR, t))}
+        self.textures_list = {t[:t.rfind(".")] for t in os.listdir(TEXTURES_DIR)}
         self.textures_list.update(set(self.textures))
 
     def get_texture(self, name="none", extension=".png", color=None):
-        texture = pg.image.load(op.join(TEXTURES_DIR, name + extension)).convert()
+        texture = pg.image.load(f"{TEXTURES_DIR}/{name}{extension}").convert()
         texture = pg.transform.flip(texture, flip_x=False, flip_y=True)
         if color:
             texture.fill(color, special_flags=pg.BLEND_MULT)

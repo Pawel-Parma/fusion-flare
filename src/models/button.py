@@ -10,6 +10,7 @@ class Button(BaseModel):
     def __init__(self, app, position, default_texture, hover_texture, delay_time=0.15, rotation=(0, 0, 0),
                  scale=(1, 1, 1), is_dynamic=False):
         super().__init__(app, "button", "none", position, rotation, scale)
+        self.key_binds = app.key_binds
         self.func_on_click = lambda: None
         self.button_up: Button | None = None
         self.button_up_taken = False
@@ -59,7 +60,7 @@ class Button(BaseModel):
     def is_clicked(self):
         if self.is_chosen:
             keys = pg.key.get_pressed()
-            if keys[pg.K_RETURN] or keys[pg.K_SPACE]:
+            if keys[self.key_binds.button_press[0]] or keys[self.key_binds.button_press[1]]:
                 return True
 
         return False
@@ -103,22 +104,22 @@ class Button(BaseModel):
             return
 
         keys = pg.key.get_pressed()
-        if keys[pg.K_w]:
+        if keys[self.key_binds.button_up[0]] or keys[self.key_binds.button_up[1]]:
             if self.button_up:
                 self.set_not_chosen(current_time)
                 self.button_up.set_chosen(button_and_id=(self, "up"))
 
-        elif keys[pg.K_s]:
+        elif keys[self.key_binds.button_down[0]] or keys[self.key_binds.button_down[1]]:
             if self.button_down:
                 self.set_not_chosen(current_time)
                 self.button_down.set_chosen(button_and_id=(self, "down"))
 
-        elif keys[pg.K_a]:
+        elif keys[self.key_binds.button_left[0]] or keys[self.key_binds.button_left[1]]:
             if self.button_left:
                 self.set_not_chosen(current_time)
                 self.button_left.set_chosen(button_and_id=(self, "left"))
 
-        elif keys[pg.K_d]:
+        elif keys[self.key_binds.button_right[0]] or keys[self.key_binds.button_right[1]]:
             if self.button_right:
                 self.set_not_chosen(current_time)
                 self.button_right.set_chosen(button_and_id=(self, "right"))
