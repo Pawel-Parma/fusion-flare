@@ -40,7 +40,7 @@ config = {
             "class": "logging.StreamHandler",
             "level": "DEBUG",
             "formatter": "simple",
-            "filters": [log_filter],
+            "filters": [stdout_log_filter],
             "stream": "ext://sys.stdout",
         },
         "stderr": {
