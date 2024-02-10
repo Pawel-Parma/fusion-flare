@@ -1,4 +1,6 @@
 import glm
+import typing
+import json
 
 
 LOGGER_NAME: str = "base_logger"
@@ -25,6 +27,7 @@ MENU_COLOR: glm.vec3 = normalize_color(70, 70, 70)
 
 PI = glm.pi()
 
+FONTS_DIR: str = "../fonts/"
 SHADERS_DIR: str = "../shaders/"
 TEXTURES_DIR: str = "../textures/"
 IMAGES_DIR: str = "../images/"
@@ -36,5 +39,8 @@ CAMERA_SPEED: float = 0.01
 MOUSE_SENSITIVITY: float = 0.002
 CAMERA_PITCH_MAX: float = 89
 CAMERA_PITCH_MIN: float = -89
+
+with open("config/font-binds.json", "r") as file:
+    FONT_BINDS: typing.Dict[str, str] = json.load(file)
 
 del glm
