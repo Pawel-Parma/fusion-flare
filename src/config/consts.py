@@ -40,6 +40,7 @@ MOUSE_SENSITIVITY: float = 0.002
 CAMERA_PITCH_MAX: float = 89
 CAMERA_PITCH_MIN: float = -89
 
+# How I got font images: https://github.com/Pawel-Parma/font-extractor
 with open("config/font-binds.json", "r") as file:
     FONT_BINDS: typing.Dict[str, str] = json.load(file)
 
