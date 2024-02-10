@@ -1,6 +1,7 @@
-import glm
 import typing
 import json
+
+import glm
 
 
 LOGGER_NAME: str = "base_logger"
@@ -44,4 +45,4 @@ CAMERA_PITCH_MIN: float = -89
 with open("config/font-binds.json", "r") as file:
     FONT_BINDS: typing.Dict[str, str] = json.load(file)
 
-del glm
+del typing, json, glm
