@@ -1,7 +1,7 @@
 from models import *
 
 
-class MenuScene:
+class MainMenuScene:
     def __init__(self, app):
         self.app = app
         self.maze = app.maze
@@ -24,15 +24,15 @@ class MenuScene:
         # buttons
         hover_texture = "white"
         # play
-        play_button = add(Button(app, (0, -0.5, 0), "img_2", hover_texture, scale=(1.5, 0.5, 1)))
-        play_button.func_on_click = app.play
+        play_button = add(Button(app, (0, -0.5, 0), "img_2", hover_texture, scale=(1.5, 0.5)))
+        play_button.on_click(app.play)
         # history
-        history_button = add(Button(app, (0, -2, 0), "black", hover_texture, scale=(1.5, 0.5, 1)))
+        history_button = add(Button(app, (0, -2, 0), "black", hover_texture, scale=(1.5, 0.5)))
         # settings
-        settings_button = add(Button(app, (0, -3.5, 0), "black", hover_texture, scale=(1.5, 0.5, 1)))
+        settings_button = add(Button(app, (0, -3.5, 0), "black", hover_texture, scale=(1.5, 0.5)))
         # exit
-        exit_button = add(Button(app, (6, -3.5, 0), "img", hover_texture, scale=(1.5, 0.5, 1), is_dynamic=True))
-        exit_button.func_on_click = app.quit
+        exit_button = add(Button(app, (6, -3.5, 0), "img", hover_texture, scale=(1.5, 0.5), is_dynamic=True))
+        exit_button.on_click(app.quit)
 
         play_button.set_chosen()
         play_button.right_button(exit_button)

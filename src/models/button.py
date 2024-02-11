@@ -7,9 +7,12 @@ from .base import BaseModel
 
 
 class Button(BaseModel):
-    def __init__(self, app, position, default_texture, hover_texture, delay_time=0.15, rotation=(0, 0, 0),
-                 scale=(1, 1, 1), is_dynamic=False):
-        super().__init__(app, "button", "none", position, rotation, scale)
+    last_click_time = time.time()
+
+    def __init__(self, app, position, default_texture, hover_texture,
+                 change_delay_time=0.15, sequent_press_delay_time=0.3,
+                 rotation=(0, 0, 0), scale=(1, 1), is_dynamic=False):
+        super().__init__(app, "button", "none", position, rotation, (*scale, 1))
         self.key_binds = app.key_binds
         self.func_on_click = lambda: None
         self.button_up: Button | None = None
@@ -21,7 +24,8 @@ class Button(BaseModel):
         self.button_right: Button | None = None
         self.button_right_taken = False
         self.is_chosen = False
-        self.delay_time = delay_time
+        self.change_delay_time = change_delay_time
+        self.press_delay_time = sequent_press_delay_time
         self.default_texture = self.app.mesh.texture[default_texture]
         self.hover_texture = self.app.mesh.texture[hover_texture]
         self.is_dynamic = is_dynamic
@@ -58,9 +62,14 @@ class Button(BaseModel):
         self.button_right_taken = True
 
     def is_clicked(self):
+        current_time = time.time()
+        if current_time - self.last_click_time < self.press_delay_time:
+            return False
+
         if self.is_chosen:
             keys = pg.key.get_pressed()
             if keys[self.key_binds.button_press[0]] or keys[self.key_binds.button_press[1]]:
+                Button.last_click_time = current_time
                 return True
 
         return False
@@ -100,7 +109,7 @@ class Button(BaseModel):
 
     def listen_for_change(self):
         current_time = time.time()
-        if current_time - self.last_switch_time < self.delay_time:
+        if current_time - self.last_switch_time < self.change_delay_time:
             return
 
         keys = pg.key.get_pressed()
