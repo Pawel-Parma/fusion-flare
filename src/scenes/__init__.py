@@ -1,2 +1,4 @@
+# TODO: The code in this package repeats itself, make better interface for this package
 from .game import *
-from .menu import *
+from .main_menu import *
+from .esc_menu import *

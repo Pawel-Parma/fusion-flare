@@ -7,7 +7,7 @@ from config import *
 from camera import SpectatorPlayer, PhysicsPlayer
 from light import Light, CameraFollowingLight
 from opengl_pipeline import Mesh
-from scenes import GameScene, GameSceneRenderer, MenuScene, MenuSceneRenderer
+from scenes import *
 from maze import Maze
 
 # GAME
@@ -124,9 +124,12 @@ class GraphicsEngine:
         # game scene
         self.game_scene = GameScene(self)
         self.game_scene_renderer = GameSceneRenderer(self)
-        # menu scene
-        self.menu_scene = MenuScene(self)
-        self.menu_scene_renderer = MenuSceneRenderer(self)
+        # main menu scene
+        self.main_menu_scene = MainMenuScene(self)
+        self.main_menu_scene_renderer = MainMenuSceneRenderer(self)
+        # esc menu scene
+        self.esc_menu_scene = EscMenuScene(self)
+        self.esc_menu_scene_renderer = EscMenuSceneRenderer(self)
 
     def get_time(self):
         self.time = pg.time.get_ticks() * 0.001
@@ -150,31 +153,41 @@ class GraphicsEngine:
     def play(self):
         self.show = ToShow.GAME
 
+    def main_menu(self):
+        self.show = ToShow.MAIN_MENU
+
+    def esc_menu(self):
+        self.show = ToShow.ESC_MENU
+
     def handle_events(self):
         for event in pg.event.get():
             if event.type == pg.QUIT:
                 self.quit()
 
-            if event.type == pg.KEYDOWN:
-                # FOR TESTING
-                if event.key == self.key_binds.tab:
-                    match self.show:
-                        case ToShow.GAME:
-                            self.show = ToShow.MAIN_MENU
+            # Continue if no keys pressed
+            if event.type != pg.KEYDOWN:
+                continue
 
-                        case ToShow.MAIN_MENU:
-                            self.show = ToShow.GAME
+            key = event.key
+            # Menus
+            if key == self.key_binds.esc_menu:
+                match self.show:
+                    case ToShow.GAME:
+                        self.esc_menu()
 
-                # CHEAT CODES
-                if event.key == self.key_binds.spectator_camera:
-                    match self.current_camera:
-                        case CameraType.PHYSICS:
-                            self.current_camera = CameraType.SPECTATOR
-                            self.swap_camera(self.spectator_player)
+                    case ToShow.ESC_MENU:
+                        self.play()
 
-                        case CameraType.SPECTATOR:
-                            self.current_camera = CameraType.PHYSICS
-                            self.swap_camera(self.physics_player)
+            # CHEAT CODES
+            if key == self.key_binds.spectator_camera:
+                match self.current_camera:
+                    case CameraType.PHYSICS:
+                        self.current_camera = CameraType.SPECTATOR
+                        self.swap_camera(self.spectator_player)
+
+                    case CameraType.SPECTATOR:
+                        self.current_camera = CameraType.PHYSICS
+                        self.swap_camera(self.physics_player)
 
     def render(self):
         match self.show:
@@ -183,6 +196,9 @@ class GraphicsEngine:
 
             case ToShow.MAIN_MENU:
                 self.render_main_menu()
+
+            case ToShow.ESC_MENU:
+                self.render_esc_menu()
 
         self.light.update()
         # swap buffers
@@ -196,13 +212,9 @@ class GraphicsEngine:
         # update camera
         self.camera.update()
 
-    def render_main_menu(self):
-        # background color
-        self.ctx.clear(*MENU_COLOR)
-        # render scene
-        self.menu_scene_renderer.render()
-
-        # remove in the future
+    # remove in the future
+    # TODO: make the camera position independent of each scene
+    def set_camera_where_buttons_are(self):
         self.camera.position.x = 0
         self.camera.position.y = 0
         self.camera.position.z = 10
@@ -211,9 +223,27 @@ class GraphicsEngine:
         self.camera.update_vectors()
         self.camera.update_view_matirx()
 
+    def render_main_menu(self):
+        # background color
+        self.ctx.clear(*MENU_COLOR)
+        # render scene
+        self.main_menu_scene_renderer.render()
+
+        # remove in the future
+        self.set_camera_where_buttons_are()
+
+    def render_esc_menu(self):
+        # background color
+        self.ctx.clear(*MENU_COLOR)
+        # render scene
+        self.esc_menu_scene_renderer.render()
+
+        # remove in the future
+        self.set_camera_where_buttons_are()
+
     def mainloop(self):
         while self.run:
-            pg.display.set_caption(f"Labiryntho | FPS: {self.clock.get_fps():.2f}")
+            log(f"FPS: {self.clock.get_fps():.2f}")
             self.delta_time = self.clock.tick()  # FPS
             self.render()
             self.handle_events()
