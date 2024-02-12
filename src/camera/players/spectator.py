@@ -7,14 +7,9 @@ from camera.camera import Camera
 
 class SpectatorPlayer(Camera):
     def __init__(self, app, position=(0, 0, 0), yaw=0, pitch=0):
+        super().__init__(position, yaw, pitch)
         self.app = app
         self.key_binds = app.key_binds
-        super().__init__(position, yaw, pitch)
-
-    def update(self):
-        self.keyboard_control()
-        self.mouse_control()
-        super().update()
 
     def keyboard_control(self):
         velocity = CAMERA_SPEED * self.app.delta_time
@@ -40,8 +35,12 @@ class SpectatorPlayer(Camera):
 
     def mouse_control(self):
         delta_x, delta_y = pg.mouse.get_rel()
-        if delta_x:
-            self.rotate_yaw(delta_x * MOUSE_SENSITIVITY)
-
+        
+        self.rotate_yaw(delta_x * MOUSE_SENSITIVITY)
         if delta_y:
             self.rotate_pitch(delta_y * MOUSE_SENSITIVITY)
+
+    def update(self):
+        self.keyboard_control()
+        self.mouse_control()
+        super().update()

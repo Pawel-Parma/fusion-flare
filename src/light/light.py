@@ -27,13 +27,13 @@ class Light:
 
 class CameraFollowingLight(Light):
     def __init__(self, app, light):
-        self.app = app
         super().__init__(light.position, light.direction, light.color, *light.intensities)
-
-    def update(self):
-        self.position.xz = self.app.camera.position.xz
-        self.position.y = 1
+        self.app = app
 
     @staticmethod
     def can_change_position():
         return True
+
+    def update(self):
+        self.position.xz = self.app.camera.position.xz
+        self.position.y = 1

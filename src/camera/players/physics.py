@@ -8,7 +8,6 @@ from .spectator import SpectatorPlayer
 class PhysicsPlayer(SpectatorPlayer):
     def __init__(self, app, position, yaw=0, pitch=0):
         super().__init__(app, position, yaw, pitch)
-        self.key_binds = app.key_binds
         self.maze = self.app.maze
 
     # TODO: Add physics (real velocity, acceleration, etc.)
@@ -27,9 +26,3 @@ class PhysicsPlayer(SpectatorPlayer):
 
         if keys[self.key_binds.camera_right]:
             self.move_right(velocity)
-
-    def update(self):
-        self.keyboard_control()
-        self.mouse_control()
-        self.update_vectors()
-        self.update_view_matirx()

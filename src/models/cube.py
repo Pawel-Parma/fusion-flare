@@ -13,7 +13,6 @@ class Cube(BaseShadowModel):
     def __init__(self, app, texture_id, position, rotation=(0, 0, 0), scale=(1, 1, 1), alpha=1.0):
         self.alpha = struct.pack('f', alpha)
         super().__init__(app, "cube", texture_id, position, rotation, scale)
-        self.on_init()
 
     def on_init(self):
         super().on_init()

@@ -6,7 +6,7 @@ import pygame as pg
 from .base import BaseModel
 
 
-class Button(BaseModel):
+class Button(BaseModel):  # Make a plane class to inherit from
     last_click_time = time.time()
 
     def __init__(self, app, position, default_texture, hover_texture,
