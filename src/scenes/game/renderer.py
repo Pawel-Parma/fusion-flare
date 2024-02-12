@@ -23,7 +23,6 @@ class GameSceneRenderer:
             obj.render()
 
     def render(self):
-        self.scene.update()
         if not DISABLE_SHADOW_RENDER:
             self.render_shadow()
 

@@ -1,12 +1,12 @@
 from config import *
 
 
-class MainMenuSceneRenderer:
+class EndGameMenuSceneRenderer:
     def __init__(self, app):
         self.app = app
         self.ctx = app.ctx
         self.mesh = app.mesh
-        self.scene = app.main_menu_scene
+        self.scene = app.end_game_menu_scene
 
     def main_render(self):
         for obj in self.scene.no_shadow_objects:
