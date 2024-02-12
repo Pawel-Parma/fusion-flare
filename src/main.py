@@ -111,11 +111,10 @@ class GraphicsEngine:
         self.delta_time = 0
         # maze
         self.maze = Maze(MAZE_WIDTH, MAZE_LENGHT)
-        start_position = (self.maze.start[0] * 2 - MAZE_WIDTH, 0, self.maze.start[1] * 2 - MAZE_LENGHT)
         # light
         self.light = CameraFollowingLight(self, Light(position=(0, 0, 0), specular=0))
         # player
-        self.physics_player = PhysicsPlayer(self, position=start_position)
+        self.physics_player = PhysicsPlayer(self, position=self.maze.start_in_map_coords)
         self.spectator_player = SpectatorPlayer(self)
         self.current_camera = CameraType.PHYSICS
         self.camera = self.physics_player
@@ -130,6 +129,9 @@ class GraphicsEngine:
         # esc menu scene
         self.esc_menu_scene = EscMenuScene(self)
         self.esc_menu_scene_renderer = EscMenuSceneRenderer(self)
+        # end game menu scene
+        self.end_game_menu_scene = EndGameMenuScene(self)
+        self.end_game_menu_scene_renderer = EndGameMenuSceneRenderer(self)
 
     def get_time(self):
         self.time = pg.time.get_ticks() * 0.001
@@ -150,7 +152,11 @@ class GraphicsEngine:
         pg.quit()
         self.run = False
 
-    def play(self):
+    def play(self, new_maze=False):
+        if new_maze:
+            self.maze.new(MAZE_WIDTH, MAZE_LENGHT)
+            self.game_scene.update()
+
         self.show = ToShow.GAME
 
     def main_menu(self):
@@ -158,6 +164,9 @@ class GraphicsEngine:
 
     def esc_menu(self):
         self.show = ToShow.ESC_MENU
+
+    def end_game_menu(self):
+        self.show = ToShow.END_GAME_MENU
 
     def handle_events(self):
         for event in pg.event.get():
@@ -183,11 +192,13 @@ class GraphicsEngine:
                 match self.current_camera:
                     case CameraType.PHYSICS:
                         self.current_camera = CameraType.SPECTATOR
-                        self.swap_camera(self.spectator_player)
+                        self.spectator_player.use_vars_from(self.camera)
+                        self.camera = self.spectator_player
 
                     case CameraType.SPECTATOR:
                         self.current_camera = CameraType.PHYSICS
-                        self.swap_camera(self.physics_player)
+                        self.physics_player.use_vars_from(self.camera)
+                        self.camera = self.physics_player
 
     def render(self):
         match self.show:
@@ -200,6 +211,9 @@ class GraphicsEngine:
             case ToShow.ESC_MENU:
                 self.render_esc_menu()
 
+            case ToShow.END_GAME_MENU:
+                self.render_end_game_menu()
+
         self.light.update()
         # swap buffers
         pg.display.flip()
@@ -211,6 +225,13 @@ class GraphicsEngine:
         self.game_scene_renderer.render()
         # update camera
         self.camera.update()
+        # check win
+        temp = self.camera.position.xyz
+        temp.x = round(temp.x)
+        temp.y = round(temp.y)
+        temp.z = round(temp.z)
+        if self.maze.end_in_map_coords == temp:
+            self.end_game_menu()
 
     # remove in the future
     # TODO: make the camera position independent of each scene
@@ -237,6 +258,15 @@ class GraphicsEngine:
         self.ctx.clear(*MENU_COLOR)
         # render scene
         self.esc_menu_scene_renderer.render()
+
+        # remove in the future
+        self.set_camera_where_buttons_are()
+
+    def render_end_game_menu(self):
+        # background color
+        self.ctx.clear(*MENU_COLOR)
+        # render scene
+        self.end_game_menu_scene_renderer.render()
 
         # remove in the future
         self.set_camera_where_buttons_are()

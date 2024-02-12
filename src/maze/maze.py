@@ -50,6 +50,8 @@ class Maze:
         self.maze = data[0]
         self.start = data[1]
         self.end = data[2]
+        self.start_in_map_coords = (self.start[0] * 2 - self.width, 0, self.start[1] * 2 - self.length)
+        self.end_in_map_coords = (self.end[0] * 2 - self.width, 0, self.end[1] * 2 - self.length)
 
     def __getitem__(self, item):
         return self.maze[item]

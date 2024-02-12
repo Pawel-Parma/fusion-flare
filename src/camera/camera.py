@@ -93,3 +93,13 @@ class Camera:
 
     def move_left(self, velocity):
         self.position += self.if_move_left(velocity)
+
+    def use_vars_from(self, camera):
+        self.position = camera.position
+        self.yaw = camera.yaw
+        self.pitch = camera.pitch
+        self.up = camera.up
+        self.right = camera.right
+        self.front = camera.front
+        self.m_view = camera.m_view
+        self.m_proj = camera.m_proj

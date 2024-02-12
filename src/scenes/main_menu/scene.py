@@ -25,7 +25,7 @@ class MainMenuScene:
         hover_texture = "white"
         # play
         play_button = add(Button(app, (0, -0.5, 0), "img_2", hover_texture, scale=(1.5, 0.5)))
-        play_button.on_click(app.play)
+        play_button.on_click(lambda: app.play(new_maze=True))
         # history
         history_button = add(Button(app, (0, -2, 0), "black", hover_texture, scale=(1.5, 0.5)))
         # settings
