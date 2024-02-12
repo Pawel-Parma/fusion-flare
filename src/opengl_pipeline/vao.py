@@ -5,6 +5,7 @@ from .shader_program import ShaderProgram
 class VAO:
     def __init__(self, ctx):
         self.ctx = ctx
+
         self.vbo = VBO(ctx)
         self.program = ShaderProgram(ctx)
         self.vaos = {"cube": self.get_vao(program=self.program["default"], vbo=self.vbo["cube"]),
