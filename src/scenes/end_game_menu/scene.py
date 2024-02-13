@@ -1,23 +1,12 @@
 from models import *
+from scenes.scene import BaseScene
 
 
-class EndGameMenu:
+class EndGameMenu(BaseScene):
     def __init__(self, app):
-        self.app = app
-        self.shadow_objects = []
-        self.no_shadow_objects = []
-        self.load()
+        super().__init__(app)
 
-    def add_object(self, obj):
-        if obj.is_shadowy:
-            self.shadow_objects.append(obj)
-
-        else:
-            self.no_shadow_objects.append(obj)
-
-        return obj
-
-    def load(self):
+    def create_objects(self):
         app = self.app
         add = self.add_object
 
@@ -41,6 +30,3 @@ class EndGameMenu:
         replay_button.down_button(exit_button)
 
         exit_button.up_button(replay_button)
-
-    def update(self):
-        pass
