@@ -1,23 +1,12 @@
 from models import *
+from scenes.scene import BaseScene
 
 
-class MainMenu:
+class MainMenu(BaseScene):
     def __init__(self, app):
-        self.app = app
-        self.shadow_objects = []
-        self.no_shadow_objects = []
-        self.load()
+        super().__init__(app)
 
-    def add_object(self, obj):
-        if obj.is_shadowy:
-            self.shadow_objects.append(obj)
-
-        else:
-            self.no_shadow_objects.append(obj)
-
-        return obj
-
-    def load(self):
+    def create_objects(self):
         app = self.app
         add = self.add_object
 
@@ -44,6 +33,3 @@ class MainMenu:
 
         settings_button.up_button(history_button)
         settings_button.right_button(exit_button)
-
-    def update(self):
-        pass
