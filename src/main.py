@@ -11,26 +11,23 @@ from scenes import *
 from maze import Maze
 
 # GAME
-# TODO: Make faster by utilising chunks and not rendering everything at once, more culling
+# TODO: Make faster by utilising more culling
 # TODO: add debug screen (F3)
 
-# TODO: Make main menu and its functionality
-# Play button and screen
-# Settings button and screen [audio, graphics, controls, credits]
-# Exit button
-# Shop button [coming soon]
-# History button
+# TODO: Make main menu
+# Play
+# History [ranking, score, time, number of missed tiles]
+# Settings [controls, graphics, credits]
+# Exit
 
 # TODO: Make escape menu
 # Resume
-# Save
 # Settings
 # Exit
 
 # TODO: Make end screen
-# Time
 # Score
-# Coins
+# Time
 # Name
 # Play-through [shows correct path with green]
 
@@ -44,11 +41,10 @@ from maze import Maze
 
 # TODO: IF TIME
 # Custom music and sound
-# Make coin power-ups [has compass, shows where to go, speed boost, etc.]
+# Make coins, power-ups [has compass, shows where to go, speed boost, etc.]
 # Add shop
 # Allow true 3D with stairs
 # Enemies
-# Make custom map generator
 
 
 class GraphicsEngine:
@@ -101,18 +97,6 @@ class GraphicsEngine:
 
     def get_time(self):
         self.time = pg.time.get_ticks() * 0.001
-
-    def swap_camera(self, camera_to_use):
-        camera = self.camera
-        self.camera = camera_to_use
-        self.camera.position = camera.position
-        self.camera.yaw = camera.yaw
-        self.camera.pitch = camera.pitch
-        self.camera.up = camera.up
-        self.camera.right = camera.right
-        self.camera.front = camera.front
-        self.camera.m_view = camera.m_view
-        self.camera.m_proj = camera.m_proj
 
     def quit(self):
         pg.quit()
