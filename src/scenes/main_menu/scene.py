@@ -1,25 +1,25 @@
 from models import *
 
 
-class MainMenuScene:
+class MainMenu:
     def __init__(self, app):
         self.app = app
-        self.maze = app.maze
+        self.shadow_objects = []
         self.no_shadow_objects = []
         self.load()
 
     def add_object(self, obj):
-        self.no_shadow_objects.append(obj)
+        if obj.is_shadowy:
+            self.shadow_objects.append(obj)
+
+        else:
+            self.no_shadow_objects.append(obj)
+
         return obj
 
     def load(self):
         app = self.app
         add = self.add_object
-
-        # game name
-        """
-        add(Text(app, "Maze", (0, 0.5, 0), scale=(0.5, 0.5, 0.5)))  # TEXT DOESN'T EXIST YET
-        """
 
         # buttons
         hover_texture = "white"
@@ -33,7 +33,7 @@ class MainMenuScene:
         # exit
         exit_button = add(Button(app, (6, -3.5, 0), "img", hover_texture, scale=(1.5, 0.5), is_dynamic=True))
         exit_button.on_click(app.quit)
-
+        # bind buttons
         play_button.set_chosen()
         play_button.right_button(exit_button)
         play_button.down_button(history_button)

@@ -1,12 +1,14 @@
 from config import *
 
+from .scene import MazeScene
 
-class GameSceneRenderer:
+
+class MazeSceneRenderer:
     def __init__(self, app):
         self.app = app
         self.ctx = app.ctx
         self.mesh = app.mesh
-        self.scene = app.game_scene
+        self.scene = MazeScene(app)
         # depth buffer
         self.depth_texture = self.mesh.texture['depth_texture']
         self.depth_fbo = self.ctx.framebuffer(depth_attachment=self.depth_texture)
@@ -23,7 +25,6 @@ class GameSceneRenderer:
             obj.render()
 
     def render(self):
+        self.main_render()
         if not DISABLE_SHADOW_RENDER:
             self.render_shadow()
-
-        self.main_render()

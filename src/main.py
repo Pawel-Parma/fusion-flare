@@ -91,17 +91,13 @@ class GraphicsEngine:
         # mesh
         self.mesh = Mesh(self)
         # game scene
-        self.game_scene = GameScene(self)
-        self.game_scene_renderer = GameSceneRenderer(self)
+        self.maze_renderer = MazeSceneRenderer(self)
         # main menu scene
-        self.main_menu_scene = MainMenuScene(self)
-        self.main_menu_scene_renderer = MainMenuSceneRenderer(self)
-        # esc menu scene
-        self.esc_menu_scene = EscMenuScene(self)
-        self.esc_menu_scene_renderer = EscMenuSceneRenderer(self)
-        # end game menu scene
-        self.end_game_menu_scene = EndGameMenuScene(self)
-        self.end_game_menu_scene_renderer = EndGameMenuSceneRenderer(self)
+        self.main_menu_renderer = MainMenuSceneRenderer(self)
+        # esc menu
+        self.esc_menu_renderer = EscMenuSceneRenderer(self)
+        # end game menu
+        self.end_game_menu_renderer = EndGameMenuSceneRenderer(self)
 
     def get_time(self):
         self.time = pg.time.get_ticks() * 0.001
@@ -125,7 +121,7 @@ class GraphicsEngine:
     def play(self, new_maze=False):
         if new_maze:
             self.maze.new(MAZE_WIDTH, MAZE_LENGHT)
-            self.game_scene.update()
+            self.maze_renderer.scene.new_maze()
 
         self.show = ToShow.GAME
 
@@ -192,7 +188,7 @@ class GraphicsEngine:
         # background color
         self.ctx.clear(*SKY_COLOR)
         # render scene
-        self.game_scene_renderer.render()
+        self.maze_renderer.render()
         # update camera
         self.camera.update()
         # check win
@@ -218,7 +214,7 @@ class GraphicsEngine:
         # background color
         self.ctx.clear(*MENU_COLOR)
         # render scene
-        self.main_menu_scene_renderer.render()
+        self.main_menu_renderer.render()
 
         # remove in the future
         self.set_camera_where_buttons_are()
@@ -227,7 +223,7 @@ class GraphicsEngine:
         # background color
         self.ctx.clear(*MENU_COLOR)
         # render scene
-        self.esc_menu_scene_renderer.render()
+        self.esc_menu_renderer.render()
 
         # remove in the future
         self.set_camera_where_buttons_are()
@@ -236,7 +232,7 @@ class GraphicsEngine:
         # background color
         self.ctx.clear(*MENU_COLOR)
         # render scene
-        self.end_game_menu_scene_renderer.render()
+        self.end_game_menu_renderer.render()
 
         # remove in the future
         self.set_camera_where_buttons_are()
