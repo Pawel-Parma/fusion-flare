@@ -1,15 +1,20 @@
 from models import *
 
 
-class EndGameMenuScene:
+class EndGameMenu:
     def __init__(self, app):
         self.app = app
-        self.maze = app.maze
+        self.shadow_objects = []
         self.no_shadow_objects = []
         self.load()
 
     def add_object(self, obj):
-        self.no_shadow_objects.append(obj)
+        if obj.is_shadowy:
+            self.shadow_objects.append(obj)
+
+        else:
+            self.no_shadow_objects.append(obj)
+
         return obj
 
     def load(self):
@@ -28,6 +33,7 @@ class EndGameMenuScene:
         exit_button = add(Button(app, (-6, -3.5, 0), "img", hover_texture, scale=(1.5, 0.5)))
         exit_button.on_click(app.main_menu)
 
+        # bind buttons
         new_game_button.set_chosen()
         new_game_button.down_button(replay_button)
 

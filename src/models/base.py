@@ -38,8 +38,8 @@ class BaseModel:
     def update(self):
         pass
 
-    @staticmethod
-    def is_shadowy():
+    @property
+    def is_shadowy(self):
         return False
 
 
@@ -77,6 +77,6 @@ class BaseShadowModel(BaseModel):
     def update(self):
         self.program["m_model"].write(self.m_model)
 
-    @staticmethod
-    def is_shadowy():
+    @property
+    def is_shadowy(self):
         return True

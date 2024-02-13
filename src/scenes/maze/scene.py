@@ -2,7 +2,7 @@ from config import *
 from models import *
 
 
-class GameScene:
+class MazeScene:
     def __init__(self, app):
         self.app = app
         self.maze = app.maze
@@ -11,7 +11,13 @@ class GameScene:
         self.load()
 
     def add_object(self, obj):
-        self.shadow_objects.append(obj)
+        if obj.is_shadowy:
+            self.shadow_objects.append(obj)
+
+        else:
+            self.no_shadow_objects.append(obj)
+
+        return obj
 
     def load(self):
         app = self.app
@@ -44,6 +50,9 @@ class GameScene:
         self.shadow_objects.clear()
         self.shadow_objects.append(first_shadow)
 
-    def update(self):
+    def new_maze(self):
         self.remove_maze_objects()
         self.create_maze()
+
+    def update(self):
+        pass
