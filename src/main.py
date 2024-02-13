@@ -36,10 +36,10 @@ from maze import Maze
 
 # TODO: Make database
 
-# FINISHING TOUCHES
-# TODO: show time, coins and score when playing
+# TODO: FINISHING TOUCHES
+# Show time while playing
 
-# TODO: IF TIME
+# TODO: If time
 # Custom music and sound
 # Make coins, power-ups [has compass, shows where to go, speed boost, etc.]
 # Add shop
