@@ -5,7 +5,7 @@ import numpy as np
 from .base import BaseVBO
 
 
-class ButtonVBO(BaseVBO):
+class Plane2dVBO(BaseVBO):
     def __init__(self, ctx):
         super().__init__(ctx)
         self.format = "2f 3f"
