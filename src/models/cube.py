@@ -1,5 +1,3 @@
-import struct
-
 # from typing import override
 
 import numpy as np
@@ -13,8 +11,7 @@ from .base import BaseShadowModel
 
 class Cube(BaseShadowModel):
     def __init__(self, app, texture_id, position, rotation=(0, 0, 0), scale=(1, 1, 1), alpha=1.0):
-        self.alpha = struct.pack('f', alpha)
-        super().__init__(app, "cube", texture_id, position, rotation, scale)
+        super().__init__(app, "cube", texture_id, position, rotation, scale, alpha)
 
     # @override
     def on_init(self):
