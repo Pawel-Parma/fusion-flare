@@ -17,8 +17,8 @@ class Light:
     def get_view_matrix(self):
         return glm.lookAt(self.position, self.direction, glm.vec3(0, 1, 0))
 
-    @staticmethod
-    def can_change_position():
+    @property
+    def can_change_position(self):
         return False
 
     def update(self):
@@ -30,10 +30,10 @@ class CameraFollowingLight(Light):
         super().__init__(light.position, light.direction, light.color, *light.intensities)
         self.app = app
 
-    @staticmethod
-    def can_change_position():
+    @property
+    def can_change_position(self):
         return True
 
     def update(self):
         self.position.xz = self.app.camera.position.xz
-        self.position.y = 1
+        self.position.y = self.app.camera.position.y

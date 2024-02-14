@@ -19,7 +19,7 @@ class KeyBinds:
     def __init__(self):
         # Keys:
         #  - Cheat Codes
-        self.spectator_camera = pg.K_F1
+        self.change_camera = pg.K_F1
         self.tab = pg.K_TAB
         #  - Menu
         self.button_up = (pg.K_w, pg.K_UP)

@@ -38,6 +38,9 @@ class BaseModel:
     def update(self):
         pass
 
+    # def is_seen_by_camera(self):
+    #     return True
+
     @property
     def is_shadowy(self):
         return False
@@ -66,13 +69,13 @@ class BaseShadowModel(BaseModel):
 
     def update_shadow(self):
         self.shadow_program["m_model"].write(self.m_model)
-        if self.app.light.can_change_position():
+        if self.app.light.can_change_position:
             self.shadow_program["m_proj"].write(self.app.camera.m_proj)
             self.shadow_program["m_view_light"].write(self.app.light.m_view_light)
 
     def render_shadow(self):
         self.update_shadow()
-        self.shadow_vao.render(img)
+        self.shadow_vao.render()
 
     def update(self):
         self.program["m_model"].write(self.m_model)
