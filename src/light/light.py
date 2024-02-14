@@ -36,4 +36,4 @@ class CameraFollowingLight(Light):
 
     def update(self):
         self.position.xz = self.app.camera.position.xz
-        self.position.y = self.app.camera.position.y
+        self.position.y = 1

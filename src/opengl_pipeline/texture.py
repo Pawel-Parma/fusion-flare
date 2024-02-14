@@ -4,7 +4,7 @@ import os.path as op
 import pygame as pg
 import moderngl as gl
 
-from config import *
+from ..config import *
 
 
 class Texture:

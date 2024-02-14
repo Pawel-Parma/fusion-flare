@@ -1,5 +1,6 @@
-from models import *
-from scenes.scene import BaseScene
+from ...models import *
+
+from ..scene import BaseScene
 
 
 class EndGameMenu(BaseScene):

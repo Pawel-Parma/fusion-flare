@@ -1,6 +1,6 @@
 import abc
 
-from config import *
+from ..config import *
 
 
 class BaseRenderer:

@@ -5,7 +5,7 @@ import glm
 
 
 LOGGER_NAME: str = "base_logger"
-LOGS_DIR: str = "../logs"
+LOGS_DIR: str = "logs"
 
 APP_NAME: str = "Labiryntho"
 ICON_NAME: str = "logo.png"
@@ -28,10 +28,10 @@ MENU_COLOR: glm.vec3 = normalize_color(70, 70, 70)
 
 PI = glm.pi()
 
-FONTS_DIR: str = "../fonts/"
-SHADERS_DIR: str = "../shaders/"
-TEXTURES_DIR: str = "../textures/"
-IMAGES_DIR: str = "../images/"
+FONTS_DIR: str = "fonts/"
+SHADERS_DIR: str = "shaders/"
+TEXTURES_DIR: str = "textures/"
+IMAGES_DIR: str = "images/"
 
 CAMERA_FOV: float = 50  # deg
 CAMERA_NEAR: float = 0.1
@@ -42,7 +42,7 @@ CAMERA_PITCH_MAX: float = 89
 CAMERA_PITCH_MIN: float = -89
 
 # How I got font images: https://github.com/Pawel-Parma/font-extractor
-with open("config/font-binds.json", "r") as file:
+with open("src/config/font-binds.json", "r") as file:
     FONT_BINDS: typing.Dict[str, str] = json.load(file)
 
 del typing, json, glm
