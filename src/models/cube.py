@@ -33,7 +33,7 @@ class Cube(BaseShadowModel):
         self.program["alpha"].write(self.alpha)
 
     def update_light(self):
-        if self.app.light.can_change_position():
+        if self.app.light.can_change_position:
             self.program["light.position"].write(self.app.light.position)
 
     def update(self):

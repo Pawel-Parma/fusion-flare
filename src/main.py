@@ -79,7 +79,7 @@ class GraphicsEngine:
         self.maze = Maze(MAZE_WIDTH, MAZE_LENGHT)
         # light
         self.light = CameraFollowingLight(self, Light(position=(0, 0, 0), specular=0))
-        # player
+        # players
         self.physics_player = PhysicsPlayer(self, position=self.maze.start_in_map_coords)
         self.spectator_player = SpectatorPlayer(self)
         self.current_camera = CameraType.PHYSICS
@@ -138,7 +138,7 @@ class GraphicsEngine:
                         self.play()
 
             # CHEAT CODES
-            if key == self.key_binds.spectator_camera:
+            if key == self.key_binds.change_camera:
                 match self.current_camera:
                     case CameraType.PHYSICS:
                         self.current_camera = CameraType.SPECTATOR
