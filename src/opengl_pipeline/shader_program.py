@@ -1,6 +1,6 @@
 import os
 
-from config import *
+from ..config import *
 
 
 class ShaderProgram:

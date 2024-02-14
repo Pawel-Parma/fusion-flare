@@ -1,8 +1,9 @@
 import pygame as pg
 import glm
 
-from config import *
-from camera.camera import Camera
+from ...config import *
+
+from ..camera import Camera
 
 
 class SpectatorPlayer(Camera):

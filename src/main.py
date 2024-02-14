@@ -3,12 +3,12 @@ import os.path as op
 import pygame as pg
 import moderngl as gl
 
-from config import *
-from camera import SpectatorPlayer, PhysicsPlayer
-from light import Light, CameraFollowingLight
-from opengl_pipeline import Mesh
-from scenes import *
-from maze import Maze
+from .config import *
+from .camera import SpectatorPlayer, PhysicsPlayer
+from .light import Light, CameraFollowingLight
+from .opengl_pipeline import Mesh
+from .scenes import *
+from .maze import Maze
 
 # GAME
 # TODO: Make faster by utilising more culling

@@ -1,6 +1,7 @@
-from config import *
-from models import *
-from scenes.scene import BaseScene
+from ...config import *
+from ...models import *
+
+from ..scene import BaseScene
 
 
 class MazeScene(BaseScene):

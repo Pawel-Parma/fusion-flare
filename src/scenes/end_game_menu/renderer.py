@@ -1,4 +1,4 @@
-from scenes.renderer import BaseRenderer
+from ..renderer import BaseRenderer
 
 from .scene import EndGameMenu
 
