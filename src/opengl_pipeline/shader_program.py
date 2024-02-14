@@ -9,7 +9,7 @@ class ShaderProgram:
         self.programs_list = {shader for shader in os.listdir(SHADERS_DIR)}
         self.programs = {"default": self.get_program("default"),
                          "shadow_map": self.get_program("shadow_map"),
-                         "button": self.get_program("button")}
+                         "plane2d": self.get_program("plane2d")}
 
     def get_program(self, name):
         program_name = f"{SHADERS_DIR}/{name}/{name}"

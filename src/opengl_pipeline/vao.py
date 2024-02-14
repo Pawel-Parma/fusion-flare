@@ -10,7 +10,7 @@ class VAO:
         self.program = ShaderProgram(ctx)
         self.vaos = {"cube": self.get_vao(program=self.program["default"], vbo=self.vbo["cube"]),
                      "shadow_cube": self.get_vao(program=self.program["shadow_map"], vbo=self.vbo["cube"]),
-                     "button": self.get_vao(program=self.program["button"], vbo=self.vbo["button"])}
+                     "plane2d": self.get_vao(program=self.program["plane2d"], vbo=self.vbo["plane2d"])}
 
     def get_vao(self, program, vbo):
         vao = self.ctx.vertex_array(program, [(vbo.vbo, vbo.format, *vbo.attributes)], skip_errors=True)
