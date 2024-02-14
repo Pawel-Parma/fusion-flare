@@ -13,8 +13,8 @@ class Button(BaseModel):  # TODO: Make a plane class to inherit from, add left c
 
     def __init__(self, app, position, default_texture, hover_texture,
                  change_delay_time=0.15, sequent_press_delay_time=0.3,
-                 rotation=(0, 0, 0), scale=(1, 1), is_dynamic=False):
-        super().__init__(app, "button", "none", position, rotation, (*scale, 1))
+                 rotation=(0, 0, 0), scale=(1, 1), is_dynamic=False, alpha=1.0):
+        super().__init__(app, "button", "none", position, rotation, (*scale, 1), alpha)
         self.key_binds = app.key_binds
         self.func_on_click = lambda: None
         self.button_up: Button | None = None
@@ -140,6 +140,7 @@ class Button(BaseModel):  # TODO: Make a plane class to inherit from, add left c
 
     # @override
     def update(self):
+        super().update()
         if self.is_chosen:
             self.listen_for_change()
 
