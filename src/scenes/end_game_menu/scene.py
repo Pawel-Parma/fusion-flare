@@ -1,3 +1,5 @@
+# from typing import override
+
 from ...models import *
 
 from ..scene import BaseScene
@@ -7,6 +9,7 @@ class EndGameMenu(BaseScene):
     def __init__(self, app):
         super().__init__(app)
 
+    # @override
     def create_objects(self):
         app = self.app
         add = self.add_object

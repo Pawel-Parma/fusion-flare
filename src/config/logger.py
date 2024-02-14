@@ -5,6 +5,7 @@ import logging.config
 # import atexit
 
 from functools import wraps
+# from typing import override
 
 from .consts import *
 
@@ -14,11 +15,13 @@ os.makedirs(LOGS_DIR, exist_ok=True)
 
 
 class StdoutLogFilter(logging.Filter):
+    # @override
     def filter(self, record: logging.LogRecord) -> bool | logging.LogRecord:
         return record.levelno < logging.ERROR
 
 
 class FileLogFilter(logging.Filter):
+    # @override
     def filter(self, record: logging.LogRecord) -> bool | logging.LogRecord:
         return record.levelno > logging.INFO
 

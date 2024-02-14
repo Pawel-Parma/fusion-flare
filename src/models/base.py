@@ -1,11 +1,13 @@
 import abc
 
+# from typing import override
+
 import glm
 
 from ..config import *
 
 
-class BaseModel:
+class BaseModel(abc.ABC):
     def __init__(self, app, vao_name, texture_id, position, rotation=(0, 0, 0), scale=(1, 1, 1)):
         self.app = app
 
@@ -46,7 +48,7 @@ class BaseModel:
         return False
 
 
-class BaseShadowModel(BaseModel):
+class BaseShadowModel(BaseModel, abc.ABC):
     def __init__(self, app, vao_name, texture_id, position, rotation=(0, 0, 0), scale=(1, 1, 1)):
         super().__init__(app, vao_name, texture_id, position, rotation, scale)
         self.on_init()
@@ -77,9 +79,7 @@ class BaseShadowModel(BaseModel):
         self.update_shadow()
         self.shadow_vao.render()
 
-    def update(self):
-        self.program["m_model"].write(self.m_model)
-
     @property
+    # @override
     def is_shadowy(self):
         return True
