@@ -23,8 +23,7 @@ def generate_maze(width: int, lenght: int, height: int):  # TODO: make better (r
 
     make_empty_around(maze, start, lenght, width, height)
     make_empty_around(maze, end, lenght, width, height)
-    for i in maze:
-        print(i)
+
     return maze, start, end
 
 
@@ -41,7 +40,7 @@ def make_empty_around(maze, point, lenght, width, height):
 
 class Maze:
     def __init__(self, width: int, length: int, height: int = 1):
-        self.new(width, length, height)
+        self.new(width, length, height)  # Do not generate maze on creation
 
     def new(self, width: int, length: int, height: int = 1):
         self.width = width

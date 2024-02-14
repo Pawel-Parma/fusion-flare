@@ -1,3 +1,5 @@
+# from typing import override
+
 import glm
 
 
@@ -31,9 +33,11 @@ class CameraFollowingLight(Light):
         self.app = app
 
     @property
+    # @override
     def can_change_position(self):
         return True
 
+    # @override
     def update(self):
         self.position.xz = self.app.camera.position.xz
         self.position.y = 1

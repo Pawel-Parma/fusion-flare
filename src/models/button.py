@@ -1,5 +1,7 @@
 import time
 
+# from typing import override
+
 import numpy as np
 import pygame as pg
 
@@ -136,6 +138,7 @@ class Button(BaseModel):  # TODO: Make a plane class to inherit from, add left c
     def on_click(self, func):
         self.func_on_click = func
 
+    # @override
     def update(self):
         if self.is_chosen:
             self.listen_for_change()

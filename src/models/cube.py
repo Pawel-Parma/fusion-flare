@@ -1,5 +1,6 @@
-import abc
 import struct
+
+# from typing import override
 
 import numpy as np
 import moderngl as mgl
@@ -15,6 +16,7 @@ class Cube(BaseShadowModel):
         self.alpha = struct.pack('f', alpha)
         super().__init__(app, "cube", texture_id, position, rotation, scale)
 
+    # @override
     def on_init(self):
         super().on_init()
         # texture
@@ -37,10 +39,12 @@ class Cube(BaseShadowModel):
         if self.app.light.can_change_position:
             self.program["light.position"].write(self.app.light.position)
 
+    # @override
     def update(self):
         super().update()
         self.texture.use(location=0)
         self.program["camPos"].write(self.app.camera.position)
         self.program["m_view"].write(self.app.camera.m_view)
+        self.program["m_model"].write(self.m_model)
         self.program["alpha"].write(self.alpha)
         self.update_light()

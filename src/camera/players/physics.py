@@ -1,6 +1,8 @@
 import pygame as pg
 import glm
 
+# from typing import override
+
 from ...config import *
 
 from .spectator import SpectatorPlayer
@@ -12,6 +14,7 @@ class PhysicsPlayer(SpectatorPlayer):
         self.maze = self.app.maze
 
     # TODO: Add physics (real velocity, acceleration, etc.)
+    # @override
     def keyboard_control(self):
         velocity = CAMERA_SPEED * self.app.delta_time
         keys = pg.key.get_pressed()

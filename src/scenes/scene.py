@@ -1,7 +1,7 @@
 import abc
 
 
-class BaseScene:
+class BaseScene(abc.ABC):
     def __init__(self, app):
         self.app = app
         self.shadow_objects = []
