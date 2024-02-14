@@ -26,9 +26,10 @@ class BaseRenderer:
             obj.render()
 
     def render(self):
-        self.main_render()
         if not DISABLE_SHADOW_RENDER:
             self.shadow_render()
+
+        self.main_render()
 
     @abc.abstractmethod
     def create_scene(self):
