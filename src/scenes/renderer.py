@@ -26,6 +26,7 @@ class BaseRenderer(abc.ABC):
             obj.render()
 
     def render(self):
+        self.scene.update()
         if not DISABLE_SHADOW_RENDER:
             self.shadow_render()
 
