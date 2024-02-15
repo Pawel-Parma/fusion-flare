@@ -27,6 +27,6 @@ class ShaderProgram:
             raise KeyError(f"Program {name} not found")
 
         if name not in self.programs:
-            return self.get_program(name)
+            self.programs[name] = self.get_program(name)
 
         return self.programs[name]
