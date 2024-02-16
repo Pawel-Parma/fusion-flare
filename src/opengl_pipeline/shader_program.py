@@ -6,7 +6,7 @@ from ..config import *
 class ShaderProgram:
     def __init__(self, ctx):
         self.ctx = ctx
-        self.programs_list = {shader for shader in os.listdir(SHADERS_DIR)}
+        self.programs_list = set(os.listdir(SHADERS_DIR))
         self.programs = {"default": self.get_program("default"),
                          "shadow_map": self.get_program("shadow_map"),
                          "plane2d": self.get_program("plane2d")}
@@ -28,5 +28,6 @@ class ShaderProgram:
 
         if name not in self.programs:
             self.programs[name] = self.get_program(name)
+            self.programs_list.add(name)
 
         return self.programs[name]
