@@ -21,8 +21,8 @@ class Texture:
 
                          "depth_texture": self.get_depth_texture()}
 
-        self.textures_list = {t[:t.rfind(".")] for t in os.listdir(TEXTURES_DIR)}
-        self.textures_list.update(set(self.textures))
+        self.textures_list = {op.splitext(t)[0] for t in os.listdir(TEXTURES_DIR)}
+        self.textures_list.update(self.textures)
 
     def get_texture(self, name="none", extension=".png", color=None):
         texture = pg.image.load(f"{TEXTURES_DIR}/{name}{extension}").convert()
