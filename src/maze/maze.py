@@ -1,7 +1,7 @@
 import random
 
 
-def generate_maze(width: int, lenght: int, height: int):  # TODO: make better (real generation)
+def generate_maze(width: int, lenght: int):  # TODO: make better (real generation)
     maze = []
     for x in range(width):
         maze.append([])
@@ -21,13 +21,13 @@ def generate_maze(width: int, lenght: int, height: int):  # TODO: make better (r
     end = (random.randint(1, width - 2), 0, random.randint(1, lenght - 2))
     maze[end[0]][end[2]] = "e"
 
-    make_empty_around(maze, start, lenght, width, height)
-    make_empty_around(maze, end, lenght, width, height)
+    make_empty_around(maze, start, lenght, width)
+    make_empty_around(maze, end, lenght, width)
 
     return maze, start, end
 
 
-def make_empty_around(maze, point, lenght, width, height):
+def make_empty_around(maze, point, lenght, width):
     x, y, z = point
     prev = maze[x][z]
     for i in range(-1, 2):
@@ -46,7 +46,7 @@ class Maze:
         self.width = width
         self.length = length
         self.height = height
-        data = generate_maze(width, length, height)
+        data = generate_maze(width, length)
         self.maze = data[0]
         self.start = data[1]
         self.end = data[2]
