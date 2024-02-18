@@ -8,7 +8,7 @@ import pygame as pg
 from .base import BaseModel
 
 
-class Button(BaseModel):  # TODO: Make a plane class to inherit from, add left click to press
+class Button(BaseModel):  # TODO: Refactor this class
     last_click_time = time.time()
 
     def __init__(self, app, position, default_texture, hover_texture,

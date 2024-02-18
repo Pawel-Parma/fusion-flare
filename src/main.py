@@ -35,13 +35,12 @@ from .maze import Maze
 
 # TODO: FINISHING TOUCHES
 # Show time while playing
+# More textures
 
 # TODO: If time
 # Custom music and sound
-# Make coins, power-ups [has compass, shows where to go, speed boost, etc.]
-# Add shop
+# Make coins, power-ups [compass, shows where to go, speed boost, etc.]
 # Allow true 3D with stairs
-# Enemies
 
 
 class GraphicsEngine:
