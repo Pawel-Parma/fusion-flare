@@ -8,7 +8,7 @@ import glm
 from ..config import *
 
 
-class HitBox:
+class HitBox:  # TODO: implement real hit box, add colision detection
     def __init__(self, position, scale, rotation):
         self.position = position
         self.scale = scale
