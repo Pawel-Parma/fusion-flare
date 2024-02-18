@@ -8,6 +8,29 @@ import glm
 from ..config import *
 
 
+class HitBox:
+    def __init__(self, position, scale, rotation):
+        self.position = position
+        self.scale = scale
+        self.rotation = rotation
+
+        self.vertices = self.get_vertices()
+        self.surfaces = self.get_surfaces()
+
+    def get_vertices(self):
+        ...
+
+    def get_surfaces(self):
+        ...
+
+    def update(self, position, scale, rotation):
+        if (self.position, self.scale, self.rotation) == (position, scale, rotation):
+            return
+
+        self.vertices = self.get_vertices()
+        self.surfaces = self.get_surfaces()
+
+
 class BaseModel(abc.ABC):
     def __init__(self, app, vao_name, texture_id, position, rotation=(0, 0, 0), scale=(1, 1, 1), alpha=1.0):
         self.app = app
@@ -17,9 +40,10 @@ class BaseModel(abc.ABC):
         self.texture_id = texture_id
         self.position = position
         self.rotation = glm.vec3(*[glm.radians(rot) for rot in rotation])
-        self.scale = scale
+        self.scale = glm.vec3(scale)
         self.alpha = struct.pack('f', alpha)
 
+        self.hit_box = HitBox(position, self.scale, self.rotation)
         self.m_model = self.get_model_matrix()
 
     def get_model_matrix(self):
@@ -38,12 +62,13 @@ class BaseModel(abc.ABC):
         self.update()
         self.vao.render()
 
+    def is_seen_by_camera(self):  # TODO: implement real culling
+        return True
+
     @abc.abstractmethod
     def update(self):
+        self.hit_box.update(self.position, self.scale, self.rotation)
         self.program["alpha"].write(self.alpha)
-
-    # def is_seen_by_camera(self):
-    #     return True
 
     @property
     def is_shadowy(self):

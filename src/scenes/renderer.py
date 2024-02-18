@@ -18,12 +18,14 @@ class BaseRenderer(abc.ABC):
         self.depth_fbo.clear()
         self.depth_fbo.use()
         for obj in self.scene.shadow_objects:
-            obj.render_shadow()
+            if obj.is_seen_by_camera():
+                obj.render_shadow()
 
     def main_render(self):
         self.app.ctx.screen.use()
         for obj in (self.scene.no_shadow_objects + self.scene.shadow_objects):
-            obj.render()
+            if obj.is_seen_by_camera():
+                obj.render()
 
     def render(self):
         self.scene.update()
