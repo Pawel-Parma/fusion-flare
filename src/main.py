@@ -1,5 +1,3 @@
-import os.path as op
-
 import pygame as pg
 import moderngl as gl
 
@@ -11,7 +9,6 @@ from .scenes import *
 from .maze import Maze
 
 # GAME
-# TODO: Make faster by utilising more culling
 # TODO: add debug screen (F3)
 
 # TODO: Make main menu
