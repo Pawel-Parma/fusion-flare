@@ -63,7 +63,21 @@ class BaseModel(abc.ABC):
         self.vao.render()
 
     def is_seen_by_camera(self):  # TODO: implement real culling
-        return True
+        if self.scale != glm.vec3(1, 1, 1):  # Currently only for small objects
+            return True
+
+        center_distance = glm.length(self.position - self.app.camera.position)
+        # distance_values = []
+        #
+        # for x in range(-1, 1):
+        #     for y in range(-1, 1):
+        #         for z in range(-1, 1):
+        #             real_distance = abs(abs(center_distance) + glm.length(self.scale * glm.vec3(x, y, z)))
+        #             distance_values.append(CAMERA_FAR > real_distance > CAMERA_NEAR)
+        #
+        # return distance_values.count(True) > 0
+
+        return CAMERA_FAR > center_distance > CAMERA_NEAR
 
     @abc.abstractmethod
     def update(self):
