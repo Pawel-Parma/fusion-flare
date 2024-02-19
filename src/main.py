@@ -37,7 +37,7 @@ from .maze import Maze
 # Show time while playing
 # More textures
 
-# TODO: If time
+# If time
 # Custom music and sound
 # Make coins, power-ups [compass, shows where to go, speed boost, etc.]
 # Allow true 3D with stairs
@@ -71,7 +71,7 @@ class GraphicsEngine:
         self.time = 0
         self.delta_time = 0
         # maze
-        self.maze = Maze(MAZE_WIDTH, MAZE_LENGHT)
+        self.maze = Maze()
         # light
         self.light = CameraFollowingLight(self, Light(position=(0, 0, 0), specular=0))
         # players
@@ -208,7 +208,6 @@ class GraphicsEngine:
     def mainloop(self):
         while self.running:
             log(f"FPS: {self.clock.get_fps():.2f}")
-            log(f"Camera yaw: {self.camera.yaw}")
             self.delta_time = self.clock.tick()  # FPS
             self.render()
             self.handle_events()

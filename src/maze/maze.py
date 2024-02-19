@@ -39,8 +39,16 @@ def make_empty_around(maze, point, lenght, width):
 
 
 class Maze:
-    def __init__(self, width: int, length: int, height: int = 1):
-        self.new(width, length, height)  # Do not generate maze on creation
+    def __init__(self):
+        self.width = 0
+        self.length = 0
+        self.height = 0
+
+        self.maze = []
+        self.start = None
+        self.end = None
+        self.start_in_map_coords = (0, 0, 0)
+        self.end_in_map_coords = (0, 0, 0)
 
     def new(self, width: int, length: int, height: int = 1):
         self.width = width
