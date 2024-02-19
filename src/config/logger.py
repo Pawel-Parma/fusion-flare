@@ -58,7 +58,7 @@ config = {
             "formatter": "simple",
             "filters": [file_log_filter],
             "filename": f"{LOGS_DIR}/{APP_NAME}.log",
-            "maxBytes": 524288,
+            "maxBytes": 4_194_304,
             "backupCount": 64,
         },
         # "queue_handler": {
