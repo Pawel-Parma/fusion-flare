@@ -45,8 +45,7 @@ from .maze import Maze
 
 class GraphicsEngine:
     def __init__(self):
-        self.run: bool = True
-        self.show = ToShow.MAIN_MENU
+        self.running: bool = True
         self.key_binds = KeyBinds()
         # init pygame
         pg.init()
@@ -76,43 +75,52 @@ class GraphicsEngine:
         # light
         self.light = CameraFollowingLight(self, Light(position=(0, 0, 0), specular=0))
         # players
-        self.physics_player = PhysicsPlayer(self, position=self.maze.start_in_map_coords)
+        self.physics_player = PhysicsPlayer(self, position=(0, 0, 0))
         self.spectator_player = SpectatorPlayer(self)
         self.current_camera = CameraType.PHYSICS
         self.camera = self.physics_player
         # mesh
         self.mesh = Mesh(self)
-        # game scene
+        # scenes
         self.maze_renderer = MazeSceneRenderer(self)
-        # main menu scene
         self.main_menu_renderer = MainMenuSceneRenderer(self)
-        # esc menu
         self.esc_menu_renderer = EscMenuSceneRenderer(self)
-        # end game menu
         self.end_game_menu_renderer = EndGameMenuSceneRenderer(self)
+        self.show = ToShow.MAIN_MENU
+        self.renderer = self.main_menu_renderer
+        self.renderer.scene.use()
 
     def get_time(self):
         self.time = pg.time.get_ticks() * 0.001
 
-    def quit(self):
-        pg.quit()
-        self.run = False
+    def set_renderer(self, scene_renderer):
+        self.renderer.scene.un_use()
+        self.renderer = scene_renderer
+        self.renderer.scene.use()
 
     def play(self, new_maze=False):
+        self.show = ToShow.GAME
+        self.set_renderer(self.maze_renderer)
         if new_maze:
             self.maze.new(MAZE_WIDTH, MAZE_LENGHT)
             self.maze_renderer.scene.new_maze()
-
-        self.show = ToShow.GAME
+            self.camera.set_position(self.maze.start_in_map_coords)
 
     def main_menu(self):
         self.show = ToShow.MAIN_MENU
+        self.set_renderer(self.main_menu_renderer)
 
     def esc_menu(self):
         self.show = ToShow.ESC_MENU
+        self.set_renderer(self.esc_menu_renderer)
 
     def end_game_menu(self):
         self.show = ToShow.END_GAME_MENU
+        self.set_renderer(self.end_game_menu_renderer)
+
+    def quit(self):
+        pg.quit()
+        self.running = False
 
     def handle_events(self):
         for event in pg.event.get():
@@ -179,25 +187,11 @@ class GraphicsEngine:
         if self.maze.end_in_map_coords == temp:
             self.end_game_menu()
 
-    # remove in the future
-    # TODO: make the camera position independent of each scene
-    def set_camera_where_buttons_are(self):
-        self.camera.position.x = 0
-        self.camera.position.y = 0
-        self.camera.position.z = 10
-        self.camera.yaw = 4.72
-        self.camera.pitch = 0
-        self.camera.update_vectors()
-        self.camera.update_view_matirx()
-
     def render_main_menu(self):
         # background color
         self.ctx.clear(*MENU_COLOR)
         # render scene
         self.main_menu_renderer.render()
-
-        # remove in the future
-        self.set_camera_where_buttons_are()
 
     def render_esc_menu(self):
         # background color
@@ -205,21 +199,16 @@ class GraphicsEngine:
         # render scene
         self.esc_menu_renderer.render()
 
-        # remove in the future
-        self.set_camera_where_buttons_are()
-
     def render_end_game_menu(self):
         # background color
         self.ctx.clear(*MENU_COLOR)
         # render scene
         self.end_game_menu_renderer.render()
 
-        # remove in the future
-        self.set_camera_where_buttons_are()
-
     def mainloop(self):
-        while self.run:
+        while self.running:
             log(f"FPS: {self.clock.get_fps():.2f}")
+            log(f"Camera yaw: {self.camera.yaw}")
             self.delta_time = self.clock.tick()  # FPS
             self.render()
             self.handle_events()
