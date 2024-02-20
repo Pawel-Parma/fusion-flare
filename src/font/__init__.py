@@ -1,1 +1,1 @@
-from .manager import font_manager
+from .manager import FontManager

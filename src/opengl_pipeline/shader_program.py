@@ -24,7 +24,7 @@ class ShaderProgram:
 
     def __getitem__(self, name):
         if name not in self.programs_list:
-            raise KeyError(f"Program {name} not found")
+            raise KeyError(f"Program ({name}) not found")
 
         if name not in self.programs:
             self.programs[name] = self.get_program(name)

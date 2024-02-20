@@ -35,10 +35,13 @@ IMAGES_DIR: str = "images/"
 
 CAMERA_FOV: float = 50  # deg
 CAMERA_NEAR: float = 0.1
-CAMERA_FAR: float = 100
+CAMERA_FAR: float = 80
 CAMERA_SPEED: float = 0.01
 MOUSE_SENSITIVITY: float = 0.002
 CAMERA_PITCH_MAX: float = 89
 CAMERA_PITCH_MIN: float = -89
+
+with open("src/config/font-binds.json", "r") as f:
+    FONT_BINDS = json.load(f)
 
 del typing, json, glm

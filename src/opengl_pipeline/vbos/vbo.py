@@ -11,6 +11,6 @@ class VBO:
 
     def __getitem__(self, name):
         if name not in self.vbos:
-            raise KeyError(f"VBO {name} not found")
+            raise KeyError(f"VBO ({name}) not found")
 
         return self.vbos[name]

@@ -41,7 +41,12 @@ class BaseModel(abc.ABC):
         self.position = position
         self.rotation = glm.vec3(*[glm.radians(rot) for rot in rotation])
         self.scale = glm.vec3(scale)
-        self.alpha = struct.pack('f', alpha)
+
+        if isinstance(alpha, float):
+            self.alpha = struct.pack('f', alpha)
+
+        else:
+            self.alpha = alpha
 
         self.hit_box = HitBox(position, self.scale, self.rotation)
         self.m_model = self.get_model_matrix()
