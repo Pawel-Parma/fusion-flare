@@ -7,6 +7,8 @@ from .light import Light, CameraFollowingLight
 from .opengl_pipeline import Mesh
 from .scenes import *
 from .maze import Maze
+from .font import FontManager
+
 
 # GAME
 # TODO: add debug screen (F3)
@@ -74,6 +76,8 @@ class GraphicsEngine:
         self.maze = Maze()
         # light
         self.light = CameraFollowingLight(self, Light(position=(0, 0, 0), specular=0))
+        # fonts
+        self.font_manager = FontManager(self)
         # players
         self.physics_player = PhysicsPlayer(self, position=(0, 0, 0))
         self.spectator_player = SpectatorPlayer(self)

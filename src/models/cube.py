@@ -43,5 +43,4 @@ class Cube(BaseShadowModel):
         self.program["camPos"].write(self.app.camera.position)
         self.program["m_view"].write(self.app.camera.m_view)
         self.program["m_model"].write(self.m_model)
-        self.program["alpha"].write(self.alpha)
         self.update_light()

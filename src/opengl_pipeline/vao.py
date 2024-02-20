@@ -18,6 +18,6 @@ class VAO:
 
     def __getitem__(self, item):
         if item not in self.vaos:
-            raise KeyError(f"VAO {item} not found")
+            raise KeyError(f"VAO ({item} not found")
 
         return self.vaos[item]

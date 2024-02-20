@@ -48,7 +48,7 @@ class Texture:
 
     def __getitem__(self, texture_id):
         if texture_id not in self.textures_list:
-            raise KeyError(f"Texture {texture_id} not found")
+            raise KeyError(f"Texture ({texture_id}) not found")
 
         if texture_id not in self.textures:
             self.textures[texture_id] = self.get_texture(texture_id)
