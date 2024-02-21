@@ -20,6 +20,8 @@ class KeyBinds:
         # Keys:
         #  - Cheat Codes
         self.change_camera = pg.K_F1
+        self.free_camera = pg.K_F2
+        self.show_debug = pg.K_F3
         self.tab = pg.K_TAB
         #  - Menu
         self.button_up = (pg.K_w, pg.K_UP)

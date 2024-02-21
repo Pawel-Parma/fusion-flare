@@ -8,7 +8,7 @@ import glm
 from ..config import *
 
 
-class HitBox:  # TODO: implement real hit box, add collision detection
+class HitBox:
     def __init__(self, position, scale, rotation):
         self.position = position
         self.scale = scale
@@ -41,12 +41,7 @@ class BaseModel(abc.ABC):
         self.position = position
         self.rotation = glm.vec3(*[glm.radians(rot) for rot in rotation])
         self.scale = glm.vec3(scale)
-
-        if isinstance(alpha, float):
-            self.alpha = struct.pack('f', alpha)
-
-        else:
-            self.alpha = alpha
+        self.alpha = struct.pack('f', alpha)
 
         self.hit_box = HitBox(position, self.scale, self.rotation)
         self.m_model = self.get_model_matrix()

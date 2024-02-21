@@ -83,6 +83,7 @@ class GraphicsEngine:
         self.spectator_player = SpectatorPlayer(self)
         self.current_camera = CameraType.PHYSICS
         self.camera = self.physics_player
+        self.always_update_camera = False
         # mesh
         self.mesh = Mesh(self)
         # scenes
@@ -158,6 +159,9 @@ class GraphicsEngine:
                         self.physics_player.use_vars_from(self.camera)
                         self.camera = self.physics_player
 
+            if key == self.key_binds.free_camera:
+                self.always_update_camera = not self.always_update_camera
+
     def render(self):
         match self.show:
             case ToShow.GAME:
@@ -171,6 +175,9 @@ class GraphicsEngine:
 
             case ToShow.END_GAME_MENU:
                 self.render_end_game_menu()
+
+        if self.always_update_camera:
+            self.camera.update()
 
         self.light.update()
         # swap buffers
