@@ -13,7 +13,7 @@ class PhysicsPlayer(SpectatorPlayer):
         super().__init__(app, position, yaw, pitch)
         self.maze = self.app.maze
 
-    # TODO: Add physics (real velocity, acceleration, etc.)
+    # TODO: Add physics (real velocity, acceleration, etc.), implement hit box, add collision detection in BaseModel
     # @override
     def keyboard_control(self):
         velocity = CAMERA_SPEED * self.app.delta_time
