@@ -10,8 +10,9 @@ from .base import BaseShadowModel
 
 
 class Cube(BaseShadowModel):
-    def __init__(self, app, texture_id, position, rotation=(0, 0, 0), scale=(1, 1, 1)):
-        super().__init__(app, "cube", texture_id, position, rotation, scale)
+    def __init__(self, app, texture_id, position, rotation=(0, 0, 0), scale=(1, 1, 1), color=(255, 255, 255),
+                 alpha=255):
+        super().__init__(app, "cube", texture_id, position, rotation, scale, color, alpha)
 
     # @override
     def on_init(self):

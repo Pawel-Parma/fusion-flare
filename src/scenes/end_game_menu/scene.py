@@ -17,13 +17,13 @@ class EndGameMenu(BaseScene):
         # buttons
         hover_texture = "white"
         # play
-        new_game_button = add(Button(app, (-6, -0.5, 0), "img_2", hover_texture, scale=(1.5, 0.5)))
+        new_game_button = add(Button(app, (-6, -0.5, 0), "bronze_panel", hover_texture, scale=(1.5, 0.5)))
         new_game_button.on_click(lambda: app.play(new_maze=True))
         # replay
-        replay_button = add(Button(app, (-6, -2, 0), "img_2", hover_texture, scale=(1.5, 0.5)))
+        replay_button = add(Button(app, (-6, -2, 0), "bronze_panel", hover_texture, scale=(1.5, 0.5)))
         replay_button.on_click(app.play)
         # exit
-        exit_button = add(Button(app, (-6, -3.5, 0), "img", hover_texture, scale=(1.5, 0.5)))
+        exit_button = add(Button(app, (-6, -3.5, 0), "wooden_box", hover_texture, scale=(1.5, 0.5)))
         exit_button.on_click(app.main_menu)
 
         # bind buttons

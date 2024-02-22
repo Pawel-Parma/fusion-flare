@@ -31,7 +31,8 @@ class HitBox:
 
 
 class BaseModel(abc.ABC):
-    def __init__(self, app, vao_name, texture_id, position, rotation=(0, 0, 0), scale=(1, 1, 1)):
+    def __init__(self, app, vao_name, texture_id, position, rotation=(0, 0, 0), scale=(1, 1, 1),
+                 color=(255, 255, 255), alpha=255):
         self.app = app
 
         self.vao = app.mesh.vao[vao_name]
@@ -40,6 +41,7 @@ class BaseModel(abc.ABC):
         self.position = position
         self.rotation = glm.vec3(*[glm.radians(rot) for rot in rotation])
         self.scale = glm.vec3(scale)
+        self.color = glm.vec4(color, alpha) / 255
 
         self.hit_box = HitBox(position, self.scale, self.rotation)
         self.m_model = self.get_model_matrix()
@@ -70,6 +72,7 @@ class BaseModel(abc.ABC):
     @abc.abstractmethod
     def update(self):
         self.hit_box.update(self.position, self.scale, self.rotation)
+        self.program["shift_color"].write(self.color)
 
     @property
     def is_shadowy(self):
@@ -77,8 +80,9 @@ class BaseModel(abc.ABC):
 
 
 class BaseShadowModel(BaseModel, abc.ABC):
-    def __init__(self, app, vao_name, texture_id, position, rotation=(0, 0, 0), scale=(1, 1, 1)):
-        super().__init__(app, vao_name, texture_id, position, rotation, scale)
+    def __init__(self, app, vao_name, texture_id, position, rotation=(0, 0, 0), scale=(1, 1, 1),
+                 color=(255, 255, 255), alpha=255):
+        super().__init__(app, vao_name, texture_id, position, rotation, scale, color, alpha)
         self.on_init()
 
     def on_init(self):

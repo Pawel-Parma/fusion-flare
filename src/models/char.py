@@ -4,8 +4,9 @@ from .base import BaseModel
 
 
 class Char(BaseModel):
-    def __init__(self, app, char, font, quality, position, rotation=(0, 0, 0), scale=(1, 1)):
-        super().__init__(app, "plane2d", "none", position, rotation, (*scale, 0))
+    def __init__(self, app, char, font, quality, position, rotation=(0, 0, 0), scale=(1, 1), color=(255, 255, 255),
+                 alpha=255):
+        super().__init__(app, "plane2d", "none", position, rotation, (*scale, 0), color, alpha)
         self.char = char
         self.font_name = font
         self.quality = quality
