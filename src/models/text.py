@@ -9,13 +9,12 @@ from .char import Char
 
 
 class Text(BaseModel):  # TODO: add color, make text rotation, not char rotation
-    def __init__(self, app, text, font, position, rotation=(0, 0, 0), scale=(1, 1), alpha=1.0, qualtiy=(96, 96)):
+    def __init__(self, app, text, font, position, rotation=(0, 0, 0), scale=(1, 1), qualtiy=(96, 96)):
         self.real_position = glm.vec3(*position)
         pos = glm.vec3(*position)
         pos.x -= (self.get_text_len(text) - 1) * scale[0]
-        super().__init__(app, "plane2d", "none", pos, rotation, (*scale, 0), alpha)
+        super().__init__(app, "plane2d", "none", pos, rotation, (*scale, 0))
         self.rotation_in_deg = glm.vec3(rotation)
-        self.alpha_in_float = alpha
 
         self.text = text
         self.font = font
@@ -42,9 +41,8 @@ class Text(BaseModel):  # TODO: add color, make text rotation, not char rotation
                 special_char += char
                 continue
 
-            pos = self.position + 2 * self.scale * glm.vec3(len(tmp), 0, 0)
-            tmp.append(Char(self.app, char, self.font, self.quality, pos,  self.rotation_in_deg, self.scale,
-                            self.alpha_in_float))
+            pos = self.position + 2 * self.scale * glm.vec3(len(tmp), 0, 0)  # TODO: fix this (W, M)
+            tmp.append(Char(self.app, char, self.font, self.quality, pos, self.rotation_in_deg, self.scale))
 
         return tmp
 

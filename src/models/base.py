@@ -1,5 +1,4 @@
 import abc
-import struct
 
 # from typing import override
 
@@ -32,7 +31,7 @@ class HitBox:
 
 
 class BaseModel(abc.ABC):
-    def __init__(self, app, vao_name, texture_id, position, rotation=(0, 0, 0), scale=(1, 1, 1), alpha=1.0):
+    def __init__(self, app, vao_name, texture_id, position, rotation=(0, 0, 0), scale=(1, 1, 1)):
         self.app = app
 
         self.vao = app.mesh.vao[vao_name]
@@ -41,7 +40,6 @@ class BaseModel(abc.ABC):
         self.position = position
         self.rotation = glm.vec3(*[glm.radians(rot) for rot in rotation])
         self.scale = glm.vec3(scale)
-        self.alpha = struct.pack('f', alpha)
 
         self.hit_box = HitBox(position, self.scale, self.rotation)
         self.m_model = self.get_model_matrix()
@@ -72,7 +70,6 @@ class BaseModel(abc.ABC):
     @abc.abstractmethod
     def update(self):
         self.hit_box.update(self.position, self.scale, self.rotation)
-        self.program["alpha"].write(self.alpha)
 
     @property
     def is_shadowy(self):
@@ -80,8 +77,8 @@ class BaseModel(abc.ABC):
 
 
 class BaseShadowModel(BaseModel, abc.ABC):
-    def __init__(self, app, vao_name, texture_id, position, rotation=(0, 0, 0), scale=(1, 1, 1), alpha=1.0):
-        super().__init__(app, vao_name, texture_id, position, rotation, scale, alpha)
+    def __init__(self, app, vao_name, texture_id, position, rotation=(0, 0, 0), scale=(1, 1, 1)):
+        super().__init__(app, vao_name, texture_id, position, rotation, scale)
         self.on_init()
 
     def on_init(self):
@@ -96,8 +93,7 @@ class BaseShadowModel(BaseModel, abc.ABC):
         self.shadow_program = self.shadow_vao.program
         self.shadow_program["m_proj"].write(self.app.camera.m_proj)
         self.shadow_program["m_view_light"].write(self.app.light.m_view_light)
-        self.shadow_program["m_model"].write(self.m_model)
-        # light (shadow)
+        # shadow
         self.program["m_view_light"].write(self.app.light.m_view_light)
 
     def update_shadow(self):

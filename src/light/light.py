@@ -39,5 +39,4 @@ class CameraFollowingLight(Light):
 
     # @override
     def update(self):
-        self.position.xz = self.app.camera.position.xz
-        self.position.y = 1
+        self.position.xyz = self.app.camera.position.xyz

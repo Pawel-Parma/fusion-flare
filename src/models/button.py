@@ -11,10 +11,9 @@ from .base import BaseModel
 class Button(BaseModel):
     last_press_time = time.time()
 
-    def __init__(self, app, position, default_texture, hover_texture,
-                 change_delay_time=0.15, sequent_press_delay_time=0.3,
-                 rotation=(0, 0, 0), scale=(1, 1), is_dynamic=False, alpha=1.0):
-        super().__init__(app, "plane2d", "none", position, rotation, (*scale, 0), alpha)
+    def __init__(self, app, position, default_texture, hover_texture, change_delay_time=0.15,
+                 sequent_press_delay_time=0.3, rotation=(0, 0, 0), scale=(1, 1), is_dynamic=False):
+        super().__init__(app, "plane2d", "none", position, rotation, (*scale, 0))  # TODO: add text to button
         self.default_texture = self.app.mesh.texture[default_texture]
         self.hover_texture = self.app.mesh.texture[hover_texture]
 
@@ -36,12 +35,8 @@ class Button(BaseModel):
     def on_init(self):
         # texture
         self.program["u_texture_0"] = 0
-        self.set_correct_texture()
-        self.texture.use(location=0)
         # mvp
         self.program["m_proj"].write(self.app.camera.m_proj)
-        self.program["m_view"].write(self.app.camera.m_view)
-        self.program["m_model"].write(self.m_model)
 
     def set_correct_texture(self):
         self.texture = self.hover_texture if self.is_chosen else self.default_texture

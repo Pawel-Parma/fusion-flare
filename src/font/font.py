@@ -1,5 +1,3 @@
-import string
-
 from io import BytesIO
 
 import freetype as ft
@@ -11,12 +9,24 @@ import glm
 from ..config import *
 
 
-def flip(buffer, width, height):
-    new_buffer = np.zeros((width * height), dtype=np.ubyte)
+def flip_fold_array(array, width, height):
+    out_array = np.zeros(array.size, dtype=array.dtype)
     for i in range(height):
-        new_buffer[i * width: (i + 1) * width] = buffer[height - i - 1]
+        out_array[i * width: (i + 1) * width] = array[height - i - 1]
 
-    return new_buffer
+    return out_array
+
+
+def grayscale_to_rgba(array):
+    new_shape = array.shape + (4,)
+    out_array = np.zeros(new_shape, dtype=array.dtype)
+
+    for i in range(3):
+        out_array[..., i] = array
+
+    out_array[..., 3] = np.where(array != 0, 255, 0)
+
+    return out_array
 
 
 class Font:
@@ -31,7 +41,6 @@ class Font:
         self.face = ft.Face(f"{FONTS_DIR}/{name}.ttf")
         self.face.set_char_size(size[0] * size[1])
         self.glyphs = {}
-        self.load_glyphs(string.printable)
 
     def load_glyphs(self, text):
         for char in text:
@@ -43,17 +52,17 @@ class Font:
                 continue
 
             self.face.load_char(char)
+
             bitmap = self.face.glyph.bitmap
             size = bitmap.width, bitmap.rows
             buffer = np.array(bitmap.buffer, dtype=np.ubyte).reshape(*size[::-1])
-            buffer = flip(buffer, *size)
+            buffer = flip_fold_array(buffer, *size)
+            buffer = grayscale_to_rgba(buffer)
 
             self.glyphs[char] = self.get_texture(buffer, size)
 
     def get_texture(self, buffer, size):
-        texture = self.ctx.texture(size=size, components=1,
-                                   data=buffer.tobytes(), )
-        texture.swizzle = "RRR"  # TODO: Check what it does (Added by copilot, most likely wrong but interesting)
+        texture = self.ctx.texture(size=size, components=4, data=buffer.tobytes())
         # mipmaps
         texture.filter = (gl.LINEAR_MIPMAP_LINEAR, gl.LINEAR)
         texture.build_mipmaps()
