@@ -19,12 +19,12 @@ def flip_fold_array(array, width, height):
 
 def grayscale_to_rgba(array):
     new_shape = array.shape + (4,)
-    out_array = np.zeros(new_shape, dtype=array.dtype)
+    out_array = np.ones(new_shape, dtype=array.dtype)
 
     for i in range(3):
         out_array[..., i] = array
 
-    out_array[..., 3] = np.where(array != 0, 255, 0)
+    out_array[..., 3] = np.where(array >= 210, 255, 0)
 
     return out_array
 

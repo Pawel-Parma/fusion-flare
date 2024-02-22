@@ -4,6 +4,7 @@ import time
 
 import numpy as np
 import pygame as pg
+import glm
 
 from .base import BaseModel
 
@@ -11,11 +12,14 @@ from .base import BaseModel
 class Button(BaseModel):
     last_press_time = time.time()
 
-    def __init__(self, app, position, default_texture, hover_texture, change_delay_time=0.15,
-                 sequent_press_delay_time=0.3, rotation=(0, 0, 0), scale=(1, 1), is_dynamic=False):
+    def __init__(self, app, position, default_texture, hover_texture, rotation=(0, 0, 0), scale=(1, 1),
+                 default_color=(255, 255, 255), default_alpha=255, hover_color=(255, 255, 255), hover_alpha=255,
+                 is_dynamic=False, change_delay_time=0.15, sequent_press_delay_time=0.3):
         super().__init__(app, "plane2d", "none", position, rotation, (*scale, 0))  # TODO: add text to button
         self.default_texture = self.app.mesh.texture[default_texture]
+        self.default_color = glm.vec4(default_color, default_alpha) / 255
         self.hover_texture = self.app.mesh.texture[hover_texture]
+        self.hover_color = glm.vec4(hover_color, hover_alpha) / 255
 
         self.change_delay_time = change_delay_time
         self.last_change_time = time.time()
@@ -38,8 +42,9 @@ class Button(BaseModel):
         # mvp
         self.program["m_proj"].write(self.app.camera.m_proj)
 
-    def set_correct_texture(self):
+    def set_correct_texture_and_color(self):
         self.texture = self.hover_texture if self.is_chosen else self.default_texture
+        self.color = self.hover_color if self.is_chosen else self.default_color
 
     def set_chosen(self, button_and_id=None):
         self.is_chosen = True
@@ -137,7 +142,7 @@ class Button(BaseModel):
         if self.is_clicked():
             self.func_on_click()
 
-        self.set_correct_texture()
+        self.set_correct_texture_and_color()
         self.texture.use(location=0)
         self.program["m_model"].write(self.m_model)
         self.program["m_view"].write(self.app.camera.m_view)

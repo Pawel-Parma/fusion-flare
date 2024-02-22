@@ -12,9 +12,9 @@ class Texture:
         self.app = app
         self.ctx = app.ctx
 
-        self.textures = {"img": self.get_texture("img", color=(255, 0, 0)),
-                         "img_1": self.get_texture("img_1", color=(213, 140, 120)),  # TODO: add color to model
-                         "img_2": self.get_texture("img_2", color=(2, 255, 22)),
+        self.textures = {"wooden_box": self.get_texture("wooden_box"),
+                         "steel_panel": self.get_texture("steel_panel"),
+                         "bronze_panel": self.get_texture("bronze_panel"),
 
                          "depth_texture": self.get_depth_texture()}
 

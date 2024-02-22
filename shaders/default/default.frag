@@ -19,6 +19,7 @@ uniform sampler2D u_texture_0;
 uniform vec3 camPos;
 uniform sampler2DShadow shadowMap;
 uniform vec2 u_resolution;
+uniform vec4 shift_color;
 
 
 float lookUp(float ox, float oy) {
@@ -80,5 +81,5 @@ void main() {
     // gamma correction pt. 2
     color = pow(color, vec3(1.0 / gamma));
 
-    fragColor = vec4(color, color_rgba.a);
+    fragColor = vec4(color, color_rgba.a) * shift_color;
 }
