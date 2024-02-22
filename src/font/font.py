@@ -48,7 +48,7 @@ class Font:
                 continue
 
             elif char == " ":
-                self.glyphs[char] = self.get_texture(np.zeros((1, 1), dtype=np.ubyte), (1, 1))
+                self.glyphs[char] = self.get_texture(np.zeros((1, 4), dtype=np.ubyte), (1, 1))
                 continue
 
             self.face.load_char(char)
