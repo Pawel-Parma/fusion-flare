@@ -16,21 +16,17 @@ class EndGameMenuScene(BaseScene):
 
         # buttons
         hover_texture = "white"
-        # play
-        new_game_button = add(Button(app, (-6, -0.5, 0), "bronze_panel", hover_texture, scale=(1.5, 0.5)))
-        new_game_button.on_click(lambda: app.play(new_maze=True))
-        # replay
-        replay_button = add(Button(app, (-6, -2, 0), "bronze_panel", hover_texture, scale=(1.5, 0.5)))
-        replay_button.on_click(app.play)
+        # play again
+        play_again_button = add(Button(app, (-6, -2, 0), "white", hover_texture, scale=(1.5, 0.5),
+                                       default_color=(0, 125, 0), hover_color=(0, 255, 0)))
+        play_again_button.on_click(lambda: app.play(new_maze=True))
         # exit
-        exit_button = add(Button(app, (-6, -3.5, 0), "wooden_box", hover_texture, scale=(1.5, 0.5)))
+        exit_button = add(Button(app, (-6, -3.5, 0), "white", hover_texture, scale=(1.5, 0.5),
+                                 default_color=(125, 0, 0), hover_color=(255, 0, 0)))
         exit_button.on_click(app.main_menu)
 
         # bind buttons
-        new_game_button.set_chosen()
-        new_game_button.down_button(replay_button)
+        play_again_button.set_chosen()
+        play_again_button.down_button(exit_button)
 
-        replay_button.up_button(new_game_button)
-        replay_button.down_button(exit_button)
-
-        exit_button.up_button(replay_button)
+        exit_button.up_button(play_again_button)
