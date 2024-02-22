@@ -5,7 +5,7 @@ from ...models import *
 from ..scene import BaseScene
 
 
-class EndGameMenu(BaseScene):
+class EndGameMenuScene(BaseScene):
     def __init__(self, app):
         super().__init__(app)
 

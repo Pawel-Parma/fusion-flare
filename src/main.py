@@ -87,10 +87,10 @@ class GraphicsEngine:
         # mesh
         self.mesh = Mesh(self)
         # scenes
-        self.maze_renderer = MazeSceneRenderer(self)
-        self.main_menu_renderer = MainMenuSceneRenderer(self)
-        self.esc_menu_renderer = EscMenuSceneRenderer(self)
-        self.end_game_menu_renderer = EndGameMenuSceneRenderer(self)
+        self.maze_renderer = Renderer(self, MazeScene(self))
+        self.main_menu_renderer = Renderer(self, MainMenuScene(self))
+        self.esc_menu_renderer = Renderer(self, EscMenuScene(self))
+        self.end_game_menu_renderer = Renderer(self, EndGameMenuScene(self))
         self.show = ToShow.MAIN_MENU
         self.renderer = self.main_menu_renderer
         self.renderer.scene.use()

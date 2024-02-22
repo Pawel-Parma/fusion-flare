@@ -3,13 +3,13 @@ import abc
 from ..config import *
 
 
-class BaseRenderer(abc.ABC):  # TODO: different renderer interface
-    def __init__(self, app):
+class Renderer(abc.ABC):  # TODO: different renderer interface
+    def __init__(self, app, scene):
         self.app = app
         self.ctx = app.ctx
         self.mesh = app.mesh
         # scene
-        self.scene = self.create_scene()
+        self.scene = scene
         # depth buffer
         self.depth_texture = self.mesh.texture['depth_texture']
         self.depth_fbo = self.ctx.framebuffer(depth_attachment=self.depth_texture)
@@ -33,7 +33,3 @@ class BaseRenderer(abc.ABC):  # TODO: different renderer interface
             self.shadow_render()
 
         self.main_render()
-
-    @abc.abstractmethod
-    def create_scene(self):
-        pass

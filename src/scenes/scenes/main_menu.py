@@ -6,7 +6,7 @@ from ...models import *
 from ..scene import BaseScene
 
 
-class MainMenu(BaseScene):
+class MainMenuScene(BaseScene):
     def __init__(self, app):
         super().__init__(app)
 
