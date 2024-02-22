@@ -3,7 +3,7 @@ import abc
 from ..config import *
 
 
-class BaseRenderer(abc.ABC):
+class BaseRenderer(abc.ABC):  # TODO: different renderer interface
     def __init__(self, app):
         self.app = app
         self.ctx = app.ctx

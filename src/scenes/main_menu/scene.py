@@ -15,7 +15,7 @@ class MainMenu(BaseScene):
         add = self.add_object
 
         # name
-        add(Text(app, "Labiryntho", "comic-sans", (0, 2, 0), scale=(0.5, 0.6)))
+        add(Text(app, "Labiryntho", "comic-sans", (0, 2, 0), scale=(0.5, 0.6), rotation=(0, 0, 0)))
 
         # buttons
         hover_texture = "white"
