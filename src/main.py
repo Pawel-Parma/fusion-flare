@@ -91,6 +91,7 @@ class GraphicsEngine:
         self.main_menu_renderer = Renderer(self, MainMenuScene(self))
         self.esc_menu_renderer = Renderer(self, EscMenuScene(self))
         self.end_game_menu_renderer = Renderer(self, EndGameMenuScene(self))
+        self.settings_menu_renderer = Renderer(self, SettingsMenuScene(self))
         self.show = ToShow.MAIN_MENU
         self.renderer = self.main_menu_renderer
         self.renderer.scene.use()
@@ -122,6 +123,10 @@ class GraphicsEngine:
     def end_game_menu(self):
         self.show = ToShow.END_GAME_MENU
         self.set_renderer(self.end_game_menu_renderer)
+
+    def settings_menu(self):
+        self.show = ToShow.SETTINGS_MENU
+        self.set_renderer(self.settings_menu_renderer)
 
     def quit(self):
         pg.quit()
@@ -176,6 +181,9 @@ class GraphicsEngine:
             case ToShow.END_GAME_MENU:
                 self.render_end_game_menu()
 
+            case ToShow.SETTINGS_MENU:
+                self.render_settings_menu()
+
         if self.always_update_camera:
             self.camera.update()
 
@@ -215,6 +223,12 @@ class GraphicsEngine:
         self.ctx.clear(*MENU_COLOR)
         # render scene
         self.end_game_menu_renderer.render()
+
+    def render_settings_menu(self):
+        # background color
+        self.ctx.clear(*MENU_COLOR)
+        # render scene
+        self.settings_menu_renderer.render()
 
     def mainloop(self):
         while self.running:

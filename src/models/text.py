@@ -9,7 +9,7 @@ from .char import Char
 
 
 class Text(BaseModel):
-    def __init__(self, app, text, font, position, rotation=(0, 0, 0), scale=(1, 1), color=(255, 255, 255), alpha=255,
+    def __init__(self, app, font, text, position, rotation=(0, 0, 0), scale=(1, 1), color=(255, 255, 255), alpha=255,
                  qualtiy=(96, 96)):
         self.real_position = glm.vec3(*position)
         pos = glm.vec3(*position)
