@@ -16,7 +16,7 @@ class MainMenuScene(BaseScene):
         add = self.add_object
 
         # name
-        add(Text(app, APP_NAME, "comic-sans", (0, 2, 0), scale=(0.5, 0.6), color=(60, 160, 220)))
+        add(Text(app, "comic-sans", APP_NAME, (0, 2, 0), scale=(0.5, 0.6), color=(60, 160, 220)))
         # buttons
         hover_texture = "white"
         # play
@@ -29,6 +29,7 @@ class MainMenuScene(BaseScene):
         # settings
         settings_button = add(Button(app, (0, -3.5, 0), "black", hover_texture, scale=(1.5, 0.5),
                                      hover_color=(255, 255, 0)))
+        settings_button.on_click(app.settings_menu)
         # exit
         exit_button = add(Button(app, (6, -3.5, 0), "white", hover_texture, scale=(1.5, 0.5),
                                  default_color=(125, 0, 0), hover_color=(255, 0, 0), is_dynamic=True))

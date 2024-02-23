@@ -8,6 +8,7 @@ class ToShow(enum.Enum):
     GAME = 1
     ESC_MENU = 2
     END_GAME_MENU = 3
+    SETTINGS_MENU = 4
 
 
 class CameraType(enum.Enum):
