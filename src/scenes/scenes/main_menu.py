@@ -16,7 +16,7 @@ class MainMenuScene(BaseScene):
         add = self.add_object
 
         # name
-        add(Text(app, "comic-sans", APP_NAME, (0.36, 2, 0), scale=(0.5, 0.6), color=(60, 160, 220)))
+        add(Text(app, "comic-sans", APP_NAME, (0.36, 3, 0), scale=(0.5, 0.6), color=(60, 160, 220)))
         # buttons
         hover_texture = "white"
         # play
