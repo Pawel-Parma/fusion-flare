@@ -36,7 +36,7 @@ class Cube(BaseShadowModel):
     def update(self):
         super().update()
         self.texture.use(location=0)
-        self.program["camPos"].write(self.app.camera.position)
+        # self.program["camPos"].write(self.app.camera.position)
         self.program["m_view"].write(self.app.camera.m_view)
         self.program["m_model"].write(self.m_model)
         self.update_light()

@@ -53,7 +53,7 @@ class Text(BaseModel):
             if {"I", "L"} & {char.upper(), prev_char.upper()}:
                 pos.x -= prev_scale.x / 2 - 0.1
 
-            char = Char(self.app, char, self.font, self.quality, pos, self.rotation_in_deg, self.scale)
+            char = Char(self.app, self.font, char, self.quality, pos, self.rotation_in_deg, self.scale)
             char.color = self.color
             prev_char = char.char
             prev_scale = char.scale

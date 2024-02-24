@@ -11,18 +11,14 @@ from .font import FontManager
 
 
 # GAME
-# TODO: add debug screen (F3)
 
 # TODO: Make main menu
 # Play
 # History [ranking, score, time, number of missed tiles]
 # Settings [controls, graphics, credits]
-# Exit
 
 # TODO: Make escape menu
-# Resume
 # Settings
-# Exit
 
 # TODO: Make end screen
 # Score
@@ -31,7 +27,6 @@ from .font import FontManager
 # Play-through [shows correct path with green]
 
 # Play again [shows play screen and same setting]
-# Main menu
 
 # TODO: Make database
 
@@ -93,6 +88,8 @@ class GraphicsEngine:
         self.end_game_menu_renderer = Renderer(self, EndGameMenuScene(self))
         self.settings_menu_renderer = Renderer(self, SettingsMenuScene(self))
         self.history_menu_renderer = Renderer(self, HistoryMenuScene(self))
+        self.render_debug = False
+        self.debug_info_renderer = Renderer(self, DebugInfoScene(self))
         self.game_scene = GameScene.MAIN_MENU
         self.renderer = self.main_menu_renderer
         self.renderer.scene.use()
@@ -183,6 +180,9 @@ class GraphicsEngine:
             if key == self.key_binds.free_camera:
                 self.always_update_camera = not self.always_update_camera
 
+            if key == self.key_binds.show_debug:
+                self.render_debug = not self.render_debug
+
     def render(self):
         match self.game_scene:
             case GameScene.GAME:
@@ -202,6 +202,9 @@ class GraphicsEngine:
 
             case GameScene.HISTORY_MENU:
                 self.render_history_menu()
+
+        if self.render_debug:
+            self.render_debug_info()
 
         if self.always_update_camera:
             self.camera.update()
@@ -254,6 +257,9 @@ class GraphicsEngine:
         self.ctx.clear(*MENU_COLOR)
         # render scene
         self.history_menu_renderer.render()
+
+    def render_debug_info(self):
+        self.debug_info_renderer.render()
 
     def tick(self):
         log(f"FPS: {self.clock.get_fps():.2f}")

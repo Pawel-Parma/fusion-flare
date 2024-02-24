@@ -4,7 +4,7 @@ from .base import BaseModel
 
 
 class Char(BaseModel):
-    def __init__(self, app, char, font, quality, position, rotation=(0, 0, 0), scale=(1, 1), color=(255, 255, 255),
+    def __init__(self, app, font, char, quality, position, rotation=(0, 0, 0), scale=(1, 1), color=(255, 255, 255),
                  alpha=255):
         super().__init__(app, "plane2d", "none", position, rotation, (*scale, 0), color, alpha)
         self.char = char
@@ -21,8 +21,11 @@ class Char(BaseModel):
     def on_init(self):
         # texture
         self.program["u_texture_0"] = 0
+        # mvp
+        self.program["m_proj"].write(self.app.camera.m_proj)
 
     def update(self):
         super().update()
         self.texture.use(location=0)
+        self.program["m_view"].write(self.app.camera.m_view)
         self.program["m_model"].write(self.m_model)
