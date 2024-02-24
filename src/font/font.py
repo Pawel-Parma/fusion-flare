@@ -24,7 +24,7 @@ def grayscale_to_rgba(array):
     for i in range(3):
         out_array[..., i] = array
 
-    out_array[..., 3] = np.where(array >= 210, 255, 0)
+    out_array[..., 3] = np.where(array == 255, 255, 0)
 
     return out_array
 
