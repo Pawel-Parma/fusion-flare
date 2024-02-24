@@ -10,11 +10,11 @@ Run the `main.py` script.
 
 Windows:
 ```bash
-python main.py
+python src.main
 ```
 Linux:
 ```bash
-python3 main.py
+python3 src.main
 ```
 
 [//]: # (TODO: Add more info about the game)
