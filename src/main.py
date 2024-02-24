@@ -227,13 +227,13 @@ class GraphicsEngine:
 
     def render_main_menu(self):
         # background color
-        self.ctx.clear(*MENU_COLOR)
+        # self.ctx.clear(*MENU_COLOR)
         # render scene
         self.main_menu_renderer.render()
 
     def render_esc_menu(self):
         # background color
-        self.ctx.clear(*MENU_COLOR)
+        self.ctx.clear(*MENU_COLOR, alpha=0.5)
         # render scene
         self.esc_menu_renderer.render()
 
@@ -255,13 +255,23 @@ class GraphicsEngine:
         # render scene
         self.history_menu_renderer.render()
 
+    def tick(self):
+        log(f"FPS: {self.clock.get_fps():.2f}")
+        self.delta_time = self.clock.tick()  # FPS
+        self.render()
+        self.handle_events()
+        self.get_time()
+
     def mainloop(self):
-        while self.running:
-            log(f"FPS: {self.clock.get_fps():.2f}")
-            self.delta_time = self.clock.tick()  # FPS
-            self.render()
-            self.handle_events()
-            self.get_time()
+        log("App start", level=LogLevel.INFO)
+        try:
+            while self.running:
+                self.tick()
+
+        except Exception as e:
+            log(f"Occurred while ticking ({e})", level=LogLevel.ERROR)
+
+        log("App quit\n", level=LogLevel.INFO)
 
 
 if __name__ == "__main__":

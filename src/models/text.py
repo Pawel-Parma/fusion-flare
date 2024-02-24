@@ -15,7 +15,6 @@ class Text(BaseModel):
         self.real_position = glm.vec3(*position)
         pos = glm.vec3(*position)
         pos.x -= (self.get_text_len(text) - 1) * scale[0]
-        print(pos, position)
         super().__init__(app, "plane2d", "none", pos, rotation, (*scale, 0), color, alpha)
         self.rotation_in_deg = glm.vec3(rotation)
 
