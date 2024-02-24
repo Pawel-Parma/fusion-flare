@@ -233,7 +233,7 @@ class GraphicsEngine:
 
     def render_esc_menu(self):
         # background color
-        self.ctx.clear(*MENU_COLOR, alpha=0.5)
+        self.ctx.clear(*MENU_COLOR)
         # render scene
         self.esc_menu_renderer.render()
 
