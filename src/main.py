@@ -66,7 +66,7 @@ class GraphicsEngine:
         pg.mouse.set_visible(False)
         # detect and use existing opengl context
         self.ctx = gl.create_context()
-        self.ctx.enable(flags=(gl.DEPTH_TEST | gl.CULL_FACE | gl.BLEND))
+        self.ctx.enable(flags=(gl.DEPTH_TEST | gl.BLEND))
         self.ctx.gc_mode = "auto"
         # get fps clock
         self.clock = pg.time.Clock()

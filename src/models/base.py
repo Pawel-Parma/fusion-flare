@@ -38,7 +38,7 @@ class BaseModel(abc.ABC):
         self.vao = app.mesh.vao[vao_name]
         self.program = self.vao.program
         self.texture_id = texture_id
-        self.position = position
+        self.position = glm.vec3(position)
         self.rotation = glm.vec3(*[glm.radians(rot) for rot in rotation])
         self.scale = glm.vec3(scale)
         self.color = glm.vec4(color, alpha) / 255
