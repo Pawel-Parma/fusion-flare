@@ -92,9 +92,12 @@ class GraphicsEngine:
         self.esc_menu_renderer = Renderer(self, EscMenuScene(self))
         self.end_game_menu_renderer = Renderer(self, EndGameMenuScene(self))
         self.settings_menu_renderer = Renderer(self, SettingsMenuScene(self))
-        self.show = ToShow.MAIN_MENU
+        self.history_menu_renderer = Renderer(self, HistoryMenuScene(self))
+        self.game_scene = GameScene.MAIN_MENU
         self.renderer = self.main_menu_renderer
         self.renderer.scene.use()
+        #
+        self.settings_menu_came_from = GameScene.MAIN_MENU
 
     def get_time(self):
         self.time = pg.time.get_ticks() * 0.001
@@ -105,7 +108,7 @@ class GraphicsEngine:
         self.renderer.scene.use()
 
     def play(self, new_maze=False):
-        self.show = ToShow.GAME
+        self.game_scene = GameScene.GAME
         self.set_renderer(self.maze_renderer)
         if new_maze:
             self.maze.new(MAZE_WIDTH, MAZE_LENGHT)
@@ -113,20 +116,33 @@ class GraphicsEngine:
             self.camera.set_position(self.maze.start_in_map_coords)
 
     def main_menu(self):
-        self.show = ToShow.MAIN_MENU
+        self.game_scene = GameScene.MAIN_MENU
         self.set_renderer(self.main_menu_renderer)
 
     def esc_menu(self):
-        self.show = ToShow.ESC_MENU
+        self.game_scene = GameScene.ESC_MENU
         self.set_renderer(self.esc_menu_renderer)
 
     def end_game_menu(self):
-        self.show = ToShow.END_GAME_MENU
+        self.game_scene = GameScene.END_GAME_MENU
         self.set_renderer(self.end_game_menu_renderer)
 
-    def settings_menu(self):
-        self.show = ToShow.SETTINGS_MENU
+    def settings_menu(self, came_from):
+        self.settings_menu_came_from = came_from
+        self.game_scene = GameScene.SETTINGS_MENU
         self.set_renderer(self.settings_menu_renderer)
+
+    def exit_settings_menu(self):
+        match self.settings_menu_came_from:
+            case GameScene.MAIN_MENU:
+                self.main_menu()
+
+            case GameScene.ESC_MENU:
+                self.esc_menu()
+
+    def history_menu(self):
+        self.game_scene = GameScene.HISTORY_MENU
+        self.set_renderer(self.history_menu_renderer)
 
     def quit(self):
         pg.quit()
@@ -144,11 +160,11 @@ class GraphicsEngine:
             key = event.key
             # Menus
             if key == self.key_binds.esc_menu:
-                match self.show:
-                    case ToShow.GAME:
+                match self.game_scene:
+                    case GameScene.GAME:
                         self.esc_menu()
 
-                    case ToShow.ESC_MENU:
+                    case GameScene.ESC_MENU:
                         self.play()
 
             # CHEAT CODES
@@ -168,21 +184,24 @@ class GraphicsEngine:
                 self.always_update_camera = not self.always_update_camera
 
     def render(self):
-        match self.show:
-            case ToShow.GAME:
+        match self.game_scene:
+            case GameScene.GAME:
                 self.render_game()
 
-            case ToShow.MAIN_MENU:
+            case GameScene.MAIN_MENU:
                 self.render_main_menu()
 
-            case ToShow.ESC_MENU:
+            case GameScene.ESC_MENU:
                 self.render_esc_menu()
 
-            case ToShow.END_GAME_MENU:
+            case GameScene.END_GAME_MENU:
                 self.render_end_game_menu()
 
-            case ToShow.SETTINGS_MENU:
+            case GameScene.SETTINGS_MENU:
                 self.render_settings_menu()
+
+            case GameScene.HISTORY_MENU:
+                self.render_history_menu()
 
         if self.always_update_camera:
             self.camera.update()
@@ -229,6 +248,12 @@ class GraphicsEngine:
         self.ctx.clear(*MENU_COLOR)
         # render scene
         self.settings_menu_renderer.render()
+
+    def render_history_menu(self):
+        # background color
+        self.ctx.clear(*MENU_COLOR)
+        # render scene
+        self.history_menu_renderer.render()
 
     def mainloop(self):
         while self.running:
