@@ -16,7 +16,7 @@ class EscMenuScene(BaseScene):
         add = self.add_object
 
         # name
-        add(Text(app, "comic-sans", "Game menu", (-0.5, 2, 0), scale=(0.5, 0.6), color=(60, 160, 220)))
+        add(Text(app, "comic-sans", "Game menu", (-0.5, 3, 0), scale=(0.5, 0.6), color=(60, 160, 220)))
         # buttons
         hover_texture = "white"
         # play
