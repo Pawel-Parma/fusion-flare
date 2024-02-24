@@ -7,7 +7,6 @@ out vec2 uv_0;
 
 uniform mat4 m_proj;
 uniform mat4 m_view;
-uniform mat4 m_view_light;
 uniform mat4 m_model;
 
 void main() {
