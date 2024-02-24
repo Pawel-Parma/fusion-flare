@@ -12,7 +12,7 @@ class Char(BaseModel):
         self.quality = quality
         self.font = app.font_manager[(font, quality)]
         self.texture = self.font[self.char]
-        self.size = *self.texture.size, 0
+        self.size = glm.vec3(*self.texture.size, 0)
         self.scale *= glm.vec3(*self.size) / 100
         self.m_model = self.get_model_matrix()
 

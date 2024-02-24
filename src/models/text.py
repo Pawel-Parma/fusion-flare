@@ -8,12 +8,14 @@ from .base import BaseModel
 from .char import Char
 
 
+# TODO: text rendering is really bad
 class Text(BaseModel):
     def __init__(self, app, font, text, position, rotation=(0, 0, 0), scale=(1, 1), color=(255, 255, 255), alpha=255,
                  qualtiy=(96, 96)):
         self.real_position = glm.vec3(*position)
         pos = glm.vec3(*position)
         pos.x -= (self.get_text_len(text) - 1) * scale[0]
+        print(pos, position)
         super().__init__(app, "plane2d", "none", pos, rotation, (*scale, 0), color, alpha)
         self.rotation_in_deg = glm.vec3(rotation)
 
@@ -26,7 +28,9 @@ class Text(BaseModel):
         tmp = []
         special_char = []
         special_char_started = False
-        for char in self.text:
+        prev_char = ""
+        prev_scale = glm.vec3(0, 0, 0)
+        for i, char in enumerate(self.text):
             if char == "`":
                 special_char.append(char)
                 if special_char_started:
@@ -42,9 +46,18 @@ class Text(BaseModel):
                 special_char += char
                 continue
 
-            pos = self.position + 2 * self.scale * glm.vec3(len(tmp), 0, 0)  # TODO: fix this (W, M)
+            pos = self.position
+            pos.x += self.scale.x * 1.5
+            if {"W", "M"} & {prev_char.upper(), char.upper()} or char.upper() == char:
+                pos.x += prev_scale.x
+
+            if {"I", "L"} & {char.upper(), prev_char.upper()}:
+                pos.x -= prev_scale.x / 2 - 0.1
+
             char = Char(self.app, char, self.font, self.quality, pos, self.rotation_in_deg, self.scale)
             char.color = self.color
+            prev_char = char.char
+            prev_scale = char.scale
             tmp.append(char)
 
         return tmp
