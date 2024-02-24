@@ -227,7 +227,7 @@ class GraphicsEngine:
 
     def render_main_menu(self):
         # background color
-        # self.ctx.clear(*MENU_COLOR)
+        self.ctx.clear(*MENU_COLOR)
         # render scene
         self.main_menu_renderer.render()
 
