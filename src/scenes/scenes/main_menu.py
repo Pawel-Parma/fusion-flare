@@ -22,17 +22,21 @@ class MainMenuScene(BaseScene):
         # play
         play_button = add(Button(app, (0, -0.5, 0), "white", hover_texture, scale=(1.5, 0.5),
                                  default_color=(0, 125, 0), hover_color=(0, 255, 0)))
+        add(Text(app, "comic-sans", "Play", (-0.38, -0.5, 0.01), scale=(0.5, 0.4)))
         play_button.on_click(lambda: app.play(new_maze=True))
         # history
         history_button = add(Button(app, (0, -2, 0), "black", hover_texture, scale=(1.5, 0.5),
                                     hover_color=(255, 255, 0)))
+        add(Text(app, "comic-sans", "History", (0, -2, 0.01), scale=(0.25, 0.4)))
         # settings
         settings_button = add(Button(app, (0, -3.5, 0), "black", hover_texture, scale=(1.5, 0.5),
                                      hover_color=(255, 255, 0)))
+        add(Text(app, "comic-sans", "Settings", (0, -3.5, 0.01), scale=(0.23, 0.4)))
         settings_button.on_click(app.settings_menu)
         # exit
         exit_button = add(Button(app, (6, -3.5, 0), "white", hover_texture, scale=(1.5, 0.5),
                                  default_color=(125, 0, 0), hover_color=(255, 0, 0), is_dynamic=True))
+        add(Text(app, "comic-sans", "Exit", (6 - 0.36, -3.5, 0.01), scale=(0.5, 0.4)))
         exit_button.on_click(app.quit)
         # bind buttons
         play_button.set_chosen()
