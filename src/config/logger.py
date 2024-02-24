@@ -17,13 +17,13 @@ os.makedirs(LOGS_DIR, exist_ok=True)
 class StdoutLogFilter(logging.Filter):
     # @override
     def filter(self, record: logging.LogRecord) -> bool | logging.LogRecord:
-        return record.levelno < logging.ERROR
+        return record.levelno < logging.INFO
 
 
 class FileLogFilter(logging.Filter):
     # @override
     def filter(self, record: logging.LogRecord) -> bool | logging.LogRecord:
-        return record.levelno > logging.INFO
+        return record.levelno > logging.DEBUG
 
 
 stdout_log_filter = StdoutLogFilter()
@@ -93,11 +93,11 @@ class LogLevel(enum.IntEnum):  # Values from logging module into enum
     NOTSET = logging.NOTSET
 
 
-def log(msg, level: LogLevel = LogLevel.INFO):
+def log(msg, level: LogLevel = LogLevel.DEBUG):
     logger.log(level, msg)
 
 
-def log_func(level: LogLevel = LogLevel.INFO, msg=""):
+def log_func(level: LogLevel = LogLevel.DEBUG, msg=""):
     def decorator(func):
         @wraps(func)
         def wrapper(*args, **kwargs):
