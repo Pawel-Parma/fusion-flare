@@ -1,3 +1,5 @@
+import traceback
+
 import pygame as pg
 import moderngl as gl
 
@@ -262,7 +264,6 @@ class GraphicsEngine:
         self.debug_info_renderer.render()
 
     def tick(self):
-        log(f"FPS: {self.clock.get_fps():.2f}")
         self.delta_time = self.clock.tick()  # FPS
         self.render()
         self.handle_events()
@@ -276,6 +277,7 @@ class GraphicsEngine:
 
         except Exception as e:
             log(f"Occurred while ticking ({e})", level=LogLevel.ERROR)
+            traceback.print_exception(e)
 
         log("App quit\n", level=LogLevel.INFO)
 

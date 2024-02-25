@@ -80,10 +80,20 @@ class Text(BaseModel):
         return len_text
 
     def set_text(self, text):
-        self.position = self.real_position.xyz
-        self.position.x -= (self.get_text_len(text) - 1) * self.scale[0]
+        self.new_position()
         self.text = text
         self.chars = self.get_chars()
+
+    def new_position(self):
+        self.position = self.real_position.xyz
+        self.position.x -= (self.get_text_len(self.text) - 1) * self.scale[0]
+
+    def set_position(self, position):
+        self.real_position = glm.vec3(*position)
+        self.new_position()
+        for char in self.chars:
+            char.position = self.position
+            char.m_model = char.get_model_matrix()
 
     # @override
     def render(self):

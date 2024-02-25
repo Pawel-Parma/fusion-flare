@@ -17,4 +17,10 @@ Linux:
 python3 src.main
 ```
 
+## Cheat codes
+
+- `F1` - Shift camera types
+- `F2` - Always update the camera (gives 2x speed boost when camera is updated in other scenes)
+- `F3` - Show debug information
+
 [//]: # (TODO: Add more info about the game)
