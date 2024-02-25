@@ -12,10 +12,7 @@ class MazeScene(BaseScene):
     
     # @override
     def create_objects(self):
-        # Floor
-        self.create_floor()
-        # Maze
-        self.create_maze()
+        pass
 
     def create_floor(self):
         app = self.app
@@ -51,4 +48,7 @@ class MazeScene(BaseScene):
 
     def new_maze(self):
         self.remove_maze_objects()
-        self.create_objects()
+        # Floor
+        self.create_floor()
+        # Maze
+        self.create_maze()
