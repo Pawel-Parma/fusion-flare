@@ -1,16 +1,17 @@
-import traceback
+# from typing import override
 
-import pygame as pg
 import moderngl as gl
+import pygame as pg
+import src
 
-from .config import *
-from .camera import SpectatorPlayer, PhysicsPlayer
-from .light import Light, CameraFollowingLight
-from .opengl_pipeline import Mesh
+from src.scenes import Renderer
+from src.camera import SpectatorPlayer, PhysicsPlayer
+from src.light import Light, CameraFollowingLight
+
+
 from .scenes import *
+from .config import *
 from .maze import Maze
-from .font import FontManager
-
 
 # GAME
 
@@ -42,47 +43,21 @@ from .font import FontManager
 # Allow true 3D with stairs
 
 
-class GraphicsEngine:
-    def __init__(self):
-        self.running: bool = True
+class Game(src.GraphicsEngine):
+    def __init__(self, app_name: str, window_size: tuple[int, int], icon_path: str, grab_mouse: bool = True,
+                 show_mouse: bool = False, context_flags=(gl.DEPTH_TEST | gl.BLEND), fps: int = -1):
+        super().__init__(app_name, window_size, icon_path, grab_mouse, show_mouse, context_flags, fps)
         self.key_binds = KeyBinds()
-        # init pygame
-        pg.init()
-        # set OpenGL version
-        pg.display.gl_set_attribute(pg.GL_CONTEXT_MAJOR_VERSION, 3)
-        pg.display.gl_set_attribute(pg.GL_CONTEXT_MINOR_VERSION, 3)
-        # set OpenGL profile
-        pg.display.gl_set_attribute(pg.GL_CONTEXT_PROFILE_MASK, pg.GL_CONTEXT_PROFILE_CORE)
-        # create OpenGL context
-        pg.display.set_mode(size=(WINDOW_WIDTH, WINDOW_HEIGHT), flags=(pg.DOUBLEBUF | pg.OPENGL))
-        # window settings
-        pg.display.set_caption(APP_NAME)
-        pg.display.set_icon(pg.image.load(f"{IMAGES_DIR}/{ICON_NAME}"))
-        # mouse settings
-        pg.event.set_grab(True)
-        pg.mouse.set_visible(False)
-        # detect and use existing opengl context
-        self.ctx = gl.create_context()
-        self.ctx.enable(flags=(gl.DEPTH_TEST | gl.BLEND))
-        self.ctx.gc_mode = "auto"
-        # get fps clock
-        self.clock = pg.time.Clock()
-        self.time = 0
-        self.delta_time = 0
         # maze
         self.maze = Maze()
         # light
         self.light = CameraFollowingLight(self, Light(position=(0, 0, 0), specular=0))
-        # fonts
-        self.font_manager = FontManager(self)
         # players
         self.physics_player = PhysicsPlayer(self, position=(0, 0, 0))
         self.spectator_player = SpectatorPlayer(self)
         self.current_camera = CameraType.PHYSICS
         self.camera = self.physics_player
         self.always_update_camera = False
-        # mesh
-        self.mesh = Mesh(self)
         # scenes
         self.maze_renderer = Renderer(self, MazeScene(self))
         self.main_menu_renderer = Renderer(self, MainMenuScene(self))
@@ -97,9 +72,6 @@ class GraphicsEngine:
         self.renderer.scene.use()
         #
         self.settings_menu_came_from = GameScene.MAIN_MENU
-
-    def get_time(self):
-        self.time = pg.time.get_ticks() * 0.001
 
     def set_renderer(self, scene_renderer):
         self.renderer.scene.un_use()
@@ -142,10 +114,6 @@ class GraphicsEngine:
     def history_menu(self):
         self.game_scene = GameScene.HISTORY_MENU
         self.set_renderer(self.history_menu_renderer)
-
-    def quit(self):
-        pg.quit()
-        self.running = False
 
     def handle_events(self):
         for event in pg.event.get():
@@ -212,8 +180,7 @@ class GraphicsEngine:
             self.camera.update()
 
         self.light.update()
-        # swap buffers
-        pg.display.flip()
+        super().render()
 
     def render_game(self):
         # background color
@@ -263,25 +230,18 @@ class GraphicsEngine:
     def render_debug_info(self):
         self.debug_info_renderer.render()
 
-    def tick(self):
-        self.delta_time = self.clock.tick()  # FPS
-        self.render()
-        self.handle_events()
-        self.get_time()
+    # @override
+    def on_tick_exception(self, e):
+        log(f"Exception occurred while ticking: ({e})", level=LogLevel.ERROR)
+        super().on_tick_exception(e)
 
+    # @override
     def mainloop(self):
         log("App start", level=LogLevel.INFO)
-        try:
-            while self.running:
-                self.tick()
-
-        except Exception as e:
-            log(f"Occurred while ticking ({e})", level=LogLevel.ERROR)
-            traceback.print_exception(e)
-
+        super().mainloop()
         log("App quit\n", level=LogLevel.INFO)
 
 
 if __name__ == "__main__":
-    app = GraphicsEngine()
-    app.mainloop()
+    game = Game("Labiryntho", (WINDOW_WIDTH, WINDOW_HEIGHT), ICON_PATH)
+    game.mainloop()

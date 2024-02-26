@@ -1,22 +1,20 @@
 import pygame as pg
-import glm
 
 # from typing import override
-
-from ...config import *
 
 from ..camera import Camera
 
 
 class SpectatorPlayer(Camera):
-    def __init__(self, app, position=(0, 0, 0), yaw=0, pitch=0):
-        super().__init__(position, yaw, pitch)
-        self.app = app
+    def __init__(self, app, speed=0.01, mouse_sensitivity=0.002, fov=50, near=0.1, far=80, pitch_max=89, pitch_min=-89,
+                 position=(0, 0, 0), yaw=0, pitch=0):
+        super().__init__(app, speed, mouse_sensitivity, fov, near, far, pitch_max,
+                         pitch_min, position, yaw, pitch)
         self.key_binds = app.key_binds
 
     # @override
     def keyboard_control(self):
-        velocity = CAMERA_SPEED * self.app.delta_time
+        velocity = self.speed * self.app.delta_time
         keys = pg.key.get_pressed()
 
         if keys[self.key_binds.camera_up]:
@@ -39,10 +37,10 @@ class SpectatorPlayer(Camera):
 
     def mouse_control(self):
         delta_x, delta_y = pg.mouse.get_rel()
-        
-        self.rotate_yaw(delta_x * MOUSE_SENSITIVITY)
+
+        self.rotate_yaw(delta_x * self.mouse_sensitivity)
         if delta_y:
-            self.rotate_pitch(delta_y * MOUSE_SENSITIVITY)
+            self.rotate_pitch(delta_y * self.mouse_sensitivity)
 
     # @override
     def update(self):

@@ -1,9 +1,4 @@
-import abc
-
-from ..config import *
-
-
-class Renderer(abc.ABC):
+class Renderer:
     def __init__(self, app, scene):
         self.app = app
         self.ctx = app.ctx
@@ -29,7 +24,7 @@ class Renderer(abc.ABC):
 
     def render(self):
         self.scene.update()
-        if not DISABLE_SHADOW_RENDER:
+        if not self.app.disable_shadow_render:
             self.shadow_render()
 
         self.main_render()

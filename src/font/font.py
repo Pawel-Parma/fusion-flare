@@ -1,12 +1,6 @@
-from io import BytesIO
-
 import freetype as ft
 import numpy as np
-import pygame as pg
 import moderngl as gl
-import glm
-
-from ..config import *
 
 
 def flip_fold_array(array, width, height):
@@ -38,7 +32,7 @@ class Font:
         self.size = size
 
         # noinspection PyTypeChecker
-        self.face = ft.Face(f"{FONTS_DIR}/{name}.ttf")
+        self.face = ft.Face(f"{self.app.fonts_dir}/{name}.ttf")
         self.face.set_char_size(size[0] * size[1])
         self.glyphs = {}
 

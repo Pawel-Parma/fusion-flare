@@ -3,11 +3,12 @@ from .shader_program import ShaderProgram
 
 
 class VAO:
-    def __init__(self, ctx):
-        self.ctx = ctx
+    def __init__(self, app):
+        self.app = app
+        self.ctx = app.ctx
 
-        self.vbo = VBO(ctx)
-        self.program = ShaderProgram(ctx)
+        self.vbo = VBO(self.ctx)
+        self.program = ShaderProgram(app)
         self.vaos = {"cube": self.get_vao(program=self.program["default"], vbo=self.vbo["cube"]),
                      "shadow_cube": self.get_vao(program=self.program["shadow_map"], vbo=self.vbo["cube"]),
                      "plane2d": self.get_vao(program=self.program["plane2d"], vbo=self.vbo["plane2d"])}

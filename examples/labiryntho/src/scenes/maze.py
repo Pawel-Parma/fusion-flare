@@ -1,8 +1,8 @@
 # from typing import override
 
-from ...models import *
+from src.models import *
 
-from ..scene import BaseScene
+from src.scenes import BaseScene
 
 
 class MazeScene(BaseScene):
