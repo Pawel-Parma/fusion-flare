@@ -1,9 +1,9 @@
 # from typing import override
 
-from ...config import *
-from ...models import *
+from ..config import *
+from src.models import *
 
-from ..scene import BaseScene
+from src.scenes import BaseScene
 
 
 class EscMenuScene(BaseScene):

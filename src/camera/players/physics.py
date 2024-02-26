@@ -1,22 +1,20 @@
 import pygame as pg
-import glm
 
 # from typing import override
-
-from ...config import *
 
 from .spectator import SpectatorPlayer
 
 
 class PhysicsPlayer(SpectatorPlayer):
-    def __init__(self, app, position, yaw=0, pitch=0):
-        super().__init__(app, position, yaw, pitch)
-        self.maze = self.app.maze
+    def __init__(self, app, position, speed=0.01, mouse_sensitivity=0.002, fov=50, near=0.1, far=80, pitch_max=89,
+                 pitch_min=-89, yaw=0, pitch=0):
+        super().__init__(app, speed, mouse_sensitivity, fov, near, far, pitch_max,
+                         pitch_min, position, yaw, pitch)
 
     # TODO: Add physics (real velocity, acceleration, etc.), implement hit box, add collision detection in BaseModel
     # @override
     def keyboard_control(self):
-        velocity = CAMERA_SPEED * self.app.delta_time
+        velocity = self.speed * self.app.delta_time
         keys = pg.key.get_pressed()
 
         if keys[self.key_binds.camera_forward]:

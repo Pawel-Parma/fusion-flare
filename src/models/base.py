@@ -4,8 +4,6 @@ import abc
 
 import glm
 
-from ..config import *
-
 
 class HitBox:
     def __init__(self, position, scale, rotation):
@@ -67,7 +65,7 @@ class BaseModel(abc.ABC):
             return True
 
         center_distance = glm.length(self.position - self.app.camera.position)
-        return CAMERA_FAR > center_distance > CAMERA_NEAR
+        return self.app.camera.far > center_distance > self.app.camera.near
 
     @abc.abstractmethod
     def update(self):
@@ -87,7 +85,7 @@ class BaseShadowModel(BaseModel, abc.ABC):
 
     def on_init(self):
         # resolution
-        self.program["u_resolution"].write(glm.vec2(WINDOW_SIZE))
+        self.program["u_resolution"].write(glm.vec2(self.app.window_size))
         # depth texture
         self.depth_texture = self.app.mesh.texture["depth_texture"]
         self.program["shadowMap"] = 1

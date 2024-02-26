@@ -2,7 +2,6 @@ import time
 
 # from typing import override
 
-import numpy as np
 import pygame as pg
 import glm
 

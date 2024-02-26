@@ -1,7 +1,8 @@
 # labiryntho
 
-## Run the game
+## Run the example
 Install packages from `requirements.txt`:
+
 ```bash
 pip install -r requirements.txt
 ```
@@ -10,11 +11,12 @@ Run the `main.py` script.
 
 Windows:
 ```bash
-python src.main
+python examples.labiryntho.src.main
 ```
+
 Linux:
 ```bash
-python3 src.main
+python3 examples.labiryntho.src.main
 ```
 
 ## Cheat codes

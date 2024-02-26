@@ -4,9 +4,9 @@ import time
 
 import glm
 
-from ...models import *
+from src.models import *
 
-from ..scene import BaseScene
+from src.scenes import BaseScene
 
 
 class DebugInfoScene(BaseScene):
