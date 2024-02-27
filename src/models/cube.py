@@ -1,4 +1,4 @@
-# from typing import override
+from typing import override
 
 from .base import BaseShadowModel
 
@@ -8,9 +8,9 @@ class Cube(BaseShadowModel):
                  alpha=255):
         super().__init__(app, "cube", texture_id, position, rotation, scale, color, alpha)
 
-    # @override
+    @override
     def on_init(self):
-        super().on_init()
+        super().on_init()  # TODO On init super calls make better
         # texture
         self.texture = self.app.mesh.texture[self.texture_id]
         self.program["u_texture_0"] = 0
@@ -26,7 +26,7 @@ class Cube(BaseShadowModel):
         if self.app.light.can_change_position:
             self.program["light.position"].write(self.app.light.position)
 
-    # @override
+    @override
     def update(self):
         super().update()
         self.texture.use(location=0)

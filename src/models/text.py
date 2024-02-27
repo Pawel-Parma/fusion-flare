@@ -1,4 +1,4 @@
-# from typing import override
+from typing import override
 
 import glm
 
@@ -95,11 +95,11 @@ class Text(BaseModel):
             char.position = self.position
             char.m_model = char.get_model_matrix()
 
-    # @override
+    @override
     def render(self):
         for char in self.chars:
             char.render()
 
-    # @override
+    @override
     def update(self):
         pass

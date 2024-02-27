@@ -1,4 +1,4 @@
-# from typing import override
+from typing import override
 
 import moderngl as gl
 import pygame as pg
@@ -8,10 +8,10 @@ from src.scenes import Renderer
 from src.camera import SpectatorPlayer, PhysicsPlayer
 from src.light import Light, CameraFollowingLight
 
-
 from .scenes import *
 from .config import *
 from .maze import Maze
+
 
 # GAME
 
@@ -153,6 +153,7 @@ class Game(src.GraphicsEngine):
             if key == self.key_binds.show_debug:
                 self.render_debug = not self.render_debug
 
+    @override
     def render(self):
         match self.game_scene:
             case GameScene.GAME:
@@ -230,12 +231,12 @@ class Game(src.GraphicsEngine):
     def render_debug_info(self):
         self.debug_info_renderer.render()
 
-    # @override
+    @override
     def on_tick_exception(self, e):
         log(f"Exception occurred while ticking: ({e})", level=LogLevel.ERROR)
         super().on_tick_exception(e)
 
-    # @override
+    @override
     def mainloop(self):
         log("App start", level=LogLevel.INFO)
         super().mainloop()

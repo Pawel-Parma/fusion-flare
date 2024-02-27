@@ -1,4 +1,4 @@
-# from typing import override
+from typing import override
 
 from ..config import *
 from src.models import *
@@ -10,7 +10,7 @@ class MainMenuScene(BaseScene):
     def __init__(self, app):
         super().__init__(app)
 
-    # @override
+    @override
     def create_objects(self):
         app = self.app
         add = self.add_object
