@@ -1,6 +1,6 @@
 import pygame as pg
 
-# from typing import override
+from typing import override
 
 from ..camera import Camera
 
@@ -12,7 +12,7 @@ class SpectatorPlayer(Camera):
                          pitch_min, position, yaw, pitch)
         self.key_binds = app.key_binds
 
-    # @override
+    @override
     def keyboard_control(self):
         velocity = self.speed * self.app.delta_time
         keys = pg.key.get_pressed()
@@ -42,7 +42,7 @@ class SpectatorPlayer(Camera):
         if delta_y:
             self.rotate_pitch(delta_y * self.mouse_sensitivity)
 
-    # @override
+    @override
     def update(self):
         self.keyboard_control()
         self.mouse_control()

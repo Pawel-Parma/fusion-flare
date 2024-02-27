@@ -1,4 +1,4 @@
-# from typing import override
+from typing import override
 
 import numpy as np
 
@@ -11,7 +11,7 @@ class CubeVBO(BaseVBO):
         self.format = "2f 3f 3f"
         self.attributes = ["in_textcoord_0", "in_normal", "in_position"]
 
-    # @override
+    @override
     def get_vertex_data(self):
         vertices = [(-1, -1, 1), (1, -1, 1), (1, 1, 1), (-1, 1, 1),
                     (-1, 1, -1), (-1, -1, -1), (1, -1, -1), (1, 1, -1)]

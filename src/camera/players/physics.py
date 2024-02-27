@@ -1,6 +1,6 @@
 import pygame as pg
 
-# from typing import override
+from typing import override
 
 from .spectator import SpectatorPlayer
 
@@ -12,7 +12,7 @@ class PhysicsPlayer(SpectatorPlayer):
                          pitch_min, position, yaw, pitch)
 
     # TODO: Add physics (real velocity, acceleration, etc.), implement hit box, add collision detection in BaseModel
-    # @override
+    @override
     def keyboard_control(self):
         velocity = self.speed * self.app.delta_time
         keys = pg.key.get_pressed()

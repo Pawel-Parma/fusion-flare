@@ -1,6 +1,6 @@
 import time
 
-# from typing import override
+from typing import override
 
 import pygame as pg
 import glm
@@ -129,7 +129,7 @@ class Button(BaseModel):
                 self.set_not_chosen(current_time)
                 self.button_right[0].set_chosen(button_and_id=(self, "right"))
 
-    # @override
+    @override
     def update(self):
         super().update()
         if self.is_chosen:

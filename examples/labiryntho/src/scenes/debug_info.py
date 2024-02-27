@@ -1,6 +1,6 @@
 import time
 
-# from typing import override
+from typing import override
 
 import glm
 
@@ -21,7 +21,7 @@ class DebugInfoScene(BaseScene):
         pos = self.app.camera.position
         return f"{pos.x:.0f}, {pos.y:.0f}, {pos.z:.0f}"
 
-    # @override
+    @override
     def create_objects(self):
         add = self.add_object
         app = self.app
@@ -33,7 +33,7 @@ class DebugInfoScene(BaseScene):
         self.fps_text = add(Text(app, "comic-sans", f"FPS: {self.get_fps()}", self.fps_text_pos_relative,
                                  scale=(0.002, 0.002)))
 
-    # @override
+    @override
     def update(self):
         super().update()
         camera_position = self.app.camera.position

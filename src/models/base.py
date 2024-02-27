@@ -1,6 +1,6 @@
 import abc
 
-# from typing import override
+from typing import override
 
 import glm
 
@@ -109,6 +109,6 @@ class BaseShadowModel(BaseModel, abc.ABC):
         self.shadow_vao.render()
 
     @property
-    # @override
+    @override
     def is_shadowy(self):
         return True

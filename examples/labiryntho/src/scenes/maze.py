@@ -1,4 +1,4 @@
-# from typing import override
+from typing import override
 
 from src.models import *
 
@@ -10,7 +10,7 @@ class MazeScene(BaseScene):
         self.maze = app.maze
         super().__init__(app)
     
-    # @override
+    @override
     def create_objects(self):
         pass
 
