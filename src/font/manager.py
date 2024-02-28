@@ -7,8 +7,8 @@ from .font import Font
 class FontManager:
     def __init__(self, app):
         self.app = app
-        self.font_list = set(op.splitext(font)[0] for font in os.listdir(app.fonts_dir))
-        self.fonts = {("comic-sans", (96, 96)): Font(app, "comic-sans", (96, 96))}
+        self.font_list = set(op.splitext(font)[0] for font in os.listdir(app.fonts_dir_path))
+        self.fonts = {}
 
     def __getitem__(self, full_name: tuple[str, tuple[int, int]]):
         if full_name[0] not in self.font_list:

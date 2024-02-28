@@ -31,8 +31,7 @@ class Font:
         self.name = name
         self.size = size
 
-        # noinspection PyTypeChecker
-        self.face = ft.Face(f"{self.app.fonts_dir}/{name}.ttf")
+        self.face = ft.Face(f"{self.app.fonts_dir_path}/{name}.ttf")
         self.face.set_char_size(size[0] * size[1])
         self.glyphs = {}
 

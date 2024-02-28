@@ -1,3 +1,4 @@
+import abc
 import traceback
 
 import moderngl as gl
@@ -7,14 +8,20 @@ from .font import FontManager
 from .opengl_pipeline import Mesh
 
 
-class GraphicsEngine:
-    def __init__(self, app_name: str, window_size: tuple[int, int], icon_path: str = None, grab_mouse: bool = True,
-                 show_mouse: bool = False, context_flags=(gl.DEPTH_TEST | gl.BLEND), fps: int = -1):
+class GraphicsEngine(abc.ABC):
+    def __init__(self, app_name: str, window_size: tuple[int, int], textures_dir_path: str, fonts_dir_path: str,
+                 optional_user_shaders_dir_path: str | None = None, icon_path: str = None, grab_mouse: bool = True,
+                 show_mouse: bool = False, disable_shadow_render: bool = False,
+                 context_flags=(gl.DEPTH_TEST | gl.BLEND), fps: int = -1):
         self.app_name = app_name
         self.window_size = window_size
+        self.textures_dir_path = textures_dir_path
+        self.fonts_dir_path = fonts_dir_path
+        self.optional_user_shaders_dir_path = optional_user_shaders_dir_path
         self.icon_path = icon_path
         self.grab_mouse = grab_mouse
         self.show_mouse = show_mouse
+        self.disable_shadow_render = disable_shadow_render  # SHADOWS ARE EXPERIMENTAL AND WILL CAUSE ISSUES
         self.context_flags = context_flags
         self.fps = fps
         # init pygame
@@ -42,15 +49,6 @@ class GraphicsEngine:
         self.clock = pg.time.Clock()
         self.time = 0
         self.delta_time = 0
-
-        # temporary (for the sake of refactoring)
-        self.disable_shadow_render = True  # SHADOWS ARE EXPERIMENTAL AND WILL CAUSE ISSUES
-
-        self.fonts_dir = "examples/labiryntho/fonts/"
-        self.shaders_dir = "shaders/"
-        self.textures_dir = "examples/labiryntho/textures/"
-        #
-
         # fonts
         self.font_manager = FontManager(self)
         # mesh
