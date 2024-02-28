@@ -1,17 +1,19 @@
 import os
 
+from ..config import *
+
 
 class ShaderProgram:
     def __init__(self, app):
         self.app = app
         self.ctx = app.ctx
-        self.programs_list = set(os.listdir(app.shaders_dir))
+        self.programs_list = set(os.listdir(SHADERS_DIR))
         self.programs = {"default": self.get_program("default"),
                          "shadow_map": self.get_program("shadow_map"),
                          "plane2d": self.get_program("plane2d")}
 
     def get_program(self, name):
-        program_name = f"{self.app.shaders_dir}/{name}/{name}"
+        program_name = f"{SHADERS_DIR}/{name}/{name}"
         with open(f"{program_name}.vert", "r") as file:
             vertex_shader = file.read()
 

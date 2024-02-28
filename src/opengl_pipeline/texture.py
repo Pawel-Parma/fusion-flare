@@ -10,17 +10,13 @@ class Texture:
         self.app = app
         self.ctx = app.ctx
 
-        self.textures = {"wooden_box": self.get_texture("wooden_box"),
-                         "steel_panel": self.get_texture("steel_panel"),
-                         "bronze_panel": self.get_texture("bronze_panel"),
+        self.textures = {"depth_texture": self.get_depth_texture()}
 
-                         "depth_texture": self.get_depth_texture()}
-
-        self.textures_list = {op.splitext(t)[0] for t in os.listdir(app.textures_dir)}
+        self.textures_list = {op.splitext(t)[0] for t in os.listdir(app.textures_dir_path)}
         self.textures_list.update(self.textures)
 
     def get_texture(self, name="none", color=None):
-        texture = pg.image.load(f"{self.app.textures_dir}/{name}.png").convert_alpha()
+        texture = pg.image.load(f"{self.app.textures_dir_path}/{name}.png").convert_alpha()
         texture = pg.transform.flip(texture, flip_x=False, flip_y=True)
         if color:
             texture.fill(color, special_flags=pg.BLEND_MULT)

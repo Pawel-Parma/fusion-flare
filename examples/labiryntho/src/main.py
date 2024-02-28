@@ -1,6 +1,5 @@
 from typing import override
 
-import moderngl as gl
 import pygame as pg
 import src
 
@@ -44,9 +43,9 @@ from .maze import Maze
 
 
 class Game(src.GraphicsEngine):
-    def __init__(self, app_name: str, window_size: tuple[int, int], icon_path: str, grab_mouse: bool = True,
-                 show_mouse: bool = False, context_flags=(gl.DEPTH_TEST | gl.BLEND), fps: int = -1):
-        super().__init__(app_name, window_size, icon_path, grab_mouse, show_mouse, context_flags, fps)
+    def __init__(self):
+        self.optional_shaders_dir = None
+        super().__init__(APP_NAME, WINDOW_SIZE, TEXTURES_DIR_PATH, FONTS_DIR_PATH, ICON_PATH)
         self.key_binds = KeyBinds()
         # maze
         self.maze = Maze()
@@ -244,5 +243,5 @@ class Game(src.GraphicsEngine):
 
 
 if __name__ == "__main__":
-    game = Game("Labiryntho", (WINDOW_WIDTH, WINDOW_HEIGHT), ICON_PATH)
+    game = Game()
     game.mainloop()
