@@ -4,6 +4,8 @@ import os.path as op
 import pygame as pg
 import moderngl as gl
 
+from ..config import *
+
 
 class Texture:
     def __init__(self, app):
@@ -12,11 +14,14 @@ class Texture:
 
         self.textures = {"depth_texture": self.get_depth_texture()}
 
-        self.textures_list = {op.splitext(t)[0] for t in os.listdir(app.textures_dir_path)}
+        textures_path_list = set(traverse_dir(app.textures_dir_path))
+        self.textures_paths = {op.splitext(op.basename(t))[0]: t for t in textures_path_list}
+
+        self.textures_list = set(self.textures_paths.keys())
         self.textures_list.update(self.textures)
 
     def get_texture(self, name="none", color=None):
-        texture = pg.image.load(f"{self.app.textures_dir_path}/{name}.png").convert_alpha()
+        texture = pg.image.load(f"{self.textures_paths[name]}").convert_alpha()
         texture = pg.transform.flip(texture, flip_x=False, flip_y=True)
         if color:
             texture.fill(color, special_flags=pg.BLEND_MULT)
