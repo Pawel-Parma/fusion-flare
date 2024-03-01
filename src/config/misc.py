@@ -11,12 +11,11 @@ def traverse_dir(path: str) -> list[str]:
     while to_check:
         item = to_check.pop(0)
         item_dir = op.join(path, item)
-
         if op.isfile(item_dir):
             items.append(item_dir)
 
         else:
-            traverse_dir(item_dir)
+            items += traverse_dir(item_dir)
 
     return items
 
