@@ -51,7 +51,7 @@ class Game(src.GraphicsEngine):
         self.game_scene = GameScene.GAME
         self.set_renderer(self.maze_renderer)
         if new_maze:
-            self.maze.new(MAZE_WIDTH, MAZE_LENGTH)
+            self.maze.new(MAZE_LENGTH, MAZE_WIDTH)
             self.maze_renderer.scene.new_maze()
             self.camera.set_position(self.maze.start_in_map_coords)
 

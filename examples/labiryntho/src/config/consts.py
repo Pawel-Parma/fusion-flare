@@ -1,4 +1,4 @@
-from src.i_dont_know_how_to_call_that_package import Color
+from src.misc import Color
 
 
 LOGGER_NAME: str = "base_logger"
