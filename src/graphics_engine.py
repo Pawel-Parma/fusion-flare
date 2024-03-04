@@ -12,7 +12,7 @@ class GraphicsEngine(abc.ABC):
     def __init__(self, app_name: str, window_size: tuple[int, int], textures_dir_path: str, fonts_dir_path: str,
                  optional_user_shaders_dir_path: str | None = None, icon_path: str = None, grab_mouse: bool = True,
                  show_mouse: bool = False, disable_shadow_render: bool = False,
-                 context_flags=(gl.DEPTH_TEST | gl.BLEND), fps: int = -1):
+                 context_flags=(gl.DEPTH_TEST | gl.BLEND | gl.CULL_FACE), fps: int = -1):
         self.app_name = app_name
         self.window_size = window_size
         self.textures_dir_path = textures_dir_path

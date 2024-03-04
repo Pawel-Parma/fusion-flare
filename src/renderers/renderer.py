@@ -3,9 +3,8 @@ class Renderer:
         self.app = app
         self.ctx = app.ctx
         self.mesh = app.mesh
-        # scene
         self.scene = scene
-        # depth buffer
+
         self.depth_texture = self.mesh.texture['depth_texture']
         self.depth_fbo = self.ctx.framebuffer(depth_attachment=self.depth_texture)
 
@@ -17,7 +16,7 @@ class Renderer:
                 obj.render_shadow()
 
     def main_render(self):
-        self.app.ctx.screen.use()
+        self.ctx.screen.use()
         for obj in (self.scene.no_shadow_objects + self.scene.shadow_objects):
             if obj.is_seen_by_camera():
                 obj.render()

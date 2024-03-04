@@ -4,21 +4,21 @@ import glm
 
 from ..config import *
 
+from ..i_dont_know_how_to_call_that_package import Color
+
 from .base import BaseModel
 from .char import Char
 
 
 # TODO: text rendering is really bad
 class Text(BaseModel):
-    def __init__(self, app, font, text, position, rotation=(0, 0, 0), scale=(1, 1), color=(255, 255, 255), alpha=255,
-                 qualtiy=(96, 96)):
+    def __init__(self, app, font, text, position, rotation=(0, 0, 0), size=(1, 1), color=Color(), qualtiy=(96, 96)):
         self.real_position = glm.vec3(*position)
         pos = glm.vec3(*position)
-        pos.x -= (self.get_text_len(text) - 1) * scale[0]
-        super().__init__(app, "plane2d", "none", pos, rotation, (*scale, 0), color, alpha)
-        self.rotation_in_deg = glm.vec3(rotation)
+        pos.x -= (self.get_text_len(text) - 1) * size[0]
+        super().__init__(app, "plane2d", "none", pos, (*size, 0), rotation, color)
 
-        self.text = text
+        self._text = text
         self.font = font
         self.quality = qualtiy
         self.chars = self.get_chars()
@@ -28,8 +28,8 @@ class Text(BaseModel):
         special_char = []
         special_char_started = False
         prev_char = ""
-        prev_scale = glm.vec3(0, 0, 0)
-        for i, char in enumerate(self.text):
+        prev_size = glm.vec3(0, 0, 0)
+        for i, char in enumerate(self._text):
             if char == "`":
                 special_char.append(char)
                 if special_char_started:
@@ -46,17 +46,17 @@ class Text(BaseModel):
                 continue
 
             pos = self.position
-            pos.x += self.scale.x * 1.5
+            pos.x += self.size.x * 1.5
             if {"W", "M"} & {prev_char.upper(), char.upper()} or char.upper() == char:
-                pos.x += prev_scale.x
+                pos.x += prev_size.x
 
             if {"I", "L"} & {char.upper(), prev_char.upper()}:
-                pos.x -= prev_scale.x / 2 - 0.1
+                pos.x -= prev_size.x / 2 - 0.1
 
-            char = Char(self.app, self.font, char, self.quality, pos, self.rotation_in_deg, self.scale)
+            char = Char(self.app, self.font, self.quality, char, pos, self.size, self.rotation_deg)
             char.color = self.color
             prev_char = char.char
-            prev_scale = char.scale
+            prev_size = char.size
             tmp.append(char)
 
         return tmp
@@ -79,21 +79,26 @@ class Text(BaseModel):
 
         return len_text
 
-    def set_text(self, text):
+    @property
+    def text(self):
+        return self._text
+
+    @text.setter
+    def text(self, text):
         self.new_position()
-        self.text = text
+        self._text = text
         self.chars = self.get_chars()
 
     def new_position(self):
         self.position = self.real_position.xyz
-        self.position.x -= (self.get_text_len(self.text) - 1) * self.scale[0]
+        self.position.x -= (self.get_text_len(self._text) - 1) * self.size[0]
 
     def set_position(self, position):
         self.real_position = glm.vec3(*position)
         self.new_position()
         for char in self.chars:
             char.position = self.position
-            char.m_model = char.get_model_matrix()
+            char.update_m_model()
 
     @override
     def render(self):
