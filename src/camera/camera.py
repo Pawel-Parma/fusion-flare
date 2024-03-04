@@ -6,7 +6,7 @@ class CameraInterface:
     default_right = glm.vec3(1, 0, 0)
     default_front = glm.vec3(0, 0, -1)
 
-    def __init__(self, app, position, yaw, pitch, fov=50, near=0.1, far=80):
+    def __init__(self, app, position, yaw, pitch, fov, near, far):
         self.app = app
 
         self.position = glm.vec3(position)
@@ -16,7 +16,7 @@ class CameraInterface:
         self.fov = fov
         self.near = near
         self.far = far
-        
+
         self.up = glm.vec3(0, 1, 0)
         self.right = glm.vec3(1, 0, 0)
         self.front = glm.vec3(0, 0, -1)
@@ -28,6 +28,9 @@ class CameraInterface:
         self.position = camera.position
         self.yaw = camera.yaw
         self.pitch = camera.pitch
+        self.fov = camera.fov
+        self.near = camera.near
+        self.far = camera.far
         self.up = camera.up
         self.right = camera.right
         self.front = camera.front
@@ -36,7 +39,7 @@ class CameraInterface:
 
 
 class Camera(CameraInterface):
-    def __init__(self, app, speed, mouse_sensitivity, fov, near, far, pitch_max, pitch_min, position, yaw, pitch):
+    def __init__(self, app, speed, mouse_sensitivity, fov, near, far, pitch_min, pitch_max, position, yaw, pitch):
         super().__init__(app, position, yaw, pitch, fov, near, far)
         self.speed = speed
         self.mouse_sensitivity = mouse_sensitivity
@@ -55,7 +58,7 @@ class Camera(CameraInterface):
         self.right = glm.normalize(glm.cross(self.front, glm.vec3(0, 1, 0)))
         self.up = glm.normalize(glm.cross(self.right, self.front))
 
-    def update_view_matirx(self):
+    def update_view_matrix(self):
         self.m_view = glm.lookAt(self.position, self.position + self.front, self.up)
 
     def rotate_yaw(self, delta_x):
@@ -118,4 +121,4 @@ class Camera(CameraInterface):
 
     def update(self):
         self.update_vectors()
-        self.update_view_matirx()
+        self.update_view_matrix()

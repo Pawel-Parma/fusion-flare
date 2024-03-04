@@ -6,7 +6,9 @@ from ..camera import CameraInterface
 class BaseScene(abc.ABC):
     def __init__(self, app):
         self.app = app
-        self.camera_values = CameraInterface(app, position=(0, 0, 10), yaw=-90, pitch=0)
+        camera = app.camera
+        self.camera_values = CameraInterface(app, position=(0, 0, 10), fov=camera.fov, near=camera.near, far=camera.far,
+                                             yaw=-90, pitch=0)
         self.shadow_objects = []
         self.no_shadow_objects = []
         self.create_objects()
