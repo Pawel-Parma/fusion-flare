@@ -2,7 +2,7 @@ import random
 import numpy as np
 
 
-def generate_maze(width: int, length: int):  # TODO: make better
+def generate_maze(width, length):  # TODO: make better
     maze = np.full((width, length), "#")
 
     x, y = (2, 2)
@@ -43,7 +43,7 @@ def generate_maze(width: int, length: int):  # TODO: make better
     maze[width - 3, length - 3] = "e"
     make_empty_around(maze, (width - 3, 0,  length - 3), length, width)
 
-    return maze, (2, 0, 2), (width - 3, 0, length - 3)
+    return maze, (2, 2), (width - 3, length - 3)
 
 
 def make_empty_around(maze, point, length, width):
@@ -59,9 +59,8 @@ def make_empty_around(maze, point, length, width):
 
 class Maze:
     def __init__(self):
-        self.width = 0
         self.length = 0
-        self.height = 0
+        self.width = 0
 
         self.maze = []
         self.start = None
@@ -69,16 +68,15 @@ class Maze:
         self.start_in_map_coords = (0, 0, 0)
         self.end_in_map_coords = (0, 0, 0)
 
-    def new(self, width: int, length: int, height: int = 1):
-        self.width = width
+    def new(self, length: int, width: int):
         self.length = length
-        self.height = height
+        self.width = width
         data = generate_maze(width, length)
         self.maze = data[0]
         self.start = data[1]
         self.end = data[2]
-        self.start_in_map_coords = (self.start[0] * 2 - self.width, 0, self.start[2] * 2 - self.length)
-        self.end_in_map_coords = (self.end[0] * 2 - self.width, 0, self.end[2] * 2 - self.length)
+        self.start_in_map_coords = (self.start[0] * 2 - self.width, 0, self.start[1] * 2 - self.length)
+        self.end_in_map_coords = (self.end[0] * 2 - self.width, 0, self.end[1] * 2 - self.length)
 
     def __getitem__(self, item):
         return self.maze[item]

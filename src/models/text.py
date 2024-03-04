@@ -4,7 +4,7 @@ import glm
 
 from ..config import *
 
-from ..i_dont_know_how_to_call_that_package import Color
+from ..misc import Color
 
 from .base import BaseModel
 from .char import Char

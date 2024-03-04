@@ -2,7 +2,7 @@ import abc
 
 import glm
 
-from ..i_dont_know_how_to_call_that_package import HitBox
+from ..misc import HitBox
 
 
 class BaseModel(abc.ABC):
