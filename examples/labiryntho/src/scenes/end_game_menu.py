@@ -1,0 +1,34 @@
+from typing import override
+
+from src.models import *
+from src.scenes import BaseScene
+
+from .common import *
+
+
+class EndGameMenuScene(BaseScene):
+    def __init__(self, app):
+        super().__init__(app)
+
+    @override
+    def create_objects(self):
+        app = self.app
+        add = self.add_object
+
+        # buttons
+        # play again
+        play_again_button = add(Button(app, "white", "white", (-6, -2, 0), size=(1.5, 0.5), default_color=light_green,
+                                hover_color=green))
+        add(Text(app, "comic-sans", "Play again", (-6 - 0.05, -2, 0.01), size=(0.16, 0.37)))
+        # exit
+        exit_button = add(Button(app, "white", "white", (-6, -3.5, 0), size=(1.5, 0.5), default_color=light_red,
+                          hover_color=red))
+        add(Text(app, "comic-sans", "Exit", (-6 - 0.36, -3.5, 0.01), size=(0.5, 0.4)))
+
+        # bind buttons
+        play_again_button.on_click(lambda: app.play(new_maze=True))
+        play_again_button.set_chosen()
+        play_again_button.down_button(exit_button)
+
+        exit_button.on_click(app.main_menu)
+        exit_button.up_button(play_again_button)

@@ -1,3 +1,5 @@
+from typing import override
+
 import glm
 
 
@@ -17,8 +19,8 @@ class Light:
     def get_view_matrix(self):
         return glm.lookAt(self.position, self.direction, glm.vec3(0, 1, 0))
 
-    @staticmethod
-    def can_change_position():
+    @property
+    def can_change_position(self):
         return False
 
     def update(self):
@@ -27,13 +29,14 @@ class Light:
 
 class CameraFollowingLight(Light):
     def __init__(self, app, light):
-        self.app = app
         super().__init__(light.position, light.direction, light.color, *light.intensities)
+        self.app = app
 
-    def update(self):
-        self.position.xz = self.app.camera.position.xz
-        self.position.y = 1
-
-    @staticmethod
-    def can_change_position():
+    @property
+    @override
+    def can_change_position(self):
         return True
+
+    @override
+    def update(self):
+        self.position.xyz = self.app.camera.position.xyz

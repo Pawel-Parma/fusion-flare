@@ -3,7 +3,7 @@ import abc
 import numpy as np
 
 
-class BaseVBO:
+class BaseVBO(abc.ABC):
     def __init__(self, ctx):
         self.ctx = ctx
         self.vbo = self.get_vbo()

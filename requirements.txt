@@ -1,6 +1,9 @@
 moderngl~=5.10.0
-numpy~=1.26.3
-pygame~=2.5.2
 PyGLM~=2.7.1
-# To read .obj files (not used yet)
-# pywavefront~=1.3.3
+pygame~=2.5.2
+
+numpy~=1.26.3
+
+freetype-py==2.4.0
+
+# PyWavefront~=1.3.3

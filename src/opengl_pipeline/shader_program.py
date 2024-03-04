@@ -1,22 +1,23 @@
 import os
-import os.path as op
 
-from config import *
+from ..config import *
 
 
 class ShaderProgram:
-    def __init__(self, ctx):
-        self.ctx = ctx
-        self.programs_list = {shader for shader in os.listdir(SHADERS_DIR) if op.isdir(op.join(SHADERS_DIR, shader))}
+    def __init__(self, app):
+        self.app = app
+        self.ctx = app.ctx
+        self.programs_list = set(os.listdir(SHADERS_DIR))
         self.programs = {"default": self.get_program("default"),
                          "shadow_map": self.get_program("shadow_map"),
-                         "button": self.get_program("button")}
+                         "plane2d": self.get_program("plane2d")}
 
     def get_program(self, name):
-        with open(op.join(SHADERS_DIR, f"{name}/{name}.vert"), "r") as file:
+        program_name = f"{SHADERS_DIR}/{name}/{name}"
+        with open(f"{program_name}.vert", "r") as file:
             vertex_shader = file.read()
 
-        with open(op.join(SHADERS_DIR, f"{name}/{name}.frag"), "r") as file:
+        with open(f"{program_name}.frag", "r") as file:
             fragment_shader = file.read()
 
         program = self.ctx.program(vertex_shader=vertex_shader, fragment_shader=fragment_shader)
@@ -24,9 +25,10 @@ class ShaderProgram:
 
     def __getitem__(self, name):
         if name not in self.programs_list:
-            raise KeyError(f"Program {name} not found")
+            raise KeyError(f"Program ({name}) not found")
 
         if name not in self.programs:
-            return self.get_program(name)
+            self.programs[name] = self.get_program(name)
+            self.programs_list.add(name)
 
         return self.programs[name]

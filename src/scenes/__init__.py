@@ -1,2 +1,1 @@
-from .game import *
-from .menu import *
+from .scene import BaseScene
