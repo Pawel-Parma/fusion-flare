@@ -2,7 +2,7 @@ import os
 import enum
 import logging
 import logging.config
-# import atexit
+import atexit
 
 from functools import wraps
 from typing import override
@@ -61,25 +61,25 @@ config = {
             "maxBytes": 4_194_304,
             "backupCount": 64,
         },
-        # "queue_handler": {
-        #     "class": "logging.handlers.QueueHandler",
-        #     "handlers": ["stdout", "stderr", "file"],
-        #     "respect_handler_level": true
-        # },
+        "queue_handler": {
+            "class": "logging.handlers.QueueHandler",
+            "handlers": ["stdout", "stderr", "file"],
+            "respect_handler_level": True
+        },
     },
     "loggers": {
         LOGGER_NAME: {
             "level": "DEBUG",
-            "handlers": ["stdout", "stderr", "file"],
+            "handlers": ["queue_handler"],
         }
     }
 }
 
 logging.config.dictConfig(config)
-# queue_handler = logging.getHandlerByName("queue_handler")
-# if queue_handler is not None:
-#     queue_handler.listener.start()
-#     atexit.register(queue_handler.listener.stop)
+queue_handler = logging.getHandlerByName("queue_handler")
+if queue_handler is not None:
+    queue_handler.listener.start()
+    atexit.register(queue_handler.listener.stop)
 
 
 class LogLevel(enum.IntEnum):  # Values from logging module into enum
