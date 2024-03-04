@@ -22,8 +22,8 @@ class Game(src.GraphicsEngine):
         # light
         self.light = CameraFollowingLight(self, Light(position=(0, 0, 0), specular=0))
         # players
-        self.physics_player = PhysicsPlayer(self, position=(0, 0, 0))
-        self.spectator_player = SpectatorPlayer(self)
+        self.physics_player = PhysicsPlayer(self, position=(0, 0, 0), far=CAMERA_FAR)
+        self.spectator_player = SpectatorPlayer(self, far=CAMERA_FAR)
         self.current_camera = CameraType.PHYSICS
         self.camera = self.physics_player
         self.always_update_camera = False

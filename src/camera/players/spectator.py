@@ -6,13 +6,11 @@ from ..camera import Camera
 
 
 class SpectatorPlayer(Camera):
-    def __init__(self, app, speed=0.01, mouse_sensitivity=0.002, fov=50, near=0.1, far=80, pitch_max=89, pitch_min=-89,
+    def __init__(self, app, speed=0.01, mouse_sensitivity=0.002, fov=50, near=0.1, far=80, pitch_min=-89, pitch_max=89,
                  position=(0, 0, 0), yaw=0, pitch=0):
-        super().__init__(app, speed, mouse_sensitivity, fov, near, far, pitch_max,
-                         pitch_min, position, yaw, pitch)
+        super().__init__(app, speed, mouse_sensitivity, fov, near, far, pitch_min, pitch_max, position, yaw, pitch)
         self.key_binds = app.key_binds
 
-    @override
     def keyboard_control(self):
         velocity = self.speed * self.app.delta_time
         keys = pg.key.get_pressed()
