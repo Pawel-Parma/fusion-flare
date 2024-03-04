@@ -19,8 +19,8 @@ class GraphicsEngine(abc.ABC):
         self.fonts_dir_path = fonts_dir_path
         self.optional_user_shaders_dir_path = optional_user_shaders_dir_path
         self.icon_path = icon_path
-        self.grab_mouse = grab_mouse
-        self.show_mouse = show_mouse
+        self._grab_mouse = grab_mouse
+        self._show_mouse = show_mouse
         self.disable_shadow_render = disable_shadow_render  # SHADOWS ARE EXPERIMENTAL AND WILL CAUSE ISSUES
         self.context_flags = context_flags
         self.fps = fps
@@ -55,6 +55,24 @@ class GraphicsEngine(abc.ABC):
         self.mesh = Mesh(self)
         # state
         self.running: bool = True
+
+    @property
+    def grab_mouse(self):
+        return self._grab_mouse
+
+    @grab_mouse.setter
+    def grab_mouse(self, value):
+        self._grab_mouse = value
+        pg.event.set_grab(value)
+
+    @property
+    def show_mouse(self):
+        return self._show_mouse
+
+    @show_mouse.setter
+    def show_mouse(self, value):
+        self._show_mouse = value
+        pg.mouse.set_visible(value)
 
     def set_time(self):
         self.time = pg.time.get_ticks() * 0.001
