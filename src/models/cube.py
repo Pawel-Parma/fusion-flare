@@ -1,21 +1,17 @@
 from typing import override
 
-from .base import BaseShadowModel
+from ..i_dont_know_how_to_call_that_package import Color
+
+from .base_shadow import BaseShadowModel
 
 
 class Cube(BaseShadowModel):
-    def __init__(self, app, texture_id, position, rotation=(0, 0, 0), scale=(1, 1, 1), color=(255, 255, 255),
-                 alpha=255):
-        super().__init__(app, "cube", texture_id, position, rotation, scale, color, alpha)
+    def __init__(self, app, texture_id, position, rotation=(0, 0, 0), size=(1, 1, 1), color=Color()):
+        super().__init__(app, "cube", texture_id, position, size, rotation, color)
 
     @override
     def on_init(self):
-        super().on_init()  # TODO On init super calls make better
-        # texture
-        self.texture = self.app.mesh.texture[self.texture_id]
-        self.program["u_texture_0"] = 0
-        # mvp
-        self.program["m_proj"].write(self.app.camera.m_proj)
+        super().on_init()
         # light
         self.program["light.position"].write(self.app.light.position)
         self.program["light.Ia"].write(self.app.light.Ia)
@@ -29,8 +25,5 @@ class Cube(BaseShadowModel):
     @override
     def update(self):
         super().update()
-        self.texture.use(location=0)
         self.program["camPos"].write(self.app.camera.position)
-        self.program["m_view"].write(self.app.camera.m_view)
-        self.program["m_model"].write(self.m_model)
         self.update_light()

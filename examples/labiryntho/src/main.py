@@ -3,7 +3,7 @@ from typing import override
 import pygame as pg
 import src
 
-from src.scenes import Renderer
+from src.renderers import Renderer
 from src.camera import SpectatorPlayer, PhysicsPlayer
 from src.light import Light, CameraFollowingLight
 
@@ -12,40 +12,10 @@ from .config import *
 from .maze import Maze
 
 
-# GAME
-
-# TODO: Make main menu
-# Play
-# History [ranking, score, time, number of missed tiles]
-# Settings [controls, graphics, credits]
-
-# TODO: Make escape menu
-# Settings
-
-# TODO: Make end screen
-# Score
-# Time
-# Name
-# Play-through [shows correct path with green]
-
-# Play again [shows play screen and same setting]
-
-# TODO: Make database
-
-# TODO: FINISHING TOUCHES
-# Show time while playing
-# More textures
-
-# If time
-# Custom music and sound
-# Make coins, power-ups [compass, shows where to go, speed boost, etc.]
-# Allow true 3D with stairs
-
-
 class Game(src.GraphicsEngine):
     def __init__(self):
         self.optional_shaders_dir = None
-        super().__init__(APP_NAME, WINDOW_SIZE, TEXTURES_DIR_PATH, FONTS_DIR_PATH, ICON_PATH)
+        super().__init__(APP_NAME, WINDOW_SIZE, TEXTURES_DIR_PATH, FONTS_DIR_PATH, icon_path=ICON_PATH)
         self.key_binds = KeyBinds()
         # maze
         self.maze = Maze()
@@ -81,7 +51,7 @@ class Game(src.GraphicsEngine):
         self.game_scene = GameScene.GAME
         self.set_renderer(self.maze_renderer)
         if new_maze:
-            self.maze.new(MAZE_WIDTH, MAZE_LENGHT)
+            self.maze.new(MAZE_WIDTH, MAZE_LENGTH)
             self.maze_renderer.scene.new_maze()
             self.camera.set_position(self.maze.start_in_map_coords)
 
@@ -124,7 +94,6 @@ class Game(src.GraphicsEngine):
                 continue
 
             key = event.key
-            # Menus
             if key == self.key_binds.esc_menu:
                 match self.game_scene:
                     case GameScene.GAME:
@@ -133,7 +102,6 @@ class Game(src.GraphicsEngine):
                     case GameScene.ESC_MENU:
                         self.play()
 
-            # CHEAT CODES
             if key == self.key_binds.change_camera:
                 match self.current_camera:
                     case CameraType.PHYSICS:
@@ -232,6 +200,9 @@ class Game(src.GraphicsEngine):
 
     @override
     def on_tick_exception(self, e):
+        if f"{e}" == "video system not initialized":
+            return
+
         log(f"Exception occurred while ticking: ({e})", level=LogLevel.ERROR)
         super().on_tick_exception(e)
 

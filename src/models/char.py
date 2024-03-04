@@ -1,31 +1,23 @@
 import glm
 
+from ..i_dont_know_how_to_call_that_package import Color
+
 from .base import BaseModel
 
 
 class Char(BaseModel):
-    def __init__(self, app, font, char, quality, position, rotation=(0, 0, 0), scale=(1, 1), color=(255, 255, 255),
-                 alpha=255):
-        super().__init__(app, "plane2d", "none", position, rotation, (*scale, 0), color, alpha)
-        self.char = char
+    def __init__(self, app, font, quality, char, position, size=(1, 1), rotation=(0, 0, 0), color=Color()):
+        super().__init__(app, "plane2d", "none", position, (*size, 0), rotation, color)
+
         self.font_name = font
         self.quality = quality
         self.font = app.font_manager[(font, quality)]
+        self.char = char
         self.texture = self.font[self.char]
-        self.size = glm.vec3(*self.texture.size, 0)
-        self.scale *= glm.vec3(*self.size) / 100
-        self.m_model = self.get_model_matrix()
 
-        self.on_init()
-
-    def on_init(self):
-        # texture
-        self.program["u_texture_0"] = 0
-        # mvp
-        self.program["m_proj"].write(self.app.camera.m_proj)
+        self.char_size = glm.vec3(*self.texture.size, 0)
+        self.size *= glm.vec3(*self.char_size) / 100
+        self.update_m_model()
 
     def update(self):
         super().update()
-        self.texture.use(location=0)
-        self.program["m_view"].write(self.app.camera.m_view)
-        self.program["m_model"].write(self.m_model)

@@ -1,38 +1,57 @@
 import random
+import numpy as np
 
 
-def generate_maze(width: int, lenght: int):  # TODO: make better (real generation)
-    maze = []
-    for x in range(width):
-        maze.append([])
-        # for y in range(height):
-        for z in range(lenght):
-            if x == 0 or x == width - 1:
-                maze[x].append("#")
+def generate_maze(width: int, length: int):  # TODO: make better
+    maze = np.full((width, length), "#")
 
-            elif z == 0 or z == lenght - 1:
-                maze[x].append("#")
+    x, y = (2, 2)
+    maze[x, y] = "."
 
-            else:
-                maze[x].append(random.choice(("#", "#", "#", ".", ".", ".", ".", ".")))
+    maze[2 * x + 1, 2 * y + 1] = "."
 
-    start = (random.randint(1, width - 2), 0, random.randint(1, lenght - 2))
-    maze[start[0]][start[2]] = "s"
-    end = (random.randint(1, width - 2), 0, random.randint(1, lenght - 2))
-    maze[end[0]][end[2]] = "e"
+    stack = [(x, y), ]
+    directions = [(0, 1), (1, 0), (0, -1), (-1, 0)]
 
-    make_empty_around(maze, start, lenght, width)
-    make_empty_around(maze, end, lenght, width)
+    while len(stack) > 0:
+        x, y = stack[-1]
+        random.shuffle(directions)
+        for dx, dy in directions:
+            nx, ny = x + dx, y + dy
 
-    return maze, start, end
+            if 0 <= 2 * nx + 1 < width and 0 <= 2 * ny + 1 < length and maze[2 * nx + 1, 2 * ny + 1] == "#":
+                maze[2 * nx + 1, 2 * ny + 1] = "."
+
+                maze[2 * x + dx + 1, 2 * y + dy + 1] = "."
+                stack.append((nx, ny))
+                break
+        else:
+            stack.pop()
+
+    for i in range(length):
+        if maze[-1, i] == ".":
+            maze[-1, i] = "#"
+            maze[-2, i] = "."
+
+    for j in range(width):
+        if maze[j, -1] == ".":
+            maze[j, -1] = "#"
+            maze[j, -2] = "."
+
+    maze[2, 2] = "s"
+    make_empty_around(maze, (2, 0, 2), length, width)
+    maze[width - 3, length - 3] = "e"
+    make_empty_around(maze, (width - 3, 0,  length - 3), length, width)
+
+    return maze, (2, 0, 2), (width - 3, 0, length - 3)
 
 
-def make_empty_around(maze, point, lenght, width):
+def make_empty_around(maze, point, length, width):
     x, y, z = point
     prev = maze[x][z]
     for i in range(-1, 2):
         for j in range(-1, 2):
-            if 0 <= x + i < width and 0 <= z + j < lenght:
+            if 0 <= x + i < width and 0 <= z + j < length:
                 maze[x + i][z + j] = "."
 
     maze[x][z] = prev
