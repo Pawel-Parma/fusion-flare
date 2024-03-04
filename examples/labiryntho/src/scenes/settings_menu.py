@@ -1,10 +1,9 @@
 from typing import override
 
 from src.models import *
-from src.i_dont_know_how_to_call_that_package import Color
 from src.scenes import BaseScene
 
-from ..config import *
+from .common import *
 
 
 class SettingsMenuScene(BaseScene):
@@ -17,11 +16,14 @@ class SettingsMenuScene(BaseScene):
         app = self.app
 
         # name
-        add(Text(app, "comic-sans", "Settings", (0, 3, 0), size=(0.5, 0.6), color=Color(60, 160, 220)))
+        add(Text(app, "comic-sans", "Settings", (0, 3, 0), size=(0.5, 0.6), color=dodger_blue))
 
         # buttons
-        exit_button = add(Button(app, "white", "white", (6, -3.5, 0), size=(1.5, 0.5), default_color=Color(125, 0, 0),
-                                 hover_color=Color(255, 0, 0)))
+        # exit
+        exit_button = add(Button(app, "white", "white", (6, -3.5, 0), size=(1.5, 0.5), default_color=light_red,
+                                 hover_color=red))
         add(Text(app, "comic-sans", "Exit", (6 - 0.36, -3.5, 0.01), size=(0.5, 0.4)))
-        exit_button.on_click(app.exit_settings_menu)
+
+        # bind buttons
         exit_button.set_chosen()
+        exit_button.on_click(app.exit_settings_menu)

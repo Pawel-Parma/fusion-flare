@@ -1,8 +1,9 @@
 from typing import override
 
 from src.models import *
-from src.i_dont_know_how_to_call_that_package import Color
 from src.scenes import BaseScene
+
+from .common import *
 
 
 class MazeScene(BaseScene):
@@ -33,15 +34,15 @@ class MazeScene(BaseScene):
         for x in range(-maze_width, maze_width, 2):
             for z in range(-maze_length, maze_length, 2):
                 if self.maze[int((x + maze_width) / 2)][int((z + maze_length) / 2)] == "#":
-                    add(Cube(app, texture_id="wooden_box", position=(x, 0, z), color=Color(255, 0, 0)))
+                    add(Cube(app, texture_id="wooden_box", position=(x, 0, z), color=red))
 
                 elif self.maze[int((x + maze_width) / 2)][int((z + maze_length) / 2)] == "s":
                     for y in range(2, 6, 2):
-                        add(Cube(app, texture_id="bronze_panel", position=(x, -2 + y, z), color=Color(2, 255, 22)))
+                        add(Cube(app, texture_id="bronze_panel", position=(x, -2 + y, z), color=green))
 
                 elif self.maze[int((x + maze_width) / 2)][int((z + maze_length) / 2)] == "e":
                     for y in range(2, 6, 2):
-                        add(Cube(app, texture_id="steel_panel", position=(x, -2 + y, z), color=Color(213, 140, 120)))
+                        add(Cube(app, texture_id="steel_panel", position=(x, -2 + y, z), color=dodger_blue))
 
     def remove_maze_objects(self):
         self.shadow_objects.clear()
