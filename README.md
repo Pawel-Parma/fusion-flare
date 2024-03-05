@@ -5,9 +5,9 @@ A simple game engine written in Python for fast prototyping.
 
 ### Photos:
 
-<img title="Start menu" alt="" src="images/labiryntho-1.png" style="object-fit:fill; width:50%; height:50%;" />
-<img title="Gameplay" alt="" src="images/labiryntho-2.png" style="object-fit:contain; width:750%; height:455%;" />
-<img title="Full maze" alt="" src="images/labiryntho-3.png" style="object-fit:contain;" />  
+<img title="Start menu" alt="" src="images/labiryntho-1.png" style="object-fit:fill; width:75%; height:75%;" />
+<img title="Gameplay" alt="" src="images/labiryntho-2.png" style="object-fit:contain; width:75%; height:75%;" />
+<img title="Full maze" alt="" src="images/labiryntho-3.png" style="object-fit:contain; width:75%; height:75%" />
 
 ### Run the game:
 
