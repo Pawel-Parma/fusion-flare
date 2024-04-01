@@ -7,9 +7,6 @@ from .common import *
 
 
 class HistoryMenuScene(BaseScene):
-    def __init__(self, app):
-        super().__init__(app)
-
     @override
     def create_objects(self):
         add = self.add_object

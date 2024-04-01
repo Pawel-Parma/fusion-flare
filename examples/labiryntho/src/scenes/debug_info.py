@@ -7,9 +7,6 @@ from src.scenes import BaseScene
 
 
 class DebugInfoScene(BaseScene):
-    def __init__(self, app):
-        super().__init__(app)
-
     def get_fps(self):
         return f"{self.app.clock.get_fps():.0f}"
 

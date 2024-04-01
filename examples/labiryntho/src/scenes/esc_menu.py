@@ -9,9 +9,6 @@ from .common import *
 
 
 class EscMenuScene(BaseScene):
-    def __init__(self, app):
-        super().__init__(app)
-
     @override
     def create_objects(self):
         app = self.app
