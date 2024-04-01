@@ -11,7 +11,7 @@ A simple game engine written in Python for fast prototyping.
 
 ### Run the game:
 
-- #### Install packages from `requirements.txt`:
+- #### Install packages:
 
   ```bash
   pip install -r requirements.txt
