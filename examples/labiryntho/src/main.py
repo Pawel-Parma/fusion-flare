@@ -3,16 +3,18 @@ from typing import override
 import pygame as pg
 import src
 
+from src import GraphicsEngine
 from src.renderers import Renderer
 from src.camera import SpectatorPlayer, PhysicsPlayer
-from src.light import Light, CameraFollowingLight
+from src.light import CameraFollowingLight
+
 
 from .scenes import *
 from .config import *
 from .maze import Maze
 
 
-class Game(src.GraphicsEngine):
+class Game(GraphicsEngine):
     def __init__(self):
         self.optional_shaders_dir = None
         super().__init__(APP_NAME, WINDOW_SIZE, TEXTURES_DIR_PATH, FONTS_DIR_PATH, icon_path=ICON_PATH)
@@ -20,7 +22,7 @@ class Game(src.GraphicsEngine):
         # maze
         self.maze = Maze()
         # light
-        self.light = CameraFollowingLight(self, Light(position=(0, 0, 0), specular=0))
+        self.light = CameraFollowingLight(self, position=(0, 0, 0), specular=0)
         # players
         self.physics_player = PhysicsPlayer(self, position=(0, 0, 0), far=CAMERA_FAR)
         self.spectator_player = SpectatorPlayer(self, far=CAMERA_FAR)
