@@ -28,10 +28,8 @@ class Texture:
 
         texture = self.ctx.texture(size=texture.get_size(), components=4,
                                    data=pg.image.tostring(texture, "RGBA"))
-        # mipmaps
         texture.filter = (gl.LINEAR_MIPMAP_LINEAR, gl.LINEAR)
         texture.build_mipmaps()
-        # anisotropic filtering
         texture.anisotropy = 32
 
         return texture

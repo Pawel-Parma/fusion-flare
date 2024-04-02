@@ -28,13 +28,13 @@ class BaseModel(abc.ABC):
 
     def get_m_model(self):
         m_model = glm.mat4()
-        # translate
+
         m_model = glm.translate(m_model, self.position)
-        # rotate
+
         m_model = glm.rotate(m_model, self.rotation_rad.x, glm.vec3(1, 0, 0))
         m_model = glm.rotate(m_model, self.rotation_rad.y, glm.vec3(0, 1, 0))
         m_model = glm.rotate(m_model, self.rotation_rad.z, glm.vec3(0, 0, 1))
-        # size
+
         m_model = glm.scale(m_model, self.size)
         return m_model
 

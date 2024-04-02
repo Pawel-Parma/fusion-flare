@@ -31,13 +31,11 @@ class MazeDimension(Dimension):
 
     @override
     def update(self):
-        camera = self.app.camera
-
-        # background color
         self.app.ctx.clear(*SKY_COLOR)
-        # update camera
+
+        camera = self.app.camera
         camera.update()
-        # check win
+
         temp = camera.position.xyz
         temp.x = round(temp.x)
         temp.y = round(temp.y)

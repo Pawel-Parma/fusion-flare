@@ -17,15 +17,15 @@ class BaseShadowModel(BaseModel, abc.ABC):
     @override
     def on_init(self):
         super().on_init()
-        # resolution
+
         self.program["u_resolution"].write(glm.vec2(self.app.window_size))
-        # depth texture
+
         self.program["shadowMap"] = 1
         self.depth_texture.use(location=1)
-        # shadow
+
         self.shadow_program["m_proj"].write(self.app.camera.m_proj)
         self.shadow_program["m_view_light"].write(self.app.light.m_view_light)
-        # shadow
+
         self.program["m_view_light"].write(self.app.light.m_view_light)
 
     @property

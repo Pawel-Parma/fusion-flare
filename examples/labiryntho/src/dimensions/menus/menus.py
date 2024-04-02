@@ -56,5 +56,4 @@ class MenusDimension(Dimension):
 
     @override
     def update(self):
-        # background color
         self.app.ctx.clear(*MENU_COLOR)
