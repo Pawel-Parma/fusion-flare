@@ -17,22 +17,22 @@ class Game(GraphicsEngine):
     def __init__(self):
         super().__init__(APP_NAME, WINDOW_SIZE, TEXTURES_DIR_PATH, FONTS_DIR_PATH, icon_path=ICON_PATH)
         self.key_binds = KeyBinds()
-        # maze
+
         self.maze = Maze()
-        # light
+
         self.light = CameraFollowingLight(self, position=(0, 0, 0), specular=0)
-        # players
+
         self.physics_player = PhysicsPlayer(self, position=(0, 0, 0), far=CAMERA_FAR)
         self.spectator_player = SpectatorPlayer(self, far=CAMERA_FAR)
         self.current_camera = CameraType.PHYSICS
         self.camera = self.physics_player
         self.always_update_camera = False
-        # dimensions
+
         self.maze_dimension = MazeDimension(self, GameDimension.MAZE)
         self.menus_dimension = MenusDimension(self, GameDimension.MENUS)
         self.dimension = self.menus_dimension
         self.menus_dimension.use()
-        # scenes
+
         self.debug_info_renderer = Renderer(self, DebugInfoScene(self, "main_debug_info"))
         self.render_debug = False
 

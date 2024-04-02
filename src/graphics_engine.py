@@ -24,36 +24,33 @@ class GraphicsEngine(abc.ABC):
         self.disable_shadow_render = disable_shadow_render  # SHADOWS ARE EXPERIMENTAL AND WILL CAUSE ISSUES
         self.context_flags = context_flags
         self.fps = fps
-        # init pygame
+
         pg.init()
-        # set OpenGL version
+
         pg.display.gl_set_attribute(pg.GL_CONTEXT_MAJOR_VERSION, 3)
         pg.display.gl_set_attribute(pg.GL_CONTEXT_MINOR_VERSION, 3)
-        # set OpenGL profile
         pg.display.gl_set_attribute(pg.GL_CONTEXT_PROFILE_MASK, pg.GL_CONTEXT_PROFILE_CORE)
-        # create OpenGL context
         pg.display.set_mode(size=window_size, flags=(pg.DOUBLEBUF | pg.OPENGL))
-        # window settings
+
         pg.display.set_caption(app_name)
         if icon_path is not None:
             pg.display.set_icon(pg.image.load(icon_path))
 
-        # mouse settings
         pg.event.set_grab(grab_mouse)
         pg.mouse.set_visible(show_mouse)
-        # detect and use existing opengl context
+
         self.ctx = gl.create_context()
         self.ctx.enable(flags=context_flags)
         self.ctx.gc_mode = "auto"
-        # get fps clock
+
         self.clock = pg.time.Clock()
         self.time = 0
         self.delta_time = 0
-        # fonts
+
         self.font_manager = FontManager(self)
-        # mesh
+
         self.mesh = Mesh(self)
-        # state
+
         self.running: bool = True
 
     @property
@@ -88,7 +85,6 @@ class GraphicsEngine(abc.ABC):
                 break
 
     def render(self):
-        # swap buffers
         pg.display.flip()
 
     def tick(self):

@@ -12,7 +12,7 @@ class Cube(BaseShadowModel):
     @override
     def on_init(self):
         super().on_init()
-        # light
+
         self.program["light.position"].write(self.app.light.position)
         self.program["light.ambient"].write(self.app.light.ambient)
         self.program["light.diffuse"].write(self.app.light.diffuse)

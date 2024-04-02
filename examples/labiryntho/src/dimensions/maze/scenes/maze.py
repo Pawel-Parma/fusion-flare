@@ -49,7 +49,5 @@ class MazeScene(BaseScene):
 
     def new_maze(self):
         self.remove_maze_objects()
-        # Floor
         self.create_floor()
-        # Maze
         self.create_maze()

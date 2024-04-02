@@ -56,10 +56,8 @@ class Font:
 
     def get_texture(self, buffer, size):
         texture = self.ctx.texture(size=size, components=4, data=buffer.tobytes())
-        # mipmaps
         texture.filter = (gl.LINEAR_MIPMAP_LINEAR, gl.LINEAR)
         texture.build_mipmaps()
-        # anisotropic filtering
         texture.anisotropy = 16
 
         return texture

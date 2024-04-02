@@ -12,15 +12,11 @@ class HistoryMenuScene(BaseScene):
         add = self.add_object
         app = self.app
 
-        # name
         add(Text(app, "comic-sans", "History", (0, 3, 0), size=(0.5, 0.6), color=dodger_blue))
 
-        # buttons
-        # exit
         exit_button = add(Button(app, "white", "white", (6, -3.5, 0), size=(1.5, 0.5), default_color=light_red,
                                  hover_color=red))
         add(Text(app, "comic-sans", "Exit", (6 - 0.36, -3.5, 0.01), size=(0.5, 0.4)))
 
-        # bind buttons
         exit_button.on_click(self.parent.main_menu)
         exit_button.set_chosen()
