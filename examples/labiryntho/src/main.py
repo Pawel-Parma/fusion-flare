@@ -7,7 +7,6 @@ from src.renderers import Renderer
 from src.camera import SpectatorPlayer, PhysicsPlayer
 from src.light import CameraFollowingLight
 
-
 from .scenes import *
 from .dimensions import *
 from .config import *
