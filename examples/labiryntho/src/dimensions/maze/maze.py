@@ -2,10 +2,9 @@ from typing import override
 
 from src.dimensions import Dimension
 
-from .scenes import MazeScene
 from ...config import *
 
-from .scenes import MazeScenes
+from .scenes import *
 
 
 class MazeDimension(Dimension):
