@@ -1,14 +1,12 @@
 import abc
 
-from ..camera import CameraInterface
-
 
 class BaseScene(abc.ABC):
-    def __init__(self, app):
+    def __init__(self, app, name, parent=None):
         self.app = app
-        camera = app.camera
-        self.camera_values = CameraInterface(app, position=(0, 0, 10), fov=camera.fov, near=camera.near, far=camera.far,
-                                             yaw=-90, pitch=0)
+        self.name = name
+        self.parent = parent
+
         self.shadow_objects = []
         self.no_shadow_objects = []
         self.create_objects()
@@ -25,12 +23,6 @@ class BaseScene(abc.ABC):
     @abc.abstractmethod
     def create_objects(self):
         pass
-
-    def use(self):
-        self.app.camera.use_vars_from(self.camera_values)
-
-    def un_use(self):
-        self.camera_values.use_vars_from(self.app.camera)
 
     def update(self):
         pass
