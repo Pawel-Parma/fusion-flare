@@ -3,17 +3,17 @@ from typing import override
 from src.models import *
 from src.scenes import BaseScene
 
-from .common import *
+from ....scenes.common import *
 
 
-class HistoryMenuScene(BaseScene):
+class SettingsMenuScene(BaseScene):
     @override
     def create_objects(self):
         add = self.add_object
         app = self.app
 
         # name
-        add(Text(app, "comic-sans", "History", (0, 3, 0), size=(0.5, 0.6), color=dodger_blue))
+        add(Text(app, "comic-sans", "Settings", (0, 3, 0), size=(0.5, 0.6), color=dodger_blue))
 
         # buttons
         # exit
@@ -22,5 +22,5 @@ class HistoryMenuScene(BaseScene):
         add(Text(app, "comic-sans", "Exit", (6 - 0.36, -3.5, 0.01), size=(0.5, 0.4)))
 
         # bind buttons
-        exit_button.on_click(app.main_menu)
         exit_button.set_chosen()
+        exit_button.on_click(self.parent.exit_settings_menu)

@@ -3,13 +3,9 @@ import enum
 import pygame as pg
 
 
-class GameScene(enum.Enum):
-    MAIN_MENU = 0
-    GAME = 1
-    ESC_MENU = 2
-    END_GAME_MENU = 3
-    SETTINGS_MENU = 4
-    HISTORY_MENU = 5
+class GameDimension(enum.Enum):
+    MAZE = "GameDimension_maze"
+    MENUS = "GameDimension_menus"
 
 
 class CameraType(enum.Enum):

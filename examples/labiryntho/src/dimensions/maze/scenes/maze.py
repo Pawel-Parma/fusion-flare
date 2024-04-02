@@ -3,13 +3,13 @@ from typing import override
 from src.models import *
 from src.scenes import BaseScene
 
-from .common import *
+from ....scenes.common import *
 
 
 class MazeScene(BaseScene):
-    def __init__(self, app):
+    def __init__(self, app, name, parent):
         self.maze = app.maze
-        super().__init__(app)
+        super().__init__(app, name, parent)
     
     @override
     def create_objects(self):

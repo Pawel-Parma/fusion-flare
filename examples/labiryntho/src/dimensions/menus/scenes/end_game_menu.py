@@ -3,7 +3,7 @@ from typing import override
 from src.models import *
 from src.scenes import BaseScene
 
-from .common import *
+from ....scenes.common import *
 
 
 class EndGameMenuScene(BaseScene):
@@ -23,9 +23,9 @@ class EndGameMenuScene(BaseScene):
         add(Text(app, "comic-sans", "Exit", (-6 - 0.36, -3.5, 0.01), size=(0.5, 0.4)))
 
         # bind buttons
-        play_again_button.on_click(lambda: app.play(new_maze=True))
+        play_again_button.on_click(lambda: app.maze_dimension.play(new_maze=True))
         play_again_button.set_chosen()
         play_again_button.down_button(exit_button)
 
-        exit_button.on_click(app.main_menu)
+        exit_button.on_click(self.parent.main_menu)
         exit_button.up_button(play_again_button)
