@@ -15,11 +15,11 @@ class EndGameMenuScene(BaseScene):
         # buttons
         # play again
         play_again_button = add(Button(app, "white", "white", (-6, -2, 0), size=(1.5, 0.5), default_color=light_green,
-                                hover_color=green))
+                                       hover_color=green))
         add(Text(app, "comic-sans", "Play again", (-6 - 0.05, -2, 0.01), size=(0.16, 0.37)))
         # exit
         exit_button = add(Button(app, "white", "white", (-6, -3.5, 0), size=(1.5, 0.5), default_color=light_red,
-                          hover_color=red))
+                                 hover_color=red))
         add(Text(app, "comic-sans", "Exit", (-6 - 0.36, -3.5, 0.01), size=(0.5, 0.4)))
 
         # bind buttons

@@ -41,7 +41,7 @@ def generate_maze(width, length):  # TODO: make better
     maze[2, 2] = "s"
     make_empty_around(maze, (2, 0, 2), length, width)
     maze[width - 3, length - 3] = "e"
-    make_empty_around(maze, (width - 3, 0,  length - 3), length, width)
+    make_empty_around(maze, (width - 3, 0, length - 3), length, width)
 
     return maze, (2, 2), (width - 3, length - 3)
 

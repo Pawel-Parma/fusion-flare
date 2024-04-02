@@ -9,7 +9,6 @@ from typing import override
 
 from .consts import *
 
-
 logger = logging.getLogger(LOGGER_NAME)
 os.makedirs(LOGS_DIR, exist_ok=True)
 

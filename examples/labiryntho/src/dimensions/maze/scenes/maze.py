@@ -10,7 +10,7 @@ class MazeScene(BaseScene):
     def __init__(self, app, name, parent):
         self.maze = app.maze
         super().__init__(app, name, parent)
-    
+
     @override
     def create_objects(self):
         pass
@@ -18,7 +18,7 @@ class MazeScene(BaseScene):
     def create_floor(self):
         app = self.app
         add = self.add_object
-        
+
         maze_width = self.maze.width
         maze_length = self.maze.length
 
@@ -27,7 +27,7 @@ class MazeScene(BaseScene):
     def create_maze(self):
         app = self.app
         add = self.add_object
-        
+
         maze_width = self.maze.width
         maze_length = self.maze.length
 

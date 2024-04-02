@@ -44,4 +44,3 @@ class CubeVBO(BaseVBO):
         vertex_data = np.hstack((normals, vertex_data))
         vertex_data = np.hstack((texture_coord_data, vertex_data))
         return vertex_data
-

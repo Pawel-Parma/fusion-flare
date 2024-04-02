@@ -1,6 +1,5 @@
 from src.misc import Color
 
-
 LOGGER_NAME: str = "base_logger"
 LOGS_DIR: str = "examples/labiryntho/logs"
 
