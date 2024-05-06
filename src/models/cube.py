@@ -6,7 +6,7 @@ from .base_shadow import BaseShadowModel
 
 
 class Cube(BaseShadowModel):
-    def __init__(self, app, texture_id, position, rotation=(0, 0, 0), size=(1, 1, 1), color=Color()):
+    def __init__(self, app, texture_id, position, size=(1, 1, 1), rotation=(0, 0, 0), color=Color()):
         super().__init__(app, "cube", texture_id, position, size, rotation, color)
 
     @override

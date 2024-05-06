@@ -78,11 +78,9 @@ class GraphicsEngine(abc.ABC):
         pg.quit()
         self.running = False
 
+    @abc.abstractmethod
     def handle_events(self):
-        for event in pg.event.get():
-            if event.type == pg.QUIT:
-                self.quit()
-                break
+        pass
 
     def render(self):
         pg.display.flip()

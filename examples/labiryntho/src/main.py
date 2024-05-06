@@ -46,19 +46,12 @@ class Game(GraphicsEngine):
             if event.type == pg.QUIT:
                 self.quit()
 
+            self.dimension.handle_events(event)
+
             if event.type != pg.KEYDOWN:
                 continue
 
             key = event.key
-            # TODO: move to dimensions
-            if key == self.key_binds.esc_menu:
-                match self.dimension.scene_to_render:
-                    case MazeScenes.MAZE:
-                        self.menus_dimension.esc_menu()
-
-                    case MenusScenes.ESC:
-                        self.maze_dimension.play()
-
             if key == self.key_binds.change_camera:
                 match self.current_camera:
                     case CameraType.PHYSICS:
@@ -79,12 +72,7 @@ class Game(GraphicsEngine):
 
     @override
     def render(self):
-        match self.dimension.name:
-            case GameDimension.MAZE:
-                self.maze_dimension.render_one()
-
-            case GameDimension.MENUS:
-                self.menus_dimension.render_one()
+        self.dimension.render_one()
 
         if self.render_debug:
             self.debug_info_renderer.render()

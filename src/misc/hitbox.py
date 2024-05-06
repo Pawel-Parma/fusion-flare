@@ -4,8 +4,8 @@ class HitBox:
         self.size = size
         self.rotation = rotation
 
-        self.vertices = self.get_vertices()
-        self.surfaces = self.get_surfaces()
+        # self.vertices = self.get_vertices()
+        # self.surfaces = self.get_surfaces()
 
     def get_vertices(self):
         pass
@@ -17,5 +17,5 @@ class HitBox:
         if (self.position, self.size, self.rotation) == (position, size, rotation):
             return
 
-        self.vertices = self.get_vertices()
-        self.surfaces = self.get_surfaces()
+        # self.vertices = self.get_vertices()
+        # self.surfaces = self.get_surfaces()

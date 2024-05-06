@@ -10,7 +10,6 @@ from .base import BaseModel
 from .char import Char
 
 
-# TODO: text rendering is really bad
 class Text(BaseModel):
     def __init__(self, app, font, text, position, rotation=(0, 0, 0), size=(1, 1), color=Color(), qualtiy=(96, 96)):
         self.real_position = glm.vec3(*position)
