@@ -7,17 +7,11 @@ class BaseScene(abc.ABC):
         self.name = name
         self.parent = parent
 
-        self.shadow_objects = []
-        self.no_shadow_objects = []
+        self.objects = []
         self.create_objects()
 
     def add_object(self, obj):
-        if obj.is_shadowy:
-            self.shadow_objects.append(obj)
-
-        else:
-            self.no_shadow_objects.append(obj)
-
+        self.objects.append(obj)
         return obj
 
     @abc.abstractmethod

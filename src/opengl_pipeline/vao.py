@@ -10,7 +10,6 @@ class VAO:
         self.vbo = VBO(self.ctx)
         self.program = ShaderProgram(app)
         self.vaos = {"cube": self.get_vao(program=self.program["default"], vbo=self.vbo["cube"]),
-                     "shadow_cube": self.get_vao(program=self.program["shadow_map"], vbo=self.vbo["cube"]),
                      "plane2d": self.get_vao(program=self.program["plane2d"], vbo=self.vbo["plane2d"])}
 
     def get_vao(self, program, vbo, skip_errors=True):
