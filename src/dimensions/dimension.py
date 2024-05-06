@@ -1,7 +1,6 @@
 import abc
 
 from ..camera import CameraInterface
-from ..renderers import Renderer
 
 
 class Dimension(abc.ABC):
@@ -9,7 +8,6 @@ class Dimension(abc.ABC):
         self.app = app
         self.name = name
 
-        self.scene_renderers = {}
         self.scenes = {}
         self.scene_to_render = None
         self.scenes_to_render = []
@@ -18,8 +16,7 @@ class Dimension(abc.ABC):
                                              yaw=-90, pitch=0)
         self.create_scenes()
 
-    def add_scene(self, scene, renderer=Renderer):
-        self.scene_renderers[scene.name] = renderer(self.app, scene)
+    def add_scene(self, scene):
         self.scenes[scene.name] = scene
         return scene
 
@@ -38,17 +35,17 @@ class Dimension(abc.ABC):
         if not self.scene_to_render:
             return
 
-        self.scene_renderers[self.scene_to_render].render()
+        self.scenes[self.scene_to_render].render()
 
     def render_list(self):
         self.update()
         for name in self.scenes_to_render:
-            self.scene_renderers[name].render()
+            self.scenes[name].render()
 
     def render_all(self):
         self.update()
-        for renderer in self.scene_renderers.values():
-            renderer.render()
+        for scene in self.scenes.values():
+            scene.render()
 
     @abc.abstractmethod
     def update(self):
