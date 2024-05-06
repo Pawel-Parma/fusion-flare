@@ -45,7 +45,7 @@ class MazeScene(BaseScene):
                         add(Cube(app, texture_id="steel_panel", position=(x, -2 + y, z), color=dodger_blue))
 
     def remove_maze_objects(self):
-        self.shadow_objects.clear()
+        self.objects.clear()
 
     def new_maze(self):
         self.remove_maze_objects()

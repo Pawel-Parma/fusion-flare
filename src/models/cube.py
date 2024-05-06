@@ -2,10 +2,10 @@ from typing import override
 
 from ..misc import Color
 
-from .base_shadow import BaseShadowModel
+from .base import BaseModel
 
 
-class Cube(BaseShadowModel):
+class Cube(BaseModel):
     def __init__(self, app, texture_id, position, size=(1, 1, 1), rotation=(0, 0, 0), color=Color()):
         super().__init__(app, "cube", texture_id, position, size, rotation, color)
 

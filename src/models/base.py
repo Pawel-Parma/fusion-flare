@@ -48,10 +48,6 @@ class BaseModel(abc.ABC):
         center_distance = glm.length(self.position - self.app.camera.position)
         return self.app.camera.far > center_distance > self.app.camera.near
 
-    @property
-    def is_shadowy(self):
-        return False
-
     @abc.abstractmethod
     def update(self):
         self.texture.use()

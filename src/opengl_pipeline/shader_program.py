@@ -9,7 +9,6 @@ class ShaderProgram:
         self.ctx = app.ctx
         self.programs_list = set(os.listdir(SHADERS_DIR))
         self.programs = {"default": self.get_program("default"),
-                         "shadow_map": self.get_program("shadow_map"),
                          "plane2d": self.get_program("plane2d")}
 
     def get_program(self, name):
