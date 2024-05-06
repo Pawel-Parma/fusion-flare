@@ -1,5 +1,7 @@
 from typing import override
 
+import pygame as pg
+
 from src.dimensions import Dimension
 
 from ...config import *
@@ -27,6 +29,14 @@ class MazeDimension(Dimension):
             self.maze.new(MAZE_LENGTH, MAZE_WIDTH)
             self.scenes[MazeScenes.MAZE].new_maze()
             self.app.camera.set_position(self.maze.start_in_map_coords)
+
+    def handle_events(self, event):
+        if event.type != pg.KEYDOWN:
+            return
+
+        key = event.key
+        if key == self.app.key_binds.esc_menu and self.app.dimension.scene_to_render == MazeScenes.MAZE:
+            self.app.menus_dimension.esc_menu()
 
     @override
     def update(self):

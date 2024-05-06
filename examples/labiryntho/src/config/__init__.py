@@ -1,3 +1,3 @@
 from .consts import *
-from .types import GameDimension, CameraType, KeyBinds
+from .types import CameraType, KeyBinds
 from .logger import LogLevel, log, log_func

@@ -3,12 +3,6 @@ import enum
 import pygame as pg
 
 
-# TODO: to dimensions/
-class GameDimension(enum.Enum):
-    MAZE = "GameDimension_maze"
-    MENUS = "GameDimension_menus"
-
-
 class CameraType(enum.Enum):
     SPECTATOR = 0
     PHYSICS = 1

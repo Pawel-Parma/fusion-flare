@@ -1,5 +1,7 @@
 from typing import override
 
+import pygame as pg
+
 from src.dimensions import Dimension
 
 from ...config import *
@@ -53,6 +55,14 @@ class MenusDimension(Dimension):
     def history_menu(self):
         self.app.set_dimension(self)
         self.scene_to_render = MenusScenes.HISTORY
+
+    def handle_events(self, event):
+        if event.type != pg.KEYDOWN:
+            return
+
+        key = event.key
+        if key == self.app.key_binds.esc_menu and self.app.dimension.scene_to_render == MenusScenes.ESC:
+            self.app.maze_dimension.play()
 
     @override
     def update(self):
