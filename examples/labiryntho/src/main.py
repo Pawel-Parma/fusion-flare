@@ -3,7 +3,6 @@ from typing import override
 import pygame as pg
 
 from src import GraphicsEngine
-from src.renderers import Renderer
 from src.camera import SpectatorPlayer, PhysicsPlayer
 from src.light import CameraFollowingLight
 
@@ -33,7 +32,7 @@ class Game(GraphicsEngine):
         self.dimension = self.menus_dimension
         self.menus_dimension.use()
 
-        self.debug_info_renderer = Renderer(self, DebugInfoScene(self, "main_debug_info"))
+        self.debug_info_scene = DebugInfoScene(self, "main_debug_info")
         self.render_debug = False
 
     def set_dimension(self, dimension):
@@ -75,7 +74,7 @@ class Game(GraphicsEngine):
         self.dimension.render_one()
 
         if self.render_debug:
-            self.debug_info_renderer.render()
+            self.debug_info_scene.render()
 
         if self.always_update_camera:
             self.camera.update()

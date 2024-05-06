@@ -20,3 +20,10 @@ class BaseScene(abc.ABC):
 
     def update(self):
         pass
+
+    def render(self):
+        self.update()
+
+        for obj in self.objects:
+            if obj.is_seen_by_camera():
+                obj.render()
