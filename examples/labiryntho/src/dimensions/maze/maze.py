@@ -2,7 +2,7 @@ from typing import override
 
 import pygame as pg
 
-from src.dimensions import Dimension
+from src.sceneable import Dimension
 
 from ...config import *
 
@@ -10,32 +10,33 @@ from .scenes import *
 
 
 class MazeDimension(Dimension):
-    def __init__(self, app, name):
+    def __init__(self, app, name, parent):
         self.maze = app.maze
-        super().__init__(app, name)
+        super().__init__(app, name, parent)
 
     @override
-    def create_scenes(self):
-        add = self.add_scene
+    def create_children(self):
+        add = self.add_child
         app = self.app
 
         add(MazeScene(app, MazeScenes.MAZE, self)).new_maze()
 
-        self.scene_to_render = MazeScenes.MAZE
+        self.add_child_to_render(MazeScenes.MAZE)
 
     def play(self, new_maze=False):
         self.app.set_dimension(self)
         if new_maze:
             self.maze.new(MAZE_LENGTH, MAZE_WIDTH)
-            self.scenes[MazeScenes.MAZE].new_maze()
+            self.children[MazeScenes.MAZE].new_maze()  # noqa
             self.app.camera.set_position(self.maze.start_in_map_coords)
 
-    def handle_events(self, event):
+    @override
+    def handle_event(self, event):
         if event.type != pg.KEYDOWN:
             return
 
         key = event.key
-        if key == self.app.key_binds.esc_menu and self.app.dimension.scene_to_render == MazeScenes.MAZE:
+        if key == self.app.key_binds.esc_menu and MazeScenes.MAZE in self.app.dimension.children_to_render.keys():
             self.app.menus_dimension.esc_menu()
 
     @override

@@ -1,16 +1,16 @@
 from typing import override
 
 from src.models import *
-from src.scenes import BaseScene
+from src.sceneable import BaseScene
 
 from ....scenes.common import *
 
 
 class EndGameMenuScene(BaseScene):
     @override
-    def create_objects(self):
+    def create_children(self):
+        add = self.add_child
         app = self.app
-        add = self.add_object
 
         play_again_button = add(Button(app, "white", "white", (-6, -2, 0), size=(1.5, 0.5), default_color=light_green,
                                        hover_color=green))

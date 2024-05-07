@@ -1,11 +1,11 @@
-import abc
+from abc import ABC, abstractmethod
 
 import glm
 
 from ..misc import HitBox
 
 
-class BaseModel(abc.ABC):
+class BaseModel(ABC):
     def __init__(self, app, vao_name, texture_id, position, size, rotation, color):
         self.app = app
         self.vao = app.mesh.vao[vao_name]
@@ -48,7 +48,7 @@ class BaseModel(abc.ABC):
         center_distance = glm.length(self.position - self.app.camera.position)
         return self.app.camera.far > center_distance > self.app.camera.near
 
-    @abc.abstractmethod
+    @abstractmethod
     def update(self):
         self.texture.use()
         self.hit_box.update(self.position, self.size, self.rotation_rad)
@@ -59,4 +59,5 @@ class BaseModel(abc.ABC):
 
     def render(self):
         self.update()
-        self.vao.render()
+        if self.is_seen_by_camera():
+            self.vao.render()

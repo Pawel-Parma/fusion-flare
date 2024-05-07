@@ -3,7 +3,7 @@ from typing import override
 import glm
 
 from src.models import *
-from src.scenes import BaseScene
+from src.sceneable import BaseScene
 
 
 class DebugInfoScene(BaseScene):
@@ -15,8 +15,8 @@ class DebugInfoScene(BaseScene):
         return f"{pos.x:.0f}, {pos.y:.0f}, {pos.z:.0f}"
 
     @override
-    def create_objects(self):
-        add = self.add_object
+    def create_children(self):
+        add = self.add_child
         app = self.app
 
         self.position_text_pos_relative = glm.vec3(0, 0.04, -0.13)
@@ -28,7 +28,6 @@ class DebugInfoScene(BaseScene):
 
     @override
     def update(self):
-        super().update()
         camera_position = self.app.camera.position
 
         self.position_text.set_position(camera_position + self.position_text_pos_relative)

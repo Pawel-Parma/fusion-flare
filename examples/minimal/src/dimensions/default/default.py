@@ -1,6 +1,6 @@
 from typing import override
 
-from src.dimensions import Dimension
+from src.sceneable import Dimension
 
 from ...config import *
 
@@ -9,13 +9,13 @@ from .scenes import *
 
 class DefaultDimension(Dimension):
     @override
-    def create_scenes(self):
-        add = self.add_scene
+    def create_children(self):
+        add = self.add_child
         app = self.app
 
         add(DefaultScene(app, DefaultScenes.DEFAULT, self))
 
-        self.scene_to_render = DefaultScenes.DEFAULT
+        self.add_child_to_render(DefaultScenes.DEFAULT)
 
     @override
     def update(self):
