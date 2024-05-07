@@ -2,7 +2,7 @@ from typing import override
 
 import pygame as pg
 
-from src.dimensions import Dimension
+from src.sceneable import Dimension
 
 from ...config import *
 
@@ -10,13 +10,13 @@ from .scenes import *
 
 
 class MenusDimension(Dimension):
-    def __init__(self, app, name):
-        super().__init__(app, name)
+    def __init__(self, app, name, parent):
         self.settings_menu_came_from = MenusScenes.MAIN
+        super().__init__(app, name, parent)
 
     @override
-    def create_scenes(self):
-        add = self.add_scene
+    def create_children(self):
+        add = self.add_child
         app = self.app
 
         add(MainMenuScene(app, MenusScenes.MAIN, self))
@@ -25,24 +25,25 @@ class MenusDimension(Dimension):
         add(SettingsMenuScene(app, MenusScenes.SETTINGS, self))
         add(HistoryMenuScene(app, MenusScenes.HISTORY, self))
 
-        self.scene_to_render = MenusScenes.MAIN
+        self.add_child_to_render(MenusScenes.MAIN)
+
+    def change_scene(self, scene_name):
+        self.app.set_dimension(self)
+        self.clear()
+        self.add_child_to_render(scene_name)
 
     def main_menu(self):
-        self.app.set_dimension(self)
-        self.scene_to_render = MenusScenes.MAIN
+        self.change_scene(MenusScenes.MAIN)
 
     def esc_menu(self):
-        self.app.set_dimension(self)
-        self.scene_to_render = MenusScenes.ESC
+        self.change_scene(MenusScenes.ESC)
 
     def end_game_menu(self):
-        self.app.set_dimension(self)
-        self.scene_to_render = MenusScenes.END_GAME
+        self.change_scene(MenusScenes.END_GAME)
 
     def settings_menu(self, came_from):
         self.settings_menu_came_from = came_from
-        self.app.set_dimension(self)
-        self.scene_to_render = MenusScenes.SETTINGS
+        self.change_scene(MenusScenes.SETTINGS)
 
     def exit_settings_menu(self):
         match self.settings_menu_came_from:
@@ -53,15 +54,15 @@ class MenusDimension(Dimension):
                 self.esc_menu()
 
     def history_menu(self):
-        self.app.set_dimension(self)
-        self.scene_to_render = MenusScenes.HISTORY
+        self.change_scene(MenusScenes.HISTORY)
 
-    def handle_events(self, event):
+    @override
+    def handle_event(self, event):
         if event.type != pg.KEYDOWN:
             return
 
         key = event.key
-        if key == self.app.key_binds.esc_menu and self.app.dimension.scene_to_render == MenusScenes.ESC:
+        if key == self.app.key_binds.esc_menu and MenusScenes.ESC in self.app.dimension.children_to_render:
             self.app.maze_dimension.play()
 
     @override

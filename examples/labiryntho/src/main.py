@@ -27,25 +27,25 @@ class Game(GraphicsEngine):
         self.camera = self.physics_player
         self.always_update_camera = False
 
-        self.maze_dimension = MazeDimension(self, GameDimension.MAZE)
-        self.menus_dimension = MenusDimension(self, GameDimension.MENUS)
+        self.maze_dimension = MazeDimension(self, GameDimension.MAZE, None)
+        self.menus_dimension = MenusDimension(self, GameDimension.MENUS, None)
         self.dimension = self.menus_dimension
-        self.menus_dimension.use()
+        self.menus_dimension.use_camera()
 
-        self.debug_info_scene = DebugInfoScene(self, "main_debug_info")
+        self.debug_info_scene = DebugInfoScene(self, "main_debug_info", None)
         self.render_debug = False
 
     def set_dimension(self, dimension):
-        self.dimension.un_use()
+        self.dimension.unuse_camera()
         self.dimension = dimension
-        self.dimension.use()
+        self.dimension.use_camera()
 
     def handle_events(self):
         for event in pg.event.get():
             if event.type == pg.QUIT:
                 self.quit()
 
-            self.dimension.handle_events(event)
+            self.dimension.handle_event(event)
 
             if event.type != pg.KEYDOWN:
                 continue
@@ -71,7 +71,7 @@ class Game(GraphicsEngine):
 
     @override
     def render(self):
-        self.dimension.render_one()
+        self.dimension.render()
 
         if self.render_debug:
             self.debug_info_scene.render()

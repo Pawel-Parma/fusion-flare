@@ -1,15 +1,15 @@
 from typing import override
 
 from src.models import *
-from src.scenes import BaseScene
+from src.sceneable import BaseScene
 
 from ....scenes.common import *
 
 
 class SettingsMenuScene(BaseScene):
     @override
-    def create_objects(self):
-        add = self.add_object
+    def create_children(self):
+        add = self.add_child
         app = self.app
 
         add(Text(app, "comic-sans", "Settings", (0, 3, 0), size=(0.5, 0.6), color=dodger_blue))

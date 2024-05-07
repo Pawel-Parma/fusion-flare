@@ -1,5 +1,6 @@
-import abc
 import traceback
+
+from abc import ABC, abstractmethod
 
 import moderngl as gl
 import pygame as pg
@@ -8,7 +9,7 @@ from .font import FontManager
 from .opengl_pipeline import Mesh
 
 
-class GraphicsEngine(abc.ABC):
+class GraphicsEngine(ABC):
     def __init__(self, app_name: str, window_size: tuple[int, int], textures_dir_path: str, fonts_dir_path: str,
                  optional_user_shaders_dir_path: str | None = None, icon_path: str = None, grab_mouse: bool = True,
                  show_mouse: bool = False, context_flags=(gl.DEPTH_TEST | gl.BLEND | gl.CULL_FACE), fps: int = -1):
@@ -76,7 +77,7 @@ class GraphicsEngine(abc.ABC):
         pg.quit()
         self.running = False
 
-    @abc.abstractmethod
+    @abstractmethod
     def handle_events(self):
         pass
 

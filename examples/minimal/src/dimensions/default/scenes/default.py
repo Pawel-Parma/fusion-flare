@@ -1,14 +1,14 @@
 from typing import override
 
 from src.models import *
-from src.scenes import BaseScene
+from src.sceneable import BaseScene
 from src.misc import Color
 
 
 class DefaultScene(BaseScene):
     @override
-    def create_objects(self):
-        add = self.add_object
+    def create_children(self):
+        add = self.add_child
         app = self.app
 
         add(Cube(app, "test", (0, 0, -4)))
