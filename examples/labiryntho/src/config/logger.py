@@ -9,7 +9,6 @@ from typing import override
 
 from .consts import *
 
-
 logger = logging.getLogger(LOGGER_NAME)
 os.makedirs(LOGS_DIR, exist_ok=True)
 
@@ -82,7 +81,7 @@ if queue_handler is not None:
     atexit.register(queue_handler.listener.stop)
 
 
-class LogLevel(enum.IntEnum):  # Values from logging module into enum
+class LogLevel(enum.IntEnum):
     CRITICAL = logging.CRITICAL
     FATAL = logging.FATAL
     ERROR = logging.ERROR

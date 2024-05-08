@@ -4,7 +4,7 @@ import os.path as op
 import pygame as pg
 import moderngl as gl
 
-from ..i_dont_know_how_to_call_that_package import traverse_dir
+from ..misc import traverse_dir
 
 
 class Texture:
@@ -12,7 +12,7 @@ class Texture:
         self.app = app
         self.ctx = app.ctx
 
-        self.textures = {"depth_texture": self.get_depth_texture()}
+        self.textures = {}
 
         textures_path_list = set(traverse_dir(app.textures_dir_path))
         self.textures_paths = {op.splitext(op.basename(t))[0]: t for t in textures_path_list}
@@ -28,19 +28,11 @@ class Texture:
 
         texture = self.ctx.texture(size=texture.get_size(), components=4,
                                    data=pg.image.tostring(texture, "RGBA"))
-        # mipmaps
         texture.filter = (gl.LINEAR_MIPMAP_LINEAR, gl.LINEAR)
         texture.build_mipmaps()
-        # anisotropic filtering
         texture.anisotropy = 32
 
         return texture
-
-    def get_depth_texture(self):
-        depth_texture = self.ctx.depth_texture(self.app.window_size)
-        depth_texture.repeat_x = False
-        depth_texture.repeat_y = False
-        return depth_texture
 
     def __getitem__(self, texture_id):
         if texture_id not in self.textures_list:

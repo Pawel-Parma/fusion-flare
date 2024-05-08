@@ -1,6 +1,8 @@
+from typing import override
+
 import glm
 
-from ..i_dont_know_how_to_call_that_package import Color
+from ..misc import Color
 
 from .base import BaseModel
 
@@ -19,5 +21,6 @@ class Char(BaseModel):
         self.size *= glm.vec3(*self.char_size) / 100
         self.update_m_model()
 
+    @override
     def update(self):
         super().update()

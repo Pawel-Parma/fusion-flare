@@ -1,24 +1,24 @@
 from typing import override
 
 from src.models import *
-from src.scenes import BaseScene
+from src.sceneable import BaseScene
 
-from .common import *
+from ....scenes.common import *
 
 
 class MazeScene(BaseScene):
-    def __init__(self, app):
+    def __init__(self, app, name, parent):
         self.maze = app.maze
-        super().__init__(app)
-    
+        super().__init__(app, name, parent)
+
     @override
-    def create_objects(self):
+    def create_children(self):
         pass
 
     def create_floor(self):
+        add = self.add_child
         app = self.app
-        add = self.add_object
-        
+
         maze_width = self.maze.width
         maze_length = self.maze.length
 
@@ -26,8 +26,8 @@ class MazeScene(BaseScene):
 
     def create_maze(self):
         app = self.app
-        add = self.add_object
-        
+        add = self.add_child
+
         maze_width = self.maze.width
         maze_length = self.maze.length
 
@@ -45,11 +45,9 @@ class MazeScene(BaseScene):
                         add(Cube(app, texture_id="steel_panel", position=(x, -2 + y, z), color=dodger_blue))
 
     def remove_maze_objects(self):
-        self.shadow_objects.clear()
+        self.children.clear()
 
     def new_maze(self):
         self.remove_maze_objects()
-        # Floor
         self.create_floor()
-        # Maze
         self.create_maze()

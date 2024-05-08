@@ -1,16 +1,16 @@
-import abc
+from abc import ABC, abstractmethod
 
 import numpy as np
 
 
-class BaseVBO(abc.ABC):
+class BaseVBO(ABC):
     def __init__(self, ctx):
         self.ctx = ctx
         self.vbo = self.get_vbo()
         self.format: str | None = None
         self.attributes: list | None = None
 
-    @abc.abstractmethod
+    @abstractmethod
     def get_vertex_data(self):
         pass
 

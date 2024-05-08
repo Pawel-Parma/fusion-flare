@@ -1,11 +1,11 @@
-import abc
+from abc import ABC, abstractmethod
 
 import glm
 
-from ..i_dont_know_how_to_call_that_package import HitBox
+from ..misc import HitBox
 
 
-class BaseModel(abc.ABC):
+class BaseModel(ABC):
     def __init__(self, app, vao_name, texture_id, position, size, rotation, color):
         self.app = app
         self.vao = app.mesh.vao[vao_name]
@@ -28,13 +28,13 @@ class BaseModel(abc.ABC):
 
     def get_m_model(self):
         m_model = glm.mat4()
-        # translate
+
         m_model = glm.translate(m_model, self.position)
-        # rotate
+
         m_model = glm.rotate(m_model, self.rotation_rad.x, glm.vec3(1, 0, 0))
         m_model = glm.rotate(m_model, self.rotation_rad.y, glm.vec3(0, 1, 0))
         m_model = glm.rotate(m_model, self.rotation_rad.z, glm.vec3(0, 0, 1))
-        # size
+
         m_model = glm.scale(m_model, self.size)
         return m_model
 
@@ -48,11 +48,7 @@ class BaseModel(abc.ABC):
         center_distance = glm.length(self.position - self.app.camera.position)
         return self.app.camera.far > center_distance > self.app.camera.near
 
-    @property
-    def is_shadowy(self):
-        return False
-
-    @abc.abstractmethod
+    @abstractmethod
     def update(self):
         self.texture.use()
         self.hit_box.update(self.position, self.size, self.rotation_rad)
@@ -63,4 +59,5 @@ class BaseModel(abc.ABC):
 
     def render(self):
         self.update()
-        self.vao.render()
+        if self.is_seen_by_camera():
+            self.vao.render()

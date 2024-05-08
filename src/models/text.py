@@ -4,13 +4,12 @@ import glm
 
 from ..config import *
 
-from ..i_dont_know_how_to_call_that_package import Color
+from ..misc import Color
 
 from .base import BaseModel
 from .char import Char
 
 
-# TODO: text rendering is really bad
 class Text(BaseModel):
     def __init__(self, app, font, text, position, rotation=(0, 0, 0), size=(1, 1), color=Color(), qualtiy=(96, 96)):
         self.real_position = glm.vec3(*position)

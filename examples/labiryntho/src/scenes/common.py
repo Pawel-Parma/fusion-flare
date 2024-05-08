@@ -1,4 +1,4 @@
-from src.i_dont_know_how_to_call_that_package import Color
+from src.misc import Color
 
 red = Color(255, 0, 0)
 light_red = Color(125, 0, 0)
