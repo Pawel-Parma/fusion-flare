@@ -2,8 +2,8 @@
 
 A simple game engine written in Python for fast prototyping.
 
-> [!WARNING]\ 
-> This project is currently in development. 
+> [!WARNING]\  
+> This project is currently in development.  
 > Breaking changes may occur and performance may be suboptimal.
 
 ## Example game - labiryntho:
