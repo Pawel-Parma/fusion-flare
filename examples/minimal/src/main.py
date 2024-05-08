@@ -6,7 +6,7 @@ from src import GraphicsEngine
 from src.camera import SpectatorPlayer
 from src.light import CameraFollowingLight
 
-from .dimensions import *
+from .scenes import *
 from .config import *
 
 
@@ -19,8 +19,9 @@ class Game(GraphicsEngine):
 
         self.camera = SpectatorPlayer(self, far=CAMERA_FAR, position=(-10, 0, 0))
 
-        self.dimension = DefaultDimension(self, DefaultDimensions.DEFAULT, None)
+        self.scene = DefaultScene(self, DefaultScenes.DEFAULT, None)
 
+    @override
     def handle_events(self):
         for event in pg.event.get():
             if event.type == pg.QUIT:
@@ -28,7 +29,7 @@ class Game(GraphicsEngine):
 
     @override
     def render(self):
-        self.dimension.render()
+        self.scene.render()
 
         self.light.update()
         super().render()
