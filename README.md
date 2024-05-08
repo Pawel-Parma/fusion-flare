@@ -2,7 +2,7 @@
 
 A simple game engine written in Python for fast prototyping.
 
-> [!WARNING]\  
+> :warning: WARNING:
 > This project is currently in development.  
 > Breaking changes may occur and performance may be suboptimal.
 
